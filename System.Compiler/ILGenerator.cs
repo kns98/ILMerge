@@ -467,7 +467,8 @@ namespace System.Compiler{
             this.ILGenerator.Emit(opCode, ((TypeNode)((MemberBinding)binaryExpression.Operand2).BoundMember).GetRuntimeType());
         return;
         case NodeType.Ldvirtftn :
-          System.Reflection.MethodInfo meth = ((Method)((MemberBinding)binaryExpression.Operand2).BoundMember).GetMethodInfo();
+          System.Reflection.MethodInfo meth =
+ ((Method)((MemberBinding)binaryExpression.Operand2).BoundMember).GetMethodInfo();
           if (meth == null) { Debug.Fail(""); return; }
           this.ILGenerator.Emit(OpCodes.Ldvirtftn, meth);
           return;
@@ -980,7 +981,8 @@ namespace System.Compiler{
           }
           return;
         case NodeType.Ldftn: {
-          System.Reflection.MethodInfo methInfo = ((Method)((MemberBinding)unaryExpression.Operand).BoundMember).GetMethodInfo();
+          System.Reflection.MethodInfo methInfo =
+ ((Method)((MemberBinding)unaryExpression.Operand).BoundMember).GetMethodInfo();
           if (methInfo != null) this.ILGenerator.Emit(OpCodes.Ldftn, methInfo);
           return;}
         case NodeType.Sizeof :

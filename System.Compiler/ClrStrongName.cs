@@ -10,6 +10,7 @@ namespace System.Compiler
     public static class ClrStrongName
     {
         private static IClrStrongName clrStrongName;
+
         private static IClrStrongName GetClrStrongName()
         {
             return clrStrongName ?? (clrStrongName =
@@ -20,26 +21,27 @@ namespace System.Compiler
 
         public static void SignatureGeneration(string filePath, string keyContainer, byte[] keyBlob)
         {
-            GetClrStrongName().StrongNameSignatureGeneration(filePath, keyContainer, keyBlob, keyBlob.Length, IntPtr.Zero, IntPtr.Zero);
-        }
-
-        // ReSharper disable UnusedMember.Global – All preceding method declarations are needed
+            GetClrStrongName().StrongNameSignatureGeneration(filePath, keyContainer, keyBlob, keyBlob.Length,
+                IntPtr.Zero, IntPtr.Zero);
+        } // ReSharper disable UnusedMember.Global – All preceding method declarations are needed
         // in order for StrongNameSignatureGeneration to end up at the right COM slot number.
 
         [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("9FD93CCF-3280-4391-B3A9-96E1CDE77C8D")]
         private interface IClrStrongName
         {
             void GetHashFromAssemblyFile(
-                string pszFilePath, 
+                string pszFilePath,
                 ref uint piHashAlg,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHash,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)]
+                byte[] pbHash,
                 uint cchHash,
                 out uint pchHash);
 
             void GetHashFromAssemblyFileW(
                 string pwzFilePath,
                 ref uint piHashAlg,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHash,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)]
+                byte[] pbHash,
                 uint cchHash,
                 out uint pchHash);
 
@@ -47,28 +49,32 @@ namespace System.Compiler
                 IntPtr pbBlob,
                 uint cchBlob,
                 ref uint piHashAlg,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbHash,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)]
+                byte[] pbHash,
                 uint cchHash,
                 out uint pchHash);
 
             void GetHashFromFile(
                 string pszFilePath,
                 ref int piHashAlg,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHash,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)]
+                byte[] pbHash,
                 uint cchHash,
                 out uint pchHash);
 
             void GetHashFromFileW(
                 string pwzFilePath,
                 ref uint piHashAlg,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHash,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)]
+                byte[] pbHash,
                 uint cchHash,
                 out uint pchHash);
 
             void GetHashFromHandle(
                 SafeFileHandle hFile,
                 ref uint piHashAlg,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHash,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)]
+                byte[] pbHash,
                 uint cchHash,
                 out uint pchHash);
 
@@ -78,13 +84,15 @@ namespace System.Compiler
 
             void StrongNameGetBlob(
                 string pwzFilePath,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbBlob,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
+                byte[] pbBlob,
                 ref uint pcbBlob);
 
             void StrongNameGetBlobFromImage(
                 IntPtr pbBase,
                 uint dwLength,
-                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pbBlob,
+                [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)]
+                byte[] pbBlob,
                 ref uint pcbBlob);
 
             void StrongNameGetPublicKey(
@@ -119,7 +127,8 @@ namespace System.Compiler
             void StrongNameSignatureGeneration(
                 string pwzFilePath,
                 string pwzKeyContainer,
-                [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pbKeyBlob,
+                [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)]
+                byte[] pbKeyBlob,
                 int cbKeyBlob,
                 IntPtr ppbSignatureBlob,
                 IntPtr pcbSignatureBlob);
@@ -141,7 +150,8 @@ namespace System.Compiler
 
             uint StrongNameSignatureVerificationFromImage(IntPtr pbBase, uint dwLength, uint dwInFlags);
 
-            void StrongNameTokenFromAssembly(string pwzFilePath, out IntPtr ppbStrongNameToken, out uint pcbStrongNameToken);
+            void StrongNameTokenFromAssembly(string pwzFilePath, out IntPtr ppbStrongNameToken,
+                out uint pcbStrongNameToken);
 
             void StrongNameTokenFromAssemblyEx(
                 string pwzFilePath,

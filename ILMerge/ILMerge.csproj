@@ -1,59 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Version>2.15.0</Version>
-    <Description>A tool for merging multiple .NET assemblies into a single assembly.</Description>
-    <Company>Microsoft Corporation</Company>
-    <Copyright>(c) Microsoft Corporation. All rights reserved.</Copyright>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ApplicationIcon>App.ico</ApplicationIcon>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\Common\InterimKey.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net452</TargetFramework>
-    <DefineConstants>$(DefineConstants);INTERNAL;CROSSPLATFORM;V2</DefineConstants>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>6</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Version>2.15.0</Version>
+		<Description>A tool for merging multiple .NET assemblies into a single assembly.</Description>
+		<Company>Microsoft Corporation</Company>
+		<Copyright>(c) Microsoft Corporation. All rights reserved.</Copyright>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<ApplicationIcon>App.ico</ApplicationIcon>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\Common\InterimKey.snk</AssemblyOriginatorKeyFile>
+		<SignAssembly>true</SignAssembly>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net452</TargetFramework>
+		<DefineConstants>$(DefineConstants);INTERNAL;CROSSPLATFORM;V2</DefineConstants>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<LangVersion>6</LangVersion>
+		<Prefer32Bit>false</Prefer32Bit>
+	</PropertyGroup>
 
-  <!-- NuGet package settings -->
-  <PropertyGroup>
-    <NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
-    <NuspecProperties>configuration=$(Configuration);version=$(Version)</NuspecProperties>
-    <!-- ignore warnings about the long description field. See https://github.com/NuGet/Home/issues/4587 -->
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-    <DelaySign>false</DelaySign>
-  </PropertyGroup>
+	<!-- NuGet package settings -->
+	<PropertyGroup>
+		<NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
+		<NuspecProperties>configuration=$(Configuration);version=$(Version)</NuspecProperties>
+		<!-- ignore warnings about the long description field. See https://github.com/NuGet/Home/issues/4587 -->
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+		<DelaySign>false</DelaySign>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\System.Compiler\System.Compiler.csproj" />
-    <PackageReference Include="MicroBuild.Core" Version="0.2.0" PrivateAssets="all" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\System.Compiler\System.Compiler.csproj" />
+		<PackageReference Include="MicroBuild.Core" Version="0.2.0" PrivateAssets="all" />
+		<PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13" />
+	</ItemGroup>
 
-  <Target Name="ILMergeConsoleApp" BeforeTargets="AfterBuild">
+	<Target Name="ILMergeConsoleApp" BeforeTargets="AfterBuild">
 
-    <Error Text="ILMerge currently only works on Windows" Condition="'$(OS)' != 'Windows_NT'" />
+		<Error Text="ILMerge currently only works on Windows" Condition="'$(OS)' != 'Windows_NT'" />
 
-    <Message Text="Running IL merging on System.Compiler and ILMerge.exe" Importance="High" />
-    <MakeDir Directories="$(OutDir)\final" />
+		<Message Text="Running IL merging on System.Compiler and ILMerge.exe" Importance="High" />
+		<MakeDir Directories="$(OutDir)\final" />
 
-    <PropertyGroup>
-      <ILMergeCommand>ILMerge.exe /ndebug "/log:$(MSBuildProjectDirectory)/$(IntermediateOutputPath)ilmerge.log" "/delaysign" "/keyfile:$(AssemblyOriginatorKeyFile)" "/targetplatform:v4,%ProgramFiles(x86)%\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /t:exe /out:final/ILMerge.exe ILMerge.exe System.Compiler.dll</ILMergeCommand>
-    </PropertyGroup>
+		<PropertyGroup>
+			<ILMergeCommand>ILMerge.exe /ndebug "/log:$(MSBuildProjectDirectory)/$(IntermediateOutputPath)ilmerge.log" "/delaysign" "/keyfile:$(AssemblyOriginatorKeyFile)" "/targetplatform:v4,%ProgramFiles(x86)%\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /t:exe /out:final/ILMerge.exe ILMerge.exe System.Compiler.dll</ILMergeCommand>
+		</PropertyGroup>
 
-    <Exec Command="$(ILMergeCommand)" WorkingDirectory="$(OutDir)" />
-  </Target>
+		<Exec Command="$(ILMergeCommand)" WorkingDirectory="$(OutDir)" />
+	</Target>
 
-  <Target Name="BeforeSign" BeforeTargets="SignFiles">
-    <ItemGroup>
-      <FilesToSign Include="$(MSBuildThisFileDirectory)\$(OutDir)\final\ILMerge.exe">
-        <Authenticode>Microsoft</Authenticode>
-        <StrongName>StrongName</StrongName>
-      </FilesToSign>
-    </ItemGroup>
-    <Message Text="Files To Sign : @(FilesToSign, '%0a')" Importance="High" />
-  </Target>
+	<Target Name="BeforeSign" BeforeTargets="SignFiles">
+		<ItemGroup>
+			<FilesToSign Include="$(MSBuildThisFileDirectory)\$(OutDir)\final\ILMerge.exe">
+				<Authenticode>Microsoft</Authenticode>
+				<StrongName>StrongName</StrongName>
+			</FilesToSign>
+		</ItemGroup>
+		<Message Text="Files To Sign : @(FilesToSign, '%0a')" Importance="High" />
+	</Target>
 
 </Project>

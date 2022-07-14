@@ -36,7 +36,8 @@ namespace System.Compiler{
       if (binaryExpression == null) return null;
       binaryExpression.Operand2 = this.VisitExpression(binaryExpression.Operand2);
       binaryExpression.Operand1 = this.VisitExpression(binaryExpression.Operand1);
-      if (binaryExpression.Type == null) binaryExpression.Type = binaryExpression.Operand1.Type; //Hack: need proper inferencing
+      if (binaryExpression.Type == null) binaryExpression.Type =
+ binaryExpression.Operand1.Type; //Hack: need proper inferencing
       return binaryExpression;
     }
     public override Block VisitBlock(Block block){

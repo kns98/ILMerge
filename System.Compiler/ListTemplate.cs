@@ -3,15 +3,17 @@
 // See the LICENSE file in the project root for more information. 
 
 #if !FxCop
-using System;
 #if CLOUSOT
+using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 #endif
 
 #if CCINamespace
 namespace Microsoft.Cci{
 #else
-namespace System.Compiler{
+namespace System.Compiler
+{
 #endif
 #if !MinimalReader && !CodeContracts
   public sealed class AliasDefinitionList{
@@ -85,307 +87,361 @@ namespace System.Compiler{
     }
   }
 #endif
-  public sealed class AssemblyNodeList
-  {
-    private AssemblyNode[]/*!*/ elements;
-    private int count = 0;
-    public AssemblyNodeList()
+    public sealed class AssemblyNodeList
     {
-      this.elements = new AssemblyNode[4];
-      //^ base();
-    }
-    public AssemblyNodeList(int capacity)
-    {
-      this.elements = new AssemblyNode[capacity];
-      //^ base();
-    }
-    public AssemblyNodeList(params AssemblyNode[] elements)
-    {
-      if (elements == null) elements = new AssemblyNode[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(AssemblyNode element)
-    {
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n)
-      {
-        int m = n * 2; if (m < 4) m = 4;
-        AssemblyNode[] newElements = new AssemblyNode[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count
-    {
-      get { return this.count; }
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length
-    {
-      get { return this.count; }
-    }
-    public AssemblyNode this[int index]
-    {
-      get
-      {
-        return this.elements[index];
-      }
-      set
-      {
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator()
-    {
-      return new Enumerator(this);
-    }
-    public struct Enumerator
-    {
-      private int index;
-      private readonly AssemblyNodeList/*!*/ list;
-      public Enumerator(AssemblyNodeList/*!*/ list)
-      {
-        this.index = -1;
-        this.list = list;
-      }
-      public AssemblyNode Current
-      {
-        get
+        private AssemblyNode[] /*!*/
+            elements;
+
+        public AssemblyNodeList()
         {
-          return this.list[this.index];
+            elements = new AssemblyNode[4];
+            //^ base();
         }
-      }
-      public bool MoveNext()
-      {
-        return ++this.index < this.list.count;
-      }
-      public void Reset()
-      {
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class AssemblyReferenceList
-  {
-    private AssemblyReference[]/*!*/ elements;
-    private int count = 0;
-    public AssemblyReferenceList(){
-      this.elements = new AssemblyReference[4];
-      //^ base();
-    }
-    public AssemblyReferenceList(int capacity){
-      this.elements = new AssemblyReference[capacity];
-      //^ base();
-    }
-    public void Add(AssemblyReference element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        AssemblyReference[] newElements = new AssemblyReference[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public AssemblyReferenceList/*!*/ Clone() {
-      AssemblyReference[] elements = this.elements;
-      int n = this.count;
-      AssemblyReferenceList result = new AssemblyReferenceList(n);
-      result.count = n;
-      AssemblyReference[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public AssemblyReference this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly AssemblyReferenceList/*!*/ list;
-      public Enumerator(AssemblyReferenceList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public AssemblyReference Current{
-        get{
-          return this.list[this.index];
+
+        public AssemblyNodeList(int capacity)
+        {
+            elements = new AssemblyNode[capacity];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class AttributeList{
-    private AttributeNode[]/*!*/ elements;
-    private int count = 0;
-    public AttributeList(){
-      this.elements = new AttributeNode[4];
-      //^ base();
-    }
-    public AttributeList(int capacity){
-      this.elements = new AttributeNode[capacity];
-      //^ base();
-    }
-    public AttributeList(params AttributeNode[] elements) {
-      if (elements == null) elements = new AttributeNode[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(AttributeNode element) {
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        AttributeNode[] newElements = new AttributeNode[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public AttributeList/*!*/ Clone() {
-      AttributeNode[] elements = this.elements;
-      int n = this.count;
-      AttributeList result = new AttributeList(n);
-      result.count = n;
-      AttributeNode[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public AttributeNode this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly AttributeList/*!*/ list;
-      public Enumerator(AttributeList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public AttributeNode Current{
-        get{
-          return this.list[this.index];
+
+        public AssemblyNodeList(params AssemblyNode[] elements)
+        {
+            if (elements == null) elements = new AssemblyNode[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class BlockList{
-    private Block[]/*!*/ elements;
-    private int count = 0;
-    public BlockList(){
-      this.elements = new Block[4];
-      //^ base();
-    }
-    public BlockList(int n){
-      this.elements = new Block[n];
-      //^ base();
-    }
-    public void Add(Block element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        Block[] newElements = new Block[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public BlockList/*!*/ Clone() {
-      Block[] elements = this.elements;
-      int n = this.count;
-      BlockList result = new BlockList(n);
-      result.count = n;
-      Block[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Block this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly BlockList/*!*/ list;
-      public Enumerator(BlockList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Block Current{
-        get{
-          return this.list[this.index];
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public AssemblyNode this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public void Add(AssemblyNode element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new AssemblyNode[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly AssemblyNodeList /*!*/
+                list;
+
+            public Enumerator(AssemblyNodeList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public AssemblyNode Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
+
+    public sealed class AssemblyReferenceList
+    {
+        private AssemblyReference[] /*!*/
+            elements;
+
+        public AssemblyReferenceList()
+        {
+            elements = new AssemblyReference[4];
+            //^ base();
+        }
+
+        public AssemblyReferenceList(int capacity)
+        {
+            elements = new AssemblyReference[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public AssemblyReference this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(AssemblyReference element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new AssemblyReference[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public AssemblyReferenceList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new AssemblyReferenceList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly AssemblyReferenceList /*!*/
+                list;
+
+            public Enumerator(AssemblyReferenceList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public AssemblyReference Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+
+    public sealed class AttributeList
+    {
+        private AttributeNode[] /*!*/
+            elements;
+
+        public AttributeList()
+        {
+            elements = new AttributeNode[4];
+            //^ base();
+        }
+
+        public AttributeList(int capacity)
+        {
+            elements = new AttributeNode[capacity];
+            //^ base();
+        }
+
+        public AttributeList(params AttributeNode[] elements)
+        {
+            if (elements == null) elements = new AttributeNode[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public AttributeNode this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(AttributeNode element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new AttributeNode[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public AttributeList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new AttributeList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly AttributeList /*!*/
+                list;
+
+            public Enumerator(AttributeList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public AttributeNode Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+
+    public sealed class BlockList
+    {
+        private Block[] /*!*/
+            elements;
+
+        public BlockList()
+        {
+            elements = new Block[4];
+            //^ base();
+        }
+
+        public BlockList(int n)
+        {
+            elements = new Block[n];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Block this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Block element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new Block[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public BlockList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new BlockList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly BlockList /*!*/
+                list;
+
+            public Enumerator(BlockList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Block Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
 #if !MinimalReader && !CodeContracts
   public sealed class CatchList{
     private Catch[]/*!*/ elements;
@@ -687,66 +743,81 @@ namespace System.Compiler{
   }
 #endif
 #if !NoWriter
-  public sealed class EventList{
-    private Event[]/*!*/ elements;
-    private int count = 0;
-    public EventList(){
-      this.elements = new Event[8];
-      //^ base();
-    }
-    public EventList(int n){
-      this.elements = new Event[n];
-      //^ base();
-    }
-    public void Add(Event element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Event[] newElements = new Event[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Event this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly EventList/*!*/ list;
-      public Enumerator(EventList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Event Current{
-        get{
-          return this.list[this.index];
+    public sealed class EventList
+    {
+        private Event[] /*!*/
+            elements;
+
+        public EventList()
+        {
+            elements = new Event[8];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public EventList(int n)
+        {
+            elements = new Event[n];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Event this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Event element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Event[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly EventList /*!*/
+                list;
+
+            public Enumerator(EventList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Event Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #endif
 #if !MinimalReader && !CodeContracts
   public sealed class ErrorNodeList{
@@ -864,743 +935,939 @@ namespace System.Compiler{
       }
   }
 #endif
-  public sealed class ExpressionList{
-    private Expression[]/*!*/ elements;
-    private int count = 0;
-    public ExpressionList(){
-      this.elements = new Expression[8];
-      //^ base();
-    }
-    public ExpressionList(int n){
-      this.elements = new Expression[n];
-      //^ base();
-    }
-    public ExpressionList(params Expression[] elements){
-      if (elements == null) elements = new Expression[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Expression element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Expression[] newElements = new Expression[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public ExpressionList/*!*/ Clone(){
-      Expression[] elements = this.elements;
-      int n = this.count;
-      ExpressionList result = new ExpressionList(n);
-      result.count = n;
-      Expression[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    public Expression this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly ExpressionList/*!*/ list;
-      public Enumerator(ExpressionList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Expression Current{
-        get{
-          return this.list[this.index];
+    public sealed class ExpressionList
+    {
+        private Expression[] /*!*/
+            elements;
+
+        public ExpressionList()
+        {
+            elements = new Expression[8];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class ExceptionHandlerList{
-    private ExceptionHandler[]/*!*/ elements = new ExceptionHandler[4];
-    private int count = 0;
-    public ExceptionHandlerList(){
-      //^ base();
-    }
-    public ExceptionHandlerList(int n){
-      this.elements = new ExceptionHandler[n];
-      //^ base();
-    }
-    public void Add(ExceptionHandler element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        ExceptionHandler[] newElements = new ExceptionHandler[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public ExceptionHandlerList/*!*/ Clone() {
-      ExceptionHandler[] elements = this.elements;
-      int n = this.count;
-      ExceptionHandlerList result = new ExceptionHandlerList(n);
-      result.count = n;
-      ExceptionHandler[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public ExceptionHandler this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly ExceptionHandlerList/*!*/ list;
-      public Enumerator(ExceptionHandlerList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public ExceptionHandler Current{
-        get{
-          return this.list[this.index];
+
+        public ExpressionList(int n)
+        {
+            elements = new Expression[n];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public ExpressionList(params Expression[] elements)
+        {
+            if (elements == null) elements = new Expression[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length
+        {
+            get { return Count; }
+            set { Count = value; }
+        }
+
+        public Expression this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Expression element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Expression[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public ExpressionList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new ExpressionList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly ExpressionList /*!*/
+                list;
+
+            public Enumerator(ExpressionList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Expression Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
+
+    public sealed class ExceptionHandlerList
+    {
+        private ExceptionHandler[] /*!*/
+            elements = new ExceptionHandler[4];
+
+        public ExceptionHandlerList()
+        {
+            //^ base();
+        }
+
+        public ExceptionHandlerList(int n)
+        {
+            elements = new ExceptionHandler[n];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public ExceptionHandler this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(ExceptionHandler element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new ExceptionHandler[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public ExceptionHandlerList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new ExceptionHandlerList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly ExceptionHandlerList /*!*/
+                list;
+
+            public Enumerator(ExceptionHandlerList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public ExceptionHandler Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
 #if !MinimalReader
-  public sealed class FaultHandlerList{
-    private FaultHandler[]/*!*/ elements;
-    private int count = 0;
-    public FaultHandlerList(){
-      this.elements = new FaultHandler[4];
-      //^ base();
-    }
-    public FaultHandlerList(int n){
-      this.elements = new FaultHandler[n];
-      //^ base();
-    }
-    public void Add(FaultHandler element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        FaultHandler[] newElements = new FaultHandler[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public FaultHandlerList/*!*/ Clone() {
-      FaultHandler[] elements = this.elements;
-      int n = this.count;
-      FaultHandlerList result = new FaultHandlerList(n);
-      result.count = n;
-      FaultHandler[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public FaultHandler this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly FaultHandlerList/*!*/ list;
-      public Enumerator(FaultHandlerList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public FaultHandler Current{
-        get{
-          return this.list[this.index];
+    public sealed class FaultHandlerList
+    {
+        private FaultHandler[] /*!*/
+            elements;
+
+        public FaultHandlerList()
+        {
+            elements = new FaultHandler[4];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public FaultHandlerList(int n)
+        {
+            elements = new FaultHandler[n];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public FaultHandler this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(FaultHandler element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new FaultHandler[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public FaultHandlerList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new FaultHandlerList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly FaultHandlerList /*!*/
+                list;
+
+            public Enumerator(FaultHandlerList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public FaultHandler Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #endif
 #if !NoWriter || !MinimalReader
-  public sealed class FieldList{
-    private Field[]/*!*/ elements; 
-    private int count = 0;
-    public FieldList(){
-      this.elements = new Field[8];
-      //^ base();
-    }
-    public FieldList(int capacity){
-      this.elements = new Field[capacity];
-      //^ base();
-    }
-    public FieldList(params Field[] elements){
-      if (elements == null) elements = new Field[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Field element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Field[] newElements = new Field[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public FieldList/*!*/ Clone() {
-      Field[] elements = this.elements;
-      int n = this.count;
-      FieldList result = new FieldList(n);
-      result.count = n;
-      Field[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Field this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly FieldList/*!*/ list;
-      public Enumerator(FieldList /*!*/list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Field Current{
-        get{
-          return this.list[this.index];
+    public sealed class FieldList
+    {
+        private Field[] /*!*/
+            elements;
+
+        public FieldList()
+        {
+            elements = new Field[8];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public FieldList(int capacity)
+        {
+            elements = new Field[capacity];
+            //^ base();
+        }
+
+        public FieldList(params Field[] elements)
+        {
+            if (elements == null) elements = new Field[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Field this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Field element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Field[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public FieldList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new FieldList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly FieldList /*!*/
+                list;
+
+            public Enumerator(FieldList /*!*/list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Field Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #endif
 #if !MinimalReader
-  public sealed class FilterList{
-    private Filter[]/*!*/ elements;
-    private int count = 0;
-    public FilterList(){
-      this.elements = new Filter[4];
-      //^ base();
-    }
-    public FilterList(int capacity){
-      this.elements = new Filter[capacity];
-      //^ base();
-    }
-    public void Add(Filter element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        Filter[] newElements = new Filter[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public FilterList/*!*/ Clone() {
-      Filter[] elements = this.elements;
-      int n = this.count;
-      FilterList result = new FilterList(n);
-      result.count = n;
-      Filter[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Filter this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly FilterList/*!*/ list;
-      public Enumerator(FilterList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Filter Current{
-        get{
-          return this.list[this.index];
+    public sealed class FilterList
+    {
+        private Filter[] /*!*/
+            elements;
+
+        public FilterList()
+        {
+            elements = new Filter[4];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class IdentifierList{
-    private Identifier[]/*!*/ elements; 
-    private int count = 0;
-    public IdentifierList(){
-      this.elements = new Identifier[8];
-      //^ base();
-    }
-    public IdentifierList(int capacity){
-      this.elements = new Identifier[capacity];
-      //^ base();
-    }
-    public void Add(Identifier element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Identifier[] newElements = new Identifier[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    public Identifier this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly IdentifierList/*!*/ list;
-      public Enumerator(IdentifierList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Identifier Current{
-        get{
-          return this.list[this.index];
+
+        public FilterList(int capacity)
+        {
+            elements = new Filter[capacity];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Filter this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Filter element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new Filter[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public FilterList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new FilterList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly FilterList /*!*/
+                list;
+
+            public Enumerator(FilterList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Filter Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
+
+    public sealed class IdentifierList
+    {
+        private Identifier[] /*!*/
+            elements;
+
+        public IdentifierList()
+        {
+            elements = new Identifier[8];
+            //^ base();
+        }
+
+        public IdentifierList(int capacity)
+        {
+            elements = new Identifier[capacity];
+            //^ base();
+        }
+
+        public int Count { get; set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length
+        {
+            get { return Count; }
+            set { Count = value; }
+        }
+
+        public Identifier this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Identifier element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Identifier[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly IdentifierList /*!*/
+                list;
+
+            public Enumerator(IdentifierList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Identifier Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
 #endif
-  public sealed class InstructionList{
-    private Instruction[]/*!*/ elements; 
-    private int count = 0;
-    public InstructionList(){
-      this.elements = new Instruction[32];
-      //^ base();
-    }
-    public InstructionList(int capacity){
-      this.elements = new Instruction[capacity];
-      //^ base();
-    }
-    public void Add(Instruction element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 32) m = 32;
-        Instruction[] newElements = new Instruction[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    public Instruction this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly InstructionList/*!*/ list;
-      public Enumerator(InstructionList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Instruction Current{
-        get{
-          return this.list[this.index];
+    public sealed class InstructionList
+    {
+        private Instruction[] /*!*/
+            elements;
+
+        public InstructionList()
+        {
+            elements = new Instruction[32];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class InterfaceList{
-    private Interface[]/*!*/ elements;
-    private int count = 0;
-    private AttributeList[] attributes;
-    public InterfaceList(){
-      this.elements = new Interface[8];
-      //^ base();
-    }
-    public InterfaceList(int capacity){
-      this.elements = new Interface[capacity];
-      //^ base();
-    }
-    public InterfaceList(params Interface[] elements){
-      if (elements == null) elements = new Interface[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Interface element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Interface[] newElements = new Interface[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-        if (this.attributes != null) {
-          AttributeList[] newAttributes = new AttributeList[m];
-          for (int j = 0; j < n; j++) newAttributes[j] = this.attributes[j];
-          this.attributes = newAttributes;
+
+        public InstructionList(int capacity)
+        {
+            elements = new Instruction[capacity];
+            //^ base();
         }
-      }
-      this.elements[i] = element;
-    }
-    public void AddAttributes(int index, AttributeList attributes) {
-      if (this.attributes == null) this.attributes = new AttributeList[this.elements.Length];
-      this.attributes[index] = attributes;
-    }
-    public AttributeList/*?*/ AttributesFor(int index) {
-      if (this.attributes == null) return null;
-      return this.attributes[index];
-    }
-    public InterfaceList/*!*/ Clone() {
-      Interface[] elements = this.elements;
-      int n = this.count;
-      InterfaceList result = new InterfaceList(n);
-      result.count = n;
-      Interface[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    public int SearchFor(Interface element){
-      Interface[] elements = this.elements;
-      for (int i = 0, n = this.count; i < n; i++)
-        if ((object)elements[i] == (object)element) return i;
-      return -1;
-    }
-    public Interface this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly InterfaceList/*!*/ list;
-      public Enumerator(InterfaceList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Interface Current{
-        get{
-          return this.list[this.index];
+
+        public int Count { get; set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length
+        {
+            get { return Count; }
+            set { Count = value; }
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public Instruction this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Instruction element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 32) m = 32;
+                var newElements = new Instruction[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly InstructionList /*!*/
+                list;
+
+            public Enumerator(InstructionList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Instruction Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
+
+    public sealed class InterfaceList
+    {
+        private AttributeList[] attributes;
+
+        private Interface[] /*!*/
+            elements;
+
+        public InterfaceList()
+        {
+            elements = new Interface[8];
+            //^ base();
+        }
+
+        public InterfaceList(int capacity)
+        {
+            elements = new Interface[capacity];
+            //^ base();
+        }
+
+        public InterfaceList(params Interface[] elements)
+        {
+            if (elements == null) elements = new Interface[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length
+        {
+            get { return Count; }
+            set { Count = value; }
+        }
+
+        public Interface this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Interface element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Interface[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+                if (attributes != null)
+                {
+                    var newAttributes = new AttributeList[m];
+                    for (var j = 0; j < n; j++) newAttributes[j] = attributes[j];
+                    attributes = newAttributes;
+                }
+            }
+
+            elements[i] = element;
+        }
+
+        public void AddAttributes(int index, AttributeList attributes)
+        {
+            if (this.attributes == null) this.attributes = new AttributeList[elements.Length];
+            this.attributes[index] = attributes;
+        }
+
+        public AttributeList /*?*/ AttributesFor(int index)
+        {
+            if (attributes == null) return null;
+            return attributes[index];
+        }
+
+        public InterfaceList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new InterfaceList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public int SearchFor(Interface element)
+        {
+            var elements = this.elements;
+            for (int i = 0, n = Count; i < n; i++)
+                if (elements[i] == (object)element)
+                    return i;
+            return -1;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly InterfaceList /*!*/
+                list;
+
+            public Enumerator(InterfaceList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Interface Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
 #if ExtendedRuntime || CodeContracts
-  public sealed class InvariantList{
-    private Invariant[]/*!*/ elements;
-    private int count = 0;
-    public InvariantList(){
-      this.elements = new Invariant[8];
-      //^ base();
-    }
-    public InvariantList(int n){
-      this.elements = new Invariant[n];
-      //^ base();
-    }
-    public InvariantList(params Invariant[] elements){
-      if (elements == null) elements = new Invariant[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Invariant element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Invariant[] newElements = new Invariant[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public InvariantList/*!*/ Clone() {
-      Invariant[] elements = this.elements;
-      int n = this.count;
-      InvariantList result = new InvariantList(n);
-      result.count = n;
-      Invariant[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    public Invariant this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly InvariantList/*!*/ list;
-      public Enumerator(InvariantList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Invariant Current{
-        get{
-          return this.list[this.index];
+    public sealed class InvariantList
+    {
+        private Invariant[] /*!*/
+            elements;
+
+        public InvariantList()
+        {
+            elements = new Invariant[8];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public InvariantList(int n)
+        {
+            elements = new Invariant[n];
+            //^ base();
+        }
+
+        public InvariantList(params Invariant[] elements)
+        {
+            if (elements == null) elements = new Invariant[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length
+        {
+            get { return Count; }
+            set { Count = value; }
+        }
+
+        public Invariant this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Invariant element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Invariant[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public InvariantList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new InvariantList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly InvariantList /*!*/
+                list;
+
+            public Enumerator(InvariantList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Invariant Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #endif
-  public sealed class Int32List{
-    private Int32[]/*!*/ elements;
-    private int count = 0;
-    public Int32List(){
-      this.elements = new Int32[8];
-      //^ base();
-    }
-    public Int32List(int capacity){
-      this.elements = new Int32[capacity];
-      //^ base();
-    }
-    public Int32List(params Int32[] elements){
-      if (elements == null) elements = new Int32[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Int32 element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Int32[] newElements = new Int32[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Int32 this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly Int32List/*!*/ list;
-      public Enumerator(Int32List/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Int32 Current{
-        get{
-          return this.list[this.index];
+    public sealed class Int32List
+    {
+        private int[] /*!*/
+            elements;
+
+        public Int32List()
+        {
+            elements = new int[8];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public Int32List(int capacity)
+        {
+            elements = new int[capacity];
+            //^ base();
+        }
+
+        public Int32List(params int[] elements)
+        {
+            if (elements == null) elements = new int[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public int this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(int element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new int[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly Int32List /*!*/
+                list;
+
+            public Enumerator(Int32List /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public int Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #if !MinimalReader && !CodeContracts
   public sealed class ISourceTextList{
     private ISourceText[]/*!*/ elements = new ISourceText[4];
@@ -1737,1067 +2004,1313 @@ namespace System.Compiler{
         this.index = -1;
       }
     }
-  }  
+  }
 #endif
 #if ExtendedRuntime || CodeContracts
-  public sealed class RequiresList{
-    private Requires[]/*!*/ elements;
-    private int count = 0;
-    public RequiresList(){
-      this.elements = new Requires[2];
-      //^ base();
-    }
-    public RequiresList(int capacity){
-      this.elements = new Requires[capacity];
-      //^ base();
-    }
-    public void Add(Requires element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Requires[] newElements = new Requires[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public RequiresList/*!*/ Clone() {
-      Requires[] elements = this.elements;
-      int n = this.count;
-      RequiresList result = new RequiresList(n);
-      result.count = n;
-      Requires[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Requires this[int index]{
-      get{
-#if CLOUSOT
-        Contract.Requires(index >= 0);
-        Contract.Requires(index < Count);
-#endif
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly RequiresList/*!*/ list;
-      public Enumerator(RequiresList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Requires Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class EnsuresList{
-    private Ensures[]/*!*/ elements;
-    private int count = 0;
-    public EnsuresList(){
-      this.elements = new Ensures[2];
-      //^ base();
-    }
-    public EnsuresList(int capacity){
-      this.elements = new Ensures[capacity];
-      //^ base();
-    }
-    public void Add(Ensures element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Ensures[] newElements = new Ensures[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public EnsuresList/*!*/ Clone() {
-      Ensures[] elements = this.elements;
-      int n = this.count;
-      EnsuresList result = new EnsuresList(n);
-      result.count = n;
-      Ensures[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Ensures this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly EnsuresList/*!*/ list;
-      public Enumerator(EnsuresList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Ensures Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class MethodContractElementList
-  {
-    private MethodContractElement[]/*!*/ elements;
-    private int count = 0;
-    public MethodContractElementList()
+    public sealed class RequiresList
     {
-      this.elements = new MethodContractElement[2];
-      //^ base();
-    }
-    public MethodContractElementList(int capacity)
-    {
-      this.elements = new MethodContractElement[capacity];
-      //^ base();
-    }
-    public void Add(MethodContractElement element)
-    {
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n)
-      {
-        int m = n * 2; if (m < 8) m = 8;
-        MethodContractElement[] newElements = new MethodContractElement[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public MethodContractElementList/*!*/ Clone()
-    {
-      var elements = this.elements;
-      int n = this.count;
-      var result = new MethodContractElementList(n);
-      result.count = n;
-      var newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count
-    {
-      get { return this.count; }
-    }
-    public MethodContractElement this[int index]
-    {
-      get
-      {
-        return this.elements[index];
-      }
-      set
-      {
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator()
-    {
-      return new Enumerator(this);
-    }
-    public struct Enumerator
-    {
-      private int index;
-      private readonly MethodContractElementList/*!*/ list;
-      public Enumerator(MethodContractElementList/*!*/ list)
-      {
-        this.index = -1;
-        this.list = list;
-      }
-      public MethodContractElement Current
-      {
-        get
-        {
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext()
-      {
-        return ++this.index < this.list.count;
-      }
-      public void Reset()
-      {
-        this.index = -1;
-      }
-    }
-  }
-#endif
-  public sealed class LocalList{
-    private Local[]/*!*/ elements; 
-    private int count = 0;
-    public LocalList(){
-      this.elements = new Local[8];
-      //^ base();
-    }
-    public LocalList(int capacity){
-      this.elements = new Local[capacity];
-      //^ base();
-    }
-    public void Add(Local element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Local[] newElements = new Local[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Local this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly LocalList/*!*/ list;
-      public Enumerator(LocalList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Local Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class MemberList{
-    private Member[]/*!*/ elements;
-    private int count = 0;
-    public MemberList(){
-      this.elements = new Member[16];
-      //^ base();
-    }
-    public MemberList(int capacity){
-      this.elements = new Member[capacity];
-      //^ base();
-    }
-    public MemberList(params Member[] elements){
-      if (elements == null) elements = new Member[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Member element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 16) m = 16;
-        Member[] newElements = new Member[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-#if !MinimalReader
-    public bool Contains(Member element) {
-      int n = this.count;
-      for (int i = 0; i < n; i++)
-        if (elements[i] == element)
-          return true;
-      return false;
-    }
-    public void AddList(MemberList memberList) {
-      if (memberList == null || memberList.Count == 0) return;
-      int n = this.elements.Length;
-      int newN = this.count + memberList.count;
-      if (newN > n) {
-        int m = newN; if (m < 16) m = 16;
-        Member[] newElements = new Member[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      for (int i = this.count, j = 0; i < newN; ++i, ++j) {
-        this.elements[i] = memberList.elements[j];
-      }
-      this.count = newN;
-    }
-    /// <summary>
-    /// Removes member (by nulling slot) if present
-    /// </summary>
-    public void Remove(Member member) {
-      int n = this.count;
-      for (int i=0; i<n; i++) {
-        if (this.elements[i] == member) {
-          this.elements[i] = null;
-          return;
-        }
-      }
-    }
-#endif
-    public void RemoveAt(int index) {
-      if (index >= this.count || index < 0) return;
-      int n = this.count;
-      for (int i = index+1; i < n; ++i)
-        this.elements[i-1] = this.elements[i];
-      this.count--;
-    }
-    public MemberList/*!*/ Clone() {
-      Member[] elements = this.elements;
-      int n = this.count;
-      MemberList result = new MemberList(n);
-      result.count = n;
-      Member[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Member this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly MemberList/*!*/ list;
-      public Enumerator(MemberList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Member Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-    public Member[]/*!*/ ToArray() {
-      Member[] m = new Member[this.count];
-      Array.Copy(this.elements, m, this.count);
-      return m;
-    }
-  }
-#if !MinimalReader
-  public sealed class MemberBindingList{
-    private MemberBinding[]/*!*/ elements; 
-    private int count = 0;
-    public MemberBindingList(){
-      this.elements = new MemberBinding[8];
-      //^ base();
-    }
-    public MemberBindingList(int capacity){
-      this.elements = new MemberBinding[capacity];
-      //^ base();
-    }
-    public void Add(MemberBinding element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        MemberBinding[] newElements = new MemberBinding[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public MemberBinding this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly MemberBindingList/*!*/ list;
-      public Enumerator(MemberBindingList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public MemberBinding Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-#endif
-  public sealed class MethodList{
-    private Method[]/*!*/ elements; 
-    private int count = 0;
-    public MethodList(){
-      this.elements = new Method[8];
-      //^ base();
-    }
-    public MethodList(int capacity){
-      this.elements = new Method[capacity];
-      //^ base();
-    }
-    public MethodList(params Method[] elements){
-      if (elements == null) elements = new Method[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Method element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Method[] newElements = new Method[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public MethodList/*!*/ Clone() {
-      Method[] elements = this.elements;
-      int n = this.count;
-      MethodList result = new MethodList(n);
-      result.count = n;
-      Method[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Method this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly MethodList/*!*/ list;
-      public Enumerator(MethodList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Method Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-#if !NoWriter
-  public sealed class ModuleList{
-    private Module[]/*!*/ elements;
-    private int count = 0;
-    public ModuleList(){
-      this.elements = new Module[4];
-      //^ base();
-    }
-    public ModuleList(int capacity){
-      this.elements = new Module[capacity];
-      //^ base();
-    }
-    public void Add(Module element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        Module[] newElements = new Module[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Module this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly ModuleList/*!*/ list;
-      public Enumerator(ModuleList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Module Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-#endif
-  public sealed class ModuleReferenceList{
-    private ModuleReference[]/*!*/ elements;
-    private int count = 0;
-    public ModuleReferenceList(){
-      this.elements = new ModuleReference[4];
-      //^ base();
-    }
-    public ModuleReferenceList(int capacity){
-      this.elements = new ModuleReference[capacity];
-      //^ base();
-    }
-    public ModuleReferenceList(params ModuleReference[] elements){
-      if (elements == null) elements = new ModuleReference[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(ModuleReference element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        ModuleReference[] newElements = new ModuleReference[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public ModuleReferenceList/*!*/ Clone() {
-      ModuleReference[] elements = this.elements;
-      int n = this.count;
-      ModuleReferenceList result = new ModuleReferenceList(n);
-      result.count = n;
-      ModuleReference[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public ModuleReference this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly ModuleReferenceList/*!*/ list;
-      public Enumerator(ModuleReferenceList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public ModuleReference Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class NamespaceList{
-    private Namespace[]/*!*/ elements;
-    private int count = 0;
-    public NamespaceList(){
-      this.elements = new Namespace[4];
-      //^ base();
-    }
-    public NamespaceList(int capacity){
-      this.elements = new Namespace[capacity];
-      //^ base();
-    }
-    public void Add(Namespace element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        Namespace[] newElements = new Namespace[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public NamespaceList/*!*/ Clone() {
-      Namespace[] elements = this.elements;
-      int n = this.count;
-      NamespaceList result = new NamespaceList(n);
-      result.count = n;
-      Namespace[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Namespace this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly NamespaceList/*!*/ list;
-      public Enumerator(NamespaceList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Namespace Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-#if !FxCop
-  public
-#endif  
-  sealed class NodeList{
-    private Node[]/*!*/ elements;
-    private int count = 0;
-    public NodeList(){
-      this.elements = new Node[4];
-      //^ base();
-    }
-    public NodeList(int capacity){
-      this.elements = new Node[capacity];
-      //^ base();
-    }
-    public NodeList(params Node[] elements){
-      if (elements == null) elements = new Node[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Node element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        Node[] newElements = new Node[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public NodeList/*!*/ Clone() {
-      Node[] elements = this.elements;
-      int n = this.count;
-      NodeList result = new NodeList(n);
-      result.count = n;
-      Node[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Node this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly NodeList/*!*/ list;
-      public Enumerator(NodeList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Node Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-  public sealed class ParameterList
-    {
-        [Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public readonly static ParameterList/*!*/ Empty = new ParameterList(0);
+        private Requires[] /*!*/
+            elements;
 
-    private Parameter[]/*!*/ elements; 
-    private int count = 0;
-    public ParameterList(){
-      this.elements = new Parameter[8];
-      //^ base();
-    }
-    public ParameterList(int capacity){
-      this.elements = new Parameter[capacity];
-      //^ base();
-    }
-    public ParameterList(params Parameter[] elements){
-      if (elements == null) elements = new Parameter[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Parameter element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Parameter[] newElements = new Parameter[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public ParameterList/*!*/ Clone() {
-      Parameter[] elements = this.elements;
-      int n = this.count;
-      ParameterList result = new ParameterList(n);
-      result.count = n;
-      Parameter[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    public Parameter this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly ParameterList/*!*/ list;
-      public Enumerator(ParameterList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Parameter Current{
-        get{
-          return this.list[this.index];
+        public RequiresList()
+        {
+            elements = new Requires[2];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-    public override string ToString() {
-      string res = "";
-      for (int i = 0; i < this.count; i++) {
-        if (i > 0) res += ",";
-        Parameter par = elements[i];
-        if (par == null) continue;
-        res += par.ToString();
-      }
-      return res;
-    }
-  }
-#if !NoWriter
-  public sealed class PropertyList{
-    private Property[]/*!*/ elements; 
-    private int count = 0;
-    public PropertyList(){
-      this.elements = new Property[8];
-      //^ base();
-    }
-    public PropertyList(int capacity){
-      this.elements = new Property[capacity];
-      //^ base();
-    }
-    public void Add(Property element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        Property[] newElements = new Property[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Property this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly PropertyList/*!*/ list;
-      public Enumerator(PropertyList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Property Current{
-        get{
-          return this.list[this.index];
+
+        public RequiresList(int capacity)
+        {
+            elements = new Requires[capacity];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Requires this[int index]
+        {
+            get
+            {
+#if CLOUSOT
+                Contract.Requires(index >= 0);
+                Contract.Requires(index < Count);
 #endif
-  public sealed class ResourceList{
-    private Resource[]/*!*/ elements;
-    private int count = 0;
-    public ResourceList(){
-      this.elements = new Resource[4];
-      //^ base();
-    }
-    public ResourceList(int capacity){
-      this.elements = new Resource[capacity];
-      //^ base();
-    }
-    public void Add(Resource element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        Resource[] newElements = new Resource[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public ResourceList/*!*/ Clone() {
-      Resource[] elements = this.elements;
-      int n = this.count;
-      ResourceList result = new ResourceList(n);
-      result.count = n;
-      Resource[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Resource this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly ResourceList/*!*/ list;
-      public Enumerator(ResourceList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Resource Current{
-        get{
-          return this.list[this.index];
+                return elements[index];
+            }
+            set { elements[index] = value; }
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public void Add(Requires element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Requires[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public RequiresList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new RequiresList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly RequiresList /*!*/
+                list;
+
+            public Enumerator(RequiresList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Requires Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
+
+    public sealed class EnsuresList
+    {
+        private Ensures[] /*!*/
+            elements;
+
+        public EnsuresList()
+        {
+            elements = new Ensures[2];
+            //^ base();
+        }
+
+        public EnsuresList(int capacity)
+        {
+            elements = new Ensures[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Ensures this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Ensures element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Ensures[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public EnsuresList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new EnsuresList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly EnsuresList /*!*/
+                list;
+
+            public Enumerator(EnsuresList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Ensures Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+
+    public sealed class MethodContractElementList
+    {
+        private MethodContractElement[] /*!*/
+            elements;
+
+        public MethodContractElementList()
+        {
+            elements = new MethodContractElement[2];
+            //^ base();
+        }
+
+        public MethodContractElementList(int capacity)
+        {
+            elements = new MethodContractElement[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        public MethodContractElement this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(MethodContractElement element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new MethodContractElement[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public MethodContractElementList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new MethodContractElementList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly MethodContractElementList /*!*/
+                list;
+
+            public Enumerator(MethodContractElementList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public MethodContractElement Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+#endif
+    public sealed class LocalList
+    {
+        private Local[] /*!*/
+            elements;
+
+        public LocalList()
+        {
+            elements = new Local[8];
+            //^ base();
+        }
+
+        public LocalList(int capacity)
+        {
+            elements = new Local[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Local this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Local element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Local[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly LocalList /*!*/
+                list;
+
+            public Enumerator(LocalList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Local Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+
+    public sealed class MemberList
+    {
+        private Member[] /*!*/
+            elements;
+
+        public MemberList()
+        {
+            elements = new Member[16];
+            //^ base();
+        }
+
+        public MemberList(int capacity)
+        {
+            elements = new Member[capacity];
+            //^ base();
+        }
+
+        public MemberList(params Member[] elements)
+        {
+            if (elements == null) elements = new Member[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Member this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Member element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 16) m = 16;
+                var newElements = new Member[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public void RemoveAt(int index)
+        {
+            if (index >= Count || index < 0) return;
+            var n = Count;
+            for (var i = index + 1; i < n; ++i)
+                elements[i - 1] = elements[i];
+            Count--;
+        }
+
+        public MemberList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new MemberList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public Member[] /*!*/ ToArray()
+        {
+            var m = new Member[Count];
+            Array.Copy(elements, m, Count);
+            return m;
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly MemberList /*!*/
+                list;
+
+            public Enumerator(MemberList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Member Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+#if !MinimalReader
+        public bool Contains(Member element)
+        {
+            var n = Count;
+            for (var i = 0; i < n; i++)
+                if (elements[i] == element)
+                    return true;
+            return false;
+        }
+
+        public void AddList(MemberList memberList)
+        {
+            if (memberList == null || memberList.Count == 0) return;
+            var n = elements.Length;
+            var newN = Count + memberList.Count;
+            if (newN > n)
+            {
+                var m = newN;
+                if (m < 16) m = 16;
+                var newElements = new Member[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            for (int i = Count, j = 0; i < newN; ++i, ++j) elements[i] = memberList.elements[j];
+            Count = newN;
+        }
+
+        /// <summary>
+        ///     Removes member (by nulling slot) if present
+        /// </summary>
+        public void Remove(Member member)
+        {
+            var n = Count;
+            for (var i = 0; i < n; i++)
+                if (elements[i] == member)
+                {
+                    elements[i] = null;
+                    return;
+                }
+        }
+#endif
+    }
+#if !MinimalReader
+    public sealed class MemberBindingList
+    {
+        private MemberBinding[] /*!*/
+            elements;
+
+        public MemberBindingList()
+        {
+            elements = new MemberBinding[8];
+            //^ base();
+        }
+
+        public MemberBindingList(int capacity)
+        {
+            elements = new MemberBinding[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public MemberBinding this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(MemberBinding element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new MemberBinding[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly MemberBindingList /*!*/
+                list;
+
+            public Enumerator(MemberBindingList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public MemberBinding Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+#endif
+    public sealed class MethodList
+    {
+        private Method[] /*!*/
+            elements;
+
+        public MethodList()
+        {
+            elements = new Method[8];
+            //^ base();
+        }
+
+        public MethodList(int capacity)
+        {
+            elements = new Method[capacity];
+            //^ base();
+        }
+
+        public MethodList(params Method[] elements)
+        {
+            if (elements == null) elements = new Method[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Method this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Method element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Method[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public MethodList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new MethodList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly MethodList /*!*/
+                list;
+
+            public Enumerator(MethodList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Method Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+#if !NoWriter
+    public sealed class ModuleList
+    {
+        private Module[] /*!*/
+            elements;
+
+        public ModuleList()
+        {
+            elements = new Module[4];
+            //^ base();
+        }
+
+        public ModuleList(int capacity)
+        {
+            elements = new Module[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Module this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Module element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new Module[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly ModuleList /*!*/
+                list;
+
+            public Enumerator(ModuleList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Module Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+#endif
+    public sealed class ModuleReferenceList
+    {
+        private ModuleReference[] /*!*/
+            elements;
+
+        public ModuleReferenceList()
+        {
+            elements = new ModuleReference[4];
+            //^ base();
+        }
+
+        public ModuleReferenceList(int capacity)
+        {
+            elements = new ModuleReference[capacity];
+            //^ base();
+        }
+
+        public ModuleReferenceList(params ModuleReference[] elements)
+        {
+            if (elements == null) elements = new ModuleReference[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public ModuleReference this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(ModuleReference element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new ModuleReference[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public ModuleReferenceList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new ModuleReferenceList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly ModuleReferenceList /*!*/
+                list;
+
+            public Enumerator(ModuleReferenceList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public ModuleReference Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+
+    public sealed class NamespaceList
+    {
+        private Namespace[] /*!*/
+            elements;
+
+        public NamespaceList()
+        {
+            elements = new Namespace[4];
+            //^ base();
+        }
+
+        public NamespaceList(int capacity)
+        {
+            elements = new Namespace[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Namespace this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Namespace element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new Namespace[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public NamespaceList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new NamespaceList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly NamespaceList /*!*/
+                list;
+
+            public Enumerator(NamespaceList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Namespace Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+#if !FxCop
+    public
+#endif
+        sealed class NodeList
+    {
+        private Node[] /*!*/
+            elements;
+
+        public NodeList()
+        {
+            elements = new Node[4];
+            //^ base();
+        }
+
+        public NodeList(int capacity)
+        {
+            elements = new Node[capacity];
+            //^ base();
+        }
+
+        public NodeList(params Node[] elements)
+        {
+            if (elements == null) elements = new Node[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Node this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Node element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new Node[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public NodeList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new NodeList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly NodeList /*!*/
+                list;
+
+            public Enumerator(NodeList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Node Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+
+    public sealed class ParameterList
+    {
+        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ParameterList /*!*/
+            Empty = new ParameterList(0);
+
+        private Parameter[] /*!*/
+            elements;
+
+        public ParameterList()
+        {
+            elements = new Parameter[8];
+            //^ base();
+        }
+
+        public ParameterList(int capacity)
+        {
+            elements = new Parameter[capacity];
+            //^ base();
+        }
+
+        public ParameterList(params Parameter[] elements)
+        {
+            if (elements == null) elements = new Parameter[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length
+        {
+            get { return Count; }
+            set { Count = value; }
+        }
+
+        public Parameter this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Parameter element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Parameter[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public ParameterList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new ParameterList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public override string ToString()
+        {
+            var res = "";
+            for (var i = 0; i < Count; i++)
+            {
+                if (i > 0) res += ",";
+                var par = elements[i];
+                if (par == null) continue;
+                res += par.ToString();
+            }
+
+            return res;
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly ParameterList /*!*/
+                list;
+
+            public Enumerator(ParameterList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Parameter Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+#if !NoWriter
+    public sealed class PropertyList
+    {
+        private Property[] /*!*/
+            elements;
+
+        public PropertyList()
+        {
+            elements = new Property[8];
+            //^ base();
+        }
+
+        public PropertyList(int capacity)
+        {
+            elements = new Property[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Property this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Property element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new Property[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly PropertyList /*!*/
+                list;
+
+            public Enumerator(PropertyList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Property Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
+#endif
+    public sealed class ResourceList
+    {
+        private Resource[] /*!*/
+            elements;
+
+        public ResourceList()
+        {
+            elements = new Resource[4];
+            //^ base();
+        }
+
+        public ResourceList(int capacity)
+        {
+            elements = new Resource[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Resource this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Resource element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new Resource[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public ResourceList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new ResourceList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly ResourceList /*!*/
+                list;
+
+            public Enumerator(ResourceList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Resource Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
 #if !MinimalReader && !CodeContracts
   public sealed class ScopeList{
     private Scope[]/*!*/ elements;
@@ -2903,314 +3416,394 @@ namespace System.Compiler{
     }
   }
 #endif
-  public sealed class SecurityAttributeList{
-    private SecurityAttribute[]/*!*/ elements;
-    private int count = 0;
-    public SecurityAttributeList(){
-      this.elements = new SecurityAttribute[8];
-      //^ base();
-    }
-    public SecurityAttributeList(int capacity){
-      this.elements = new SecurityAttribute[capacity];
-      //^ base();
-    }
-    public void Add(SecurityAttribute element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 8) m = 8;
-        SecurityAttribute[] newElements = new SecurityAttribute[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public SecurityAttributeList/*!*/ Clone() {
-      SecurityAttribute[] elements = this.elements;
-      int n = this.count;
-      SecurityAttributeList result = new SecurityAttributeList(n);
-      result.count = n;
-      SecurityAttribute[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public SecurityAttribute this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly SecurityAttributeList/*!*/ list;
-      public Enumerator(SecurityAttributeList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public SecurityAttribute Current{
-        get{
-          return this.list[this.index];
+    public sealed class SecurityAttributeList
+    {
+        private SecurityAttribute[] /*!*/
+            elements;
+
+        public SecurityAttributeList()
+        {
+            elements = new SecurityAttribute[8];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public SecurityAttributeList(int capacity)
+        {
+            elements = new SecurityAttribute[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public SecurityAttribute this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(SecurityAttribute element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 8) m = 8;
+                var newElements = new SecurityAttribute[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public SecurityAttributeList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new SecurityAttributeList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly SecurityAttributeList /*!*/
+                list;
+
+            public Enumerator(SecurityAttributeList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public SecurityAttribute Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #if !MinimalReader
-  public sealed class SourceChangeList{
-    private SourceChange[]/*!*/ elements;
-    private int count = 0;
-    public SourceChangeList(){
-      this.elements = new SourceChange[4];
-      //^ base();
-    }
-    public SourceChangeList(int capacity){
-      this.elements = new SourceChange[capacity];
-      //^ base();
-    }
-    public SourceChangeList(params SourceChange[] elements){
-      if (elements == null) elements = new SourceChange[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(SourceChange element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        SourceChange[] newElements = new SourceChange[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public SourceChangeList/*!*/ Clone() {
-      SourceChange[] elements = this.elements;
-      int n = this.count;
-      SourceChangeList result = new SourceChangeList(n);
-      result.count = n;
-      SourceChange[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public SourceChange this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly SourceChangeList/*!*/ list;
-      public Enumerator(SourceChangeList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public SourceChange Current{
-        get{
-          return this.list[this.index];
+    public sealed class SourceChangeList
+    {
+        private SourceChange[] /*!*/
+            elements;
+
+        public SourceChangeList()
+        {
+            elements = new SourceChange[4];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-  }
-#endif
-  public sealed class StatementList{
-    private Statement[]/*!*/ elements;
-    private int count = 0;
-    public StatementList(){
-      this.elements = new Statement[4];
-      //^ base();
-    }
-    public StatementList(int capacity){
-      this.elements = new Statement[capacity];
-      //^ base();
-    }
-    public StatementList(params Statement[] elements){
-      if (elements == null) elements = new Statement[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(Statement statement){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 32) m = 32;
-        Statement[] newElements = new Statement[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = statement;
-    }
-    public StatementList/*!*/ Clone() {
-      Statement[] elements = this.elements;
-      int n = this.count;
-      StatementList result = new StatementList(n);
-      result.count = n;
-      Statement[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{
-#if CLOUSOT
-        Contract.Ensures(Contract.Result<int>() >= 0);
-#endif
-        return this.count;
-      }
-      set{this.count = value;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-      set{this.count = value;}
-    }
-    public Statement this[int index]{
-      get{
-#if CLOUSOT
-        System.Diagnostics.Contracts.Contract.Requires(index >= 0);
-        System.Diagnostics.Contracts.Contract.Requires(index < Count);
-#endif
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly StatementList/*!*/ list;
-      public Enumerator(StatementList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public Statement Current{
-        get{
-          return this.list[this.index];
+
+        public SourceChangeList(int capacity)
+        {
+            elements = new SourceChange[capacity];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public SourceChangeList(params SourceChange[] elements)
+        {
+            if (elements == null) elements = new SourceChange[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public SourceChange this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(SourceChange element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new SourceChange[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public SourceChangeList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new SourceChangeList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly SourceChangeList /*!*/
+                list;
+
+            public Enumerator(SourceChangeList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public SourceChange Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
+#endif
+    public sealed class StatementList
+    {
+        private Statement[] /*!*/
+            elements;
+
+        public StatementList()
+        {
+            elements = new Statement[4];
+            //^ base();
+        }
+
+        public StatementList(int capacity)
+        {
+            elements = new Statement[capacity];
+            //^ base();
+        }
+
+        public StatementList(params Statement[] elements)
+        {
+            if (elements == null) elements = new Statement[0];
+            this.elements = elements;
+            Length = elements.Length;
+            //^ base();
+        }
+
+        public int Count
+        {
+            get
+            {
+#if CLOUSOT
+                Contract.Ensures(Contract.Result<int>() >= 0);
+#endif
+                return Length;
+            }
+            set { Length = value; }
+        }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length { get; set; }
+
+        public Statement this[int index]
+        {
+            get
+            {
+#if CLOUSOT
+                Contract.Requires(index >= 0);
+                Contract.Requires(index < Count);
+#endif
+                return elements[index];
+            }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Statement statement)
+        {
+            var n = elements.Length;
+            var i = Length++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 32) m = 32;
+                var newElements = new Statement[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = statement;
+        }
+
+        public StatementList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Length;
+            var result = new StatementList(n);
+            result.Length = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly StatementList /*!*/
+                list;
+
+            public Enumerator(StatementList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Statement Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Length;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
+    }
 #if !NoWriter
-  public sealed class StringList{
-    private string[]/*!*/ elements = new string[4];
-    private int count = 0;
-    public StringList(){
-      this.elements = new string[4];
-      //^ base();
-    }
-    public StringList(int capacity){
-      this.elements = new string[capacity];
-      //^ base();
-    }
-    public StringList(params string[] elements){
-      if (elements == null) elements = new string[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public StringList(System.Collections.Specialized.StringCollection/*!*/ stringCollection){
-      int n = this.count = stringCollection == null ? 0 : stringCollection.Count;
-      string[] elements = this.elements = new string[n];
-      //^ base();
-      if (n > 0) stringCollection.CopyTo(elements, 0);
-    }
-    public void Add(string element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        String[] newElements = new String[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public string this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly StringList/*!*/ list;
-      public Enumerator(StringList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public String Current{
-        get{
-          return this.list[this.index];
+    public sealed class StringList
+    {
+        private string[] /*!*/
+            elements = new string[4];
+
+        public StringList()
+        {
+            elements = new string[4];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public StringList(int capacity)
+        {
+            elements = new string[capacity];
+            //^ base();
+        }
+
+        public StringList(params string[] elements)
+        {
+            if (elements == null) elements = new string[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public StringList(StringCollection /*!*/ stringCollection)
+        {
+            var n = Count = stringCollection == null ? 0 : stringCollection.Count;
+            var elements = this.elements = new string[n];
+            //^ base();
+            if (n > 0) stringCollection.CopyTo(elements, 0);
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public string this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(string element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new string[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly StringList /*!*/
+                list;
+
+            public Enumerator(StringList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public string Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #endif
 #if !MinimalReader && !CodeContracts
   public sealed class SwitchCaseList{
@@ -3284,114 +3877,143 @@ namespace System.Compiler{
     }
   }
 #endif
-  public sealed class TypeNodeList{
-    private TypeNode[]/*!*/ elements;
-    private int count = 0;
-    public TypeNodeList(){
-      this.elements = new TypeNode[32];
-      //^ base();
-    }
-    public TypeNodeList(int capacity){
-      this.elements = new TypeNode[capacity];
-      //^ base();
-    }
-    public TypeNodeList(params TypeNode[] elements){
-      if (elements == null) elements = new TypeNode[0];
-      this.elements = elements;
-      this.count = elements.Length;
-      //^ base();
-    }
-    public void Add(TypeNode element){
-      TypeNode[] elements = this.elements;
-      int n = elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 32) m = 32;
-        TypeNode[] newElements = new TypeNode[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public TypeNodeList/*!*/ Clone(){
-      TypeNode[] elements = this.elements;
-      int n = this.count;
-      TypeNodeList result = new TypeNodeList(n);
-      result.count = n;
-      TypeNode[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public void Insert(TypeNode element, int index){
-      TypeNode[] elements = this.elements;
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (index >= i) throw new IndexOutOfRangeException();
-      if (i == n){
-        int m = n*2; if (m < 32) m = 32;
-        TypeNode[] newElements = new TypeNode[m];
-        for (int j = 0; j < index; j++) newElements[j] = elements[j];
-        newElements[index] = element;
-        for (int j = index; j < n; j++) newElements[j+1] = elements[j];
-        return;
-      }
-      for (int j = index; j < i; j++){
-        TypeNode t = elements[j];
-        elements[j] = element;
-        element = t;
-      }
-      elements[i] = element;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public int SearchFor(TypeNode element){
-      TypeNode[] elements = this.elements;
-      for (int i = 0, n = this.count; i < n; i++)
-        if ((object)elements[i] == (object)element) return i;
-      return -1;
-    }
-    public TypeNode this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly TypeNodeList/*!*/ list;
-      public Enumerator(TypeNodeList/*!*/ list) {
-        this.index = -1;
-        this.list = list;
-      }
-      public TypeNode Current{
-        get{
-          return this.list[this.index];
-        }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
-    }
-
-    internal bool Contains(TypeNode asType)
+    public sealed class TypeNodeList
     {
-      return SearchFor(asType) >= 0;
+        private TypeNode[] /*!*/
+            elements;
+
+        public TypeNodeList()
+        {
+            elements = new TypeNode[32];
+            //^ base();
+        }
+
+        public TypeNodeList(int capacity)
+        {
+            elements = new TypeNode[capacity];
+            //^ base();
+        }
+
+        public TypeNodeList(params TypeNode[] elements)
+        {
+            if (elements == null) elements = new TypeNode[0];
+            this.elements = elements;
+            Count = elements.Length;
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public TypeNode this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(TypeNode element)
+        {
+            var elements = this.elements;
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 32) m = 32;
+                var newElements = new TypeNode[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                this.elements = newElements;
+            }
+
+            this.elements[i] = element;
+        }
+
+        public TypeNodeList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new TypeNodeList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public void Insert(TypeNode element, int index)
+        {
+            var elements = this.elements;
+            var n = this.elements.Length;
+            var i = Count++;
+            if (index >= i) throw new IndexOutOfRangeException();
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 32) m = 32;
+                var newElements = new TypeNode[m];
+                for (var j = 0; j < index; j++) newElements[j] = elements[j];
+                newElements[index] = element;
+                for (var j = index; j < n; j++) newElements[j + 1] = elements[j];
+                return;
+            }
+
+            for (var j = index; j < i; j++)
+            {
+                var t = elements[j];
+                elements[j] = element;
+                element = t;
+            }
+
+            elements[i] = element;
+        }
+
+        public int SearchFor(TypeNode element)
+        {
+            var elements = this.elements;
+            for (int i = 0, n = Count; i < n; i++)
+                if (elements[i] == (object)element)
+                    return i;
+            return -1;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        internal bool Contains(TypeNode asType)
+        {
+            return SearchFor(asType) >= 0;
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly TypeNodeList /*!*/
+                list;
+
+            public Enumerator(TypeNodeList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public TypeNode Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 #if !MinimalReader && !CodeContracts
   public sealed class TypeswitchCaseList{
     private TypeswitchCase[]/*!*/ elements = new TypeswitchCase[16];
@@ -3595,76 +4217,93 @@ namespace System.Compiler{
     }
   }
 #endif
-  public sealed class Win32ResourceList{
-    private Win32Resource[]/*!*/ elements;
-    private int count = 0;
-    public Win32ResourceList(){
-      this.elements = new Win32Resource[4];
-      //^ base();
-    }
-    public Win32ResourceList(int capacity){
-      this.elements = new Win32Resource[capacity];
-      //^ base();
-    }
-    public void Add(Win32Resource element){
-      int n = this.elements.Length;
-      int i = this.count++;
-      if (i == n){
-        int m = n*2; if (m < 4) m = 4;
-        Win32Resource[] newElements = new Win32Resource[m];
-        for (int j = 0; j < n; j++) newElements[j] = elements[j];
-        this.elements = newElements;
-      }
-      this.elements[i] = element;
-    }
-    public Win32ResourceList/*!*/ Clone(){
-      Win32Resource[] elements = this.elements;
-      int n = this.count;
-      Win32ResourceList result = new Win32ResourceList(n);
-      result.count = n;
-      Win32Resource[] newElements = result.elements;
-      for (int i = 0; i < n; i++)
-        newElements[i] = elements[i];
-      return result;
-    }
-    public int Count{
-      get{return this.count;}
-    }
-    [Obsolete("Use Count property instead.")]
-    public int Length{
-      get{return this.count;}
-    }
-    public Win32Resource this[int index]{
-      get{
-        return this.elements[index];
-      }
-      set{
-        this.elements[index] = value;
-      }
-    }
-    public Enumerator GetEnumerator(){
-      return new Enumerator(this);
-    }
-    public struct Enumerator{
-      private int index;
-      private readonly Win32ResourceList/*!*/ list;
-      public Enumerator(Win32ResourceList/*!*/ list){
-        this.index = -1;
-        this.list = list;
-      }
-      public Win32Resource Current{
-        get{
-          return this.list[this.index];
+    public sealed class Win32ResourceList
+    {
+        private Win32Resource[] /*!*/
+            elements;
+
+        public Win32ResourceList()
+        {
+            elements = new Win32Resource[4];
+            //^ base();
         }
-      }
-      public bool MoveNext(){
-        return ++this.index < this.list.count;
-      }
-      public void Reset(){
-        this.index = -1;
-      }
+
+        public Win32ResourceList(int capacity)
+        {
+            elements = new Win32Resource[capacity];
+            //^ base();
+        }
+
+        public int Count { get; private set; }
+
+        [Obsolete("Use Count property instead.")]
+        public int Length => Count;
+
+        public Win32Resource this[int index]
+        {
+            get { return elements[index]; }
+            set { elements[index] = value; }
+        }
+
+        public void Add(Win32Resource element)
+        {
+            var n = elements.Length;
+            var i = Count++;
+            if (i == n)
+            {
+                var m = n * 2;
+                if (m < 4) m = 4;
+                var newElements = new Win32Resource[m];
+                for (var j = 0; j < n; j++) newElements[j] = elements[j];
+                elements = newElements;
+            }
+
+            elements[i] = element;
+        }
+
+        public Win32ResourceList /*!*/ Clone()
+        {
+            var elements = this.elements;
+            var n = Count;
+            var result = new Win32ResourceList(n);
+            result.Count = n;
+            var newElements = result.elements;
+            for (var i = 0; i < n; i++)
+                newElements[i] = elements[i];
+            return result;
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        public struct Enumerator
+        {
+            private int index;
+
+            private readonly Win32ResourceList /*!*/
+                list;
+
+            public Enumerator(Win32ResourceList /*!*/ list)
+            {
+                index = -1;
+                this.list = list;
+            }
+
+            public Win32Resource Current => list[index];
+
+            public bool MoveNext()
+            {
+                return ++index < list.Count;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+        }
     }
-  }
 }
 #else
 using System;

@@ -106,7 +106,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          AttributeNode newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          AttributeNode newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -165,7 +166,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          Block newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          Block newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -224,7 +226,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          Catch newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          Catch newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -283,7 +286,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          Expression newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          Expression newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -342,7 +346,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          FaultHandler newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          FaultHandler newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -401,7 +406,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          Filter newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          Filter newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -451,7 +457,8 @@ namespace System.Compiler{
           //nd1alt has a better claim on closest. See if it wants closest.
           Differences diff2;
           int j, k = list2start;
-          LocalDeclaration nd2alt = this.GetClosestMatch(nd1alt, list1, list2, i, ref k,  matchedNodes, out diff2, out j);
+          LocalDeclaration nd2alt =
+ this.GetClosestMatch(nd1alt, list1, list2, i, ref k,  matchedNodes, out diff2, out j);
           if (nd2alt != closest){
             Debug.Assert(nd2alt != null && diff2 != null && diff2.Similarity >= diff.Similarity);
             continue; //nd1alt prefers nd2alt to closest, so closest is still available
@@ -460,7 +467,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          LocalDeclaration newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          LocalDeclaration newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -519,7 +527,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          Node newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          Node newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -569,7 +578,8 @@ namespace System.Compiler{
           //nd1alt has a better claim on closest. See if it wants closest.
           Differences diff2;
           int j, k = list2start;
-          SecurityAttribute nd2alt = this.GetClosestMatch(nd1alt, list1, list2, i, ref k,  matchedNodes, out diff2, out j);
+          SecurityAttribute nd2alt =
+ this.GetClosestMatch(nd1alt, list1, list2, i, ref k,  matchedNodes, out diff2, out j);
           if (nd2alt != closest){
             Debug.Assert(nd2alt != null && diff2 != null && diff2.Similarity >= diff.Similarity);
             continue; //nd1alt prefers nd2alt to closest, so closest is still available
@@ -578,7 +588,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          SecurityAttribute newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          SecurityAttribute newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -637,7 +648,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          Statement newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          Statement newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -696,7 +708,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          SwitchCase newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          SwitchCase newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -755,7 +768,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          TypeswitchCase newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          TypeswitchCase newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -814,7 +828,8 @@ namespace System.Compiler{
           matchedNodes[closest.UniqueKey] = nd1alt;
           //Now that closest is out of the running, try again
           k = list2start;
-          UsedNamespace newClosest = this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
+          UsedNamespace newClosest =
+ this.GetClosestMatch(nd1, list1, list2, i, ref k, matchedNodes, out winnerSoFar, out list2pos);
           //put closest back in the running so that the next call to this routine will pick it up
           matchedNodes[closest.UniqueKey] = closest;
           closest = newClosest;
@@ -1498,7 +1513,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ParameterList parChanges, parDeletions, parInsertions;
-      diff = this.VisitParameterList(func1.Parameters, func2.Parameters, out parChanges, out parDeletions, out parInsertions);
+      diff =
+ this.VisitParameterList(func1.Parameters, func2.Parameters, out parChanges, out parDeletions, out parInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Parameters = parChanges;
       deletions.Parameters = parDeletions;
@@ -1570,7 +1586,8 @@ namespace System.Compiler{
       this.NewModule = assembly2;
 
       AssemblyReferenceList arChanges, arDeletions, arInsertions;
-      Differences diff = this.VisitAssemblyReferenceList(assembly1.AssemblyReferences, assembly2.AssemblyReferences, out arChanges, out arDeletions, out arInsertions);
+      Differences diff =
+ this.VisitAssemblyReferenceList(assembly1.AssemblyReferences, assembly2.AssemblyReferences, out arChanges, out arDeletions, out arInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.AssemblyReferences = arChanges;
       deletions.AssemblyReferences = arDeletions;
@@ -1579,7 +1596,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      diff = this.VisitAttributeList(assembly1.Attributes, assembly2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      diff =
+ this.VisitAttributeList(assembly1.Attributes, assembly2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -1590,7 +1608,8 @@ namespace System.Compiler{
       if (assembly1.Culture == assembly2.Culture) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(assembly1.ExportedTypes, assembly2.ExportedTypes, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(assembly1.ExportedTypes, assembly2.ExportedTypes, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Types = typeChanges;
       deletions.Types = typeDeletions;
@@ -1602,7 +1621,8 @@ namespace System.Compiler{
 
       if (assembly1.Kind == assembly2.Kind) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
-      diff = this.VisitAttributeList(assembly1.ModuleAttributes, assembly2.ModuleAttributes, out attrChanges, out attrDeletions, out attrInsertions);
+      diff =
+ this.VisitAttributeList(assembly1.ModuleAttributes, assembly2.ModuleAttributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -1611,7 +1631,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ModuleReferenceList mrChanges, mrDeletions, mrInsertions;
-      diff = this.VisitModuleReferenceList(assembly1.ModuleReferences, assembly2.ModuleReferences, out mrChanges, out mrDeletions, out mrInsertions);
+      diff =
+ this.VisitModuleReferenceList(assembly1.ModuleReferences, assembly2.ModuleReferences, out mrChanges, out mrDeletions, out mrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.ModuleReferences = mrChanges;
       deletions.ModuleReferences = mrDeletions;
@@ -1622,7 +1643,8 @@ namespace System.Compiler{
       if (assembly1.Name == assembly2.Name) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       SecurityAttributeList secChanges, secDeletions, secInsertions;
-      diff = this.VisitSecurityAttributeList(assembly1.SecurityAttributes, assembly2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
+      diff =
+ this.VisitSecurityAttributeList(assembly1.SecurityAttributes, assembly2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.SecurityAttributes = secChanges;
       deletions.SecurityAttributes = secDeletions;
@@ -1630,7 +1652,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitTypeNodeList(assembly1.Types, assembly2.Types, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(assembly1.Types, assembly2.Types, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Types = typeChanges;
       deletions.Types = typeDeletions;
@@ -1877,7 +1900,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ExpressionList exprChanges, exprDeletions, exprInsertions;
-      diff = this.VisitExpressionList(attribute1.Expressions, attribute2.Expressions, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(attribute1.Expressions, attribute2.Expressions, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Expressions = exprChanges;
       deletions.Expressions = exprDeletions;
@@ -2024,7 +2048,8 @@ namespace System.Compiler{
       if (block1.Checked == block2.Checked) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       StatementList statChanges, statDeletions, statInsertions;
-      Differences diff = this.VisitStatementList(block1.Statements, block2.Statements, out statChanges, out statDeletions, out statInsertions);
+      Differences diff =
+ this.VisitStatementList(block1.Statements, block2.Statements, out statChanges, out statDeletions, out statInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Statements = statChanges;
       deletions.Statements = statDeletions;
@@ -2282,7 +2307,8 @@ namespace System.Compiler{
       CoerceTuple insertions = (CoerceTuple)coerceTuple2.Clone();
 
       FieldList fieldChanges, fieldDeletions, fieldInsertions;
-      Differences diff = this.VisitFieldList(coerceTuple1.Fields, coerceTuple2.Fields, out fieldChanges, out fieldDeletions, out fieldInsertions);
+      Differences diff =
+ this.VisitFieldList(coerceTuple1.Fields, coerceTuple2.Fields, out fieldChanges, out fieldDeletions, out fieldInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Fields = fieldChanges;
       deletions.Fields = fieldDeletions;
@@ -2354,7 +2380,8 @@ namespace System.Compiler{
       this.NewModule = compilation2.TargetModule;
 
       CompilationUnitList cuChanges, cuDeletions, cuInsertions;
-      Differences diff = this.VisitCompilationUnitList(compilation1.CompilationUnits, compilation2.CompilationUnits, out cuChanges, out cuDeletions, out cuInsertions);
+      Differences diff =
+ this.VisitCompilationUnitList(compilation1.CompilationUnits, compilation2.CompilationUnits, out cuChanges, out cuDeletions, out cuInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.CompilationUnits = cuChanges;
       deletions.CompilationUnits = cuDeletions;
@@ -2384,7 +2411,8 @@ namespace System.Compiler{
       CompilationUnit insertions = (CompilationUnit)cUnit2.Clone();
 
       NodeList nodeChanges, nodeDeletions, nodeInsertions;
-      Differences diff = this.VisitNodeList(cUnit1.Nodes, cUnit2.Nodes, out nodeChanges, out nodeDeletions, out nodeInsertions);
+      Differences diff =
+ this.VisitNodeList(cUnit1.Nodes, cUnit2.Nodes, out nodeChanges, out nodeDeletions, out nodeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Nodes = nodeChanges;
       deletions.Nodes = nodeDeletions;
@@ -2550,7 +2578,8 @@ namespace System.Compiler{
       Quantifier deletions = (Quantifier)quantifier2.Clone();
       Quantifier insertions = (Quantifier)quantifier2.Clone();
 
-      Differences diff = this.VisitComprehension((Comprehension)quantifier1.Comprehension, (Comprehension)quantifier2.Comprehension);
+      Differences diff =
+ this.VisitComprehension((Comprehension)quantifier1.Comprehension, (Comprehension)quantifier2.Comprehension);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Comprehension = diff.Changes as Comprehension;
       deletions.Comprehension = diff.Deletions as Comprehension;
@@ -2582,7 +2611,8 @@ namespace System.Compiler{
       Comprehension insertions = (Comprehension)comprehension2.Clone();
 
       ExpressionList exprChanges, exprDeletions, exprInsertions;
-      Differences diff = this.VisitExpressionList(comprehension1.BindingsAndFilters, comprehension2.BindingsAndFilters, out exprChanges, out exprDeletions, out exprInsertions);
+      Differences diff =
+ this.VisitExpressionList(comprehension1.BindingsAndFilters, comprehension2.BindingsAndFilters, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.BindingsAndFilters = exprChanges;
       deletions.BindingsAndFilters = exprDeletions;
@@ -2590,7 +2620,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitExpressionList(comprehension1.Elements, comprehension2.Elements, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(comprehension1.Elements, comprehension2.Elements, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Elements = exprChanges;
       deletions.Elements = exprDeletions;
@@ -2621,7 +2652,8 @@ namespace System.Compiler{
       ComprehensionBinding deletions = (ComprehensionBinding)comprehensionBinding2.Clone();
       ComprehensionBinding insertions = (ComprehensionBinding)comprehensionBinding2.Clone();
 
-      Differences diff = this.VisitTypeNode(comprehensionBinding1.AsTargetVariableType, comprehensionBinding2.AsTargetVariableType);
+      Differences diff =
+ this.VisitTypeNode(comprehensionBinding1.AsTargetVariableType, comprehensionBinding2.AsTargetVariableType);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.AsTargetVariableType = diff.Changes as TypeNode;
       deletions.AsTargetVariableType = diff.Deletions as TypeNode;
@@ -2690,7 +2722,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ExpressionList exprChanges, exprDeletions, exprInsertions;
-      diff = this.VisitExpressionList(cons1.Operands, cons2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(cons1.Operands, cons2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Operands = exprChanges;
       deletions.Operands = exprDeletions;
@@ -2738,7 +2771,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ExpressionList exprChanges, exprDeletions, exprInsertions;
-      diff = this.VisitExpressionList(consArr1.Initializers, consArr2.Initializers, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(consArr1.Initializers, consArr2.Initializers, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Operands = exprChanges;
       deletions.Operands = exprDeletions;
@@ -2746,7 +2780,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitExpressionList(consArr1.Operands, consArr2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(consArr1.Operands, consArr2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Operands = exprChanges;
       deletions.Operands = exprDeletions;
@@ -2835,7 +2870,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ExpressionList exprChanges, exprDeletions, exprInsertions;
-      diff = this.VisitExpressionList(consArr1.Initializers, consArr2.Initializers, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(consArr1.Initializers, consArr2.Initializers, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Operands = exprChanges;
       deletions.Operands = exprDeletions;
@@ -2843,7 +2879,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitExpressionList(consArr1.Operands, consArr2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(consArr1.Operands, consArr2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Operands = exprChanges;
       deletions.Operands = exprDeletions;
@@ -2921,7 +2958,8 @@ namespace System.Compiler{
       ConstructTuple insertions = (ConstructTuple)consTuple2.Clone();
 
       FieldList fieldChanges, fieldDeletions, fieldInsertions;
-      Differences diff = this.VisitFieldList(consTuple1.Fields, consTuple2.Fields, out fieldChanges, out fieldDeletions, out fieldInsertions);
+      Differences diff =
+ this.VisitFieldList(consTuple1.Fields, consTuple2.Fields, out fieldChanges, out fieldDeletions, out fieldInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Fields = fieldChanges;
       deletions.Fields = fieldDeletions;
@@ -3026,7 +3064,8 @@ namespace System.Compiler{
       DelegateNode insertions = (DelegateNode)delegateNode2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(delegateNode1.Attributes, delegateNode2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(delegateNode1.Attributes, delegateNode2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -3037,7 +3076,8 @@ namespace System.Compiler{
       if (delegateNode1.Flags == delegateNode2.Flags) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       ParameterList parChanges, parDeletions, parInsertions;
-      diff = this.VisitParameterList(delegateNode1.Parameters, delegateNode2.Parameters, out parChanges, out parDeletions, out parInsertions);
+      diff =
+ this.VisitParameterList(delegateNode1.Parameters, delegateNode2.Parameters, out parChanges, out parDeletions, out parInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Parameters = parChanges;
       deletions.Parameters = parDeletions;
@@ -3055,7 +3095,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       SecurityAttributeList secChanges, secDeletions, secInsertions;
-      diff = this.VisitSecurityAttributeList(delegateNode1.SecurityAttributes, delegateNode2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
+      diff =
+ this.VisitSecurityAttributeList(delegateNode1.SecurityAttributes, delegateNode2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.SecurityAttributes = secChanges;
       deletions.SecurityAttributes = secDeletions;
@@ -3064,7 +3105,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(delegateNode1.TemplateParameters, delegateNode2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(delegateNode1.TemplateParameters, delegateNode2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateParameters = typeChanges;
       deletions.TemplateParameters = typeDeletions;
@@ -3102,7 +3144,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitExpressionList(doWhile1.Invariants, doWhile2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
+      diff =
+ this.VisitExpressionList(doWhile1.Invariants, doWhile2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
       if (diff == null){Debug.Assert(false); return differences;}
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
@@ -3215,7 +3258,8 @@ namespace System.Compiler{
       Event insertions = (Event)evnt2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(evnt1.Attributes, evnt2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(evnt1.Attributes, evnt2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -3282,7 +3326,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       MethodList methChanges, methDeletions, methInsertions;
-      diff = this.VisitMethodList(evnt1.OtherMethods, evnt2.OtherMethods, out methChanges, out methDeletions, out methInsertions);
+      diff =
+ this.VisitMethodList(evnt1.OtherMethods, evnt2.OtherMethods, out methChanges, out methDeletions, out methInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.OtherMethods = methChanges;
       deletions.OtherMethods = methDeletions;
@@ -3330,7 +3375,8 @@ namespace System.Compiler{
     public virtual Differences VisitExpression(Expression expression1, Expression expression2){
       Differences differences = this.Visit(expression1, expression2);
       if (differences != null && differences.Changes == null && differences.NumberOfDifferences > 0)
-        differences.Changes = expression2; //Happens when different types of expressions are compared (e.g. UnaryExpression vs BinaryExpression)
+        differences.Changes =
+ expression2; //Happens when different types of expressions are compared (e.g. UnaryExpression vs BinaryExpression)
       return differences;
     }
     public virtual Differences VisitExpressionList(ExpressionList list1, ExpressionList list2,
@@ -3557,7 +3603,8 @@ namespace System.Compiler{
       Field insertions = (Field)field2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(field1.Attributes, field2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(field1.Attributes, field2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -3578,7 +3625,8 @@ namespace System.Compiler{
       if (field1.HidesBaseClassMember == field2.HidesBaseClassMember) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       InterfaceList ifaceChanges, ifaceDeletions, ifaceInsertions;
-      diff = this.VisitInterfaceReferenceList(field1.ImplementedInterfaces, field2.ImplementedInterfaces, out ifaceChanges, out ifaceDeletions, out ifaceInsertions);
+      diff =
+ this.VisitInterfaceReferenceList(field1.ImplementedInterfaces, field2.ImplementedInterfaces, out ifaceChanges, out ifaceDeletions, out ifaceInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.ImplementedInterfaces = ifaceChanges;
       deletions.ImplementedInterfaces = ifaceDeletions;
@@ -3920,7 +3968,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitExpressionList(for1.Invariants, for2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
+      diff =
+ this.VisitExpressionList(for1.Invariants, for2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
       if (diff == null){Debug.Assert(false); return differences;}
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
@@ -3935,7 +3984,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       StatementList statChanges, statDeletions, statInsertions;
-      diff = this.VisitStatementList(for1.Incrementer, for2.Incrementer, out statChanges, out statDeletions, out statInsertions);
+      diff =
+ this.VisitStatementList(for1.Incrementer, for2.Incrementer, out statChanges, out statDeletions, out statInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Initializer = statChanges;
       deletions.Initializer = statDeletions;
@@ -3943,7 +3993,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitStatementList(for1.Initializer, for2.Initializer, out statChanges, out statDeletions, out statInsertions);
+      diff =
+ this.VisitStatementList(for1.Initializer, for2.Initializer, out statChanges, out statDeletions, out statInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Initializer = statChanges;
       deletions.Initializer = statDeletions;
@@ -3990,7 +4041,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitExpressionList(forEach1.Invariants, forEach2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
+      diff =
+ this.VisitExpressionList(forEach1.Invariants, forEach2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
       if (diff == null){Debug.Assert(false); return differences;}
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
@@ -4065,7 +4117,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ParameterList parChanges, parDeletions, parInsertions;
-      diff = this.VisitParameterList(functionDeclaration1.Parameters, functionDeclaration2.Parameters, out parChanges, out parDeletions, out parInsertions);
+      diff =
+ this.VisitParameterList(functionDeclaration1.Parameters, functionDeclaration2.Parameters, out parChanges, out parDeletions, out parInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Parameters = parChanges;
       deletions.Parameters = parDeletions;
@@ -4113,7 +4166,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(instance1.TypeArguments, instance2.TypeArguments, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(instance1.TypeArguments, instance2.TypeArguments, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TypeArguments = typeChanges;
       deletions.TypeArguments = typeDeletions;
@@ -4320,7 +4374,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       ExpressionList exprChanges, exprDeletions, exprInsertions;
-      diff = this.VisitExpressionList(indexer1.Operands, indexer2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(indexer1.Operands, indexer2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Operands = exprChanges;
       deletions.Operands = exprDeletions;
@@ -4645,7 +4700,8 @@ namespace System.Compiler{
       if (localDeclarations1.Constant == localDeclarations2.Constant) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       LocalDeclarationList declChanges, declDeletions, declInsertions;
-      Differences diff = this.VisitLocalDeclarationList(localDeclarations1.Declarations, localDeclarations2.Declarations, out declChanges, out declDeletions, out declInsertions);
+      Differences diff =
+ this.VisitLocalDeclarationList(localDeclarations1.Declarations, localDeclarations2.Declarations, out declChanges, out declDeletions, out declInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Declarations = declChanges;
       deletions.Declarations = declDeletions;
@@ -4896,7 +4952,8 @@ namespace System.Compiler{
       Method insertions = (Method)method2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(method1.Attributes, method2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(method1.Attributes, method2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -4933,7 +4990,8 @@ namespace System.Compiler{
       if (method1.IsGeneric == method2.IsGeneric) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(method1.ImplementedTypes, method2.ImplementedTypes, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(method1.ImplementedTypes, method2.ImplementedTypes, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.ImplementedTypes = typeChanges;
       deletions.ImplementedTypes = typeDeletions;
@@ -4953,7 +5011,8 @@ namespace System.Compiler{
       if (method1.NodeType == method2.NodeType) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       ParameterList parChanges, parDeletions, parInsertions;
-      diff = this.VisitParameterList(method1.Parameters, method2.Parameters, out parChanges, out parDeletions, out parInsertions);
+      diff =
+ this.VisitParameterList(method1.Parameters, method2.Parameters, out parChanges, out parDeletions, out parInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Parameters = parChanges;
       deletions.Parameters = parDeletions;
@@ -4967,7 +5026,8 @@ namespace System.Compiler{
         (method1.PInvokeModule != null && method2.PInvokeModule != null && method1.PInvokeModule.Name == method2.PInvokeModule.Name))
         differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
-      diff = this.VisitAttributeList(method1.ReturnAttributes, method2.ReturnAttributes, out attrChanges, out attrDeletions, out attrInsertions);
+      diff =
+ this.VisitAttributeList(method1.ReturnAttributes, method2.ReturnAttributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.ReturnAttributes = attrChanges;
       deletions.ReturnAttributes = attrDeletions;
@@ -4985,7 +5045,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       SecurityAttributeList secChanges, secDeletions, secInsertions;
-      diff = this.VisitSecurityAttributeList(method1.SecurityAttributes, method2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
+      diff =
+ this.VisitSecurityAttributeList(method1.SecurityAttributes, method2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.SecurityAttributes = secChanges;
       deletions.SecurityAttributes = secDeletions;
@@ -5002,7 +5063,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitTypeNodeList(method1.TemplateArguments, method2.TemplateArguments, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(method1.TemplateArguments, method2.TemplateArguments, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateArguments = typeChanges;
       deletions.TemplateArguments = typeDeletions;
@@ -5010,7 +5072,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitTypeNodeList(method1.TemplateParameters, method2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(method1.TemplateParameters, method2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateParameters = typeChanges;
       deletions.TemplateParameters = typeDeletions;
@@ -5131,7 +5194,8 @@ namespace System.Compiler{
       if (call1.IsTailCall == call2.IsTailCall) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       ExpressionList exprChanges, exprDeletions, exprInsertions;
-      diff = this.VisitExpressionList(call1.Operands, call2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
+      diff =
+ this.VisitExpressionList(call1.Operands, call2.Operands, out exprChanges, out exprDeletions, out exprInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Operands = exprChanges;
       deletions.Operands = exprDeletions;
@@ -5164,7 +5228,8 @@ namespace System.Compiler{
       this.NewModule = module2;
 
       AssemblyReferenceList arChanges, arDeletions, arInsertions;
-      Differences diff = this.VisitAssemblyReferenceList(module1.AssemblyReferences, module2.AssemblyReferences, out arChanges, out arDeletions, out arInsertions);
+      Differences diff =
+ this.VisitAssemblyReferenceList(module1.AssemblyReferences, module2.AssemblyReferences, out arChanges, out arDeletions, out arInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.AssemblyReferences = arChanges;
       deletions.AssemblyReferences = arDeletions;
@@ -5173,7 +5238,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      diff = this.VisitAttributeList(module1.Attributes, module2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      diff =
+ this.VisitAttributeList(module1.Attributes, module2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -5185,7 +5251,8 @@ namespace System.Compiler{
       if (module1.Kind == module2.Kind) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       ModuleReferenceList mrChanges, mrDeletions, mrInsertions;
-      diff = this.VisitModuleReferenceList(module1.ModuleReferences, module2.ModuleReferences, out mrChanges, out mrDeletions, out mrInsertions);
+      diff =
+ this.VisitModuleReferenceList(module1.ModuleReferences, module2.ModuleReferences, out mrChanges, out mrDeletions, out mrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.ModuleReferences = mrChanges;
       deletions.ModuleReferences = mrDeletions;
@@ -5197,7 +5264,8 @@ namespace System.Compiler{
       if (module1.PEKind == module2.PEKind) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       SecurityAttributeList secChanges, secDeletions, secInsertions;
-      diff = this.VisitSecurityAttributeList(module1.SecurityAttributes, module2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
+      diff =
+ this.VisitSecurityAttributeList(module1.SecurityAttributes, module2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.SecurityAttributes = secChanges;
       deletions.SecurityAttributes = secDeletions;
@@ -5209,7 +5277,8 @@ namespace System.Compiler{
       if (module1.TrackDebugData == module2.TrackDebugData) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(module1.Types, module2.Types, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(module1.Types, module2.Types, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Types = typeChanges;
       deletions.Types = typeDeletions;
@@ -5338,7 +5407,8 @@ namespace System.Compiler{
       NameBinding insertions = (NameBinding)nameBinding2.Clone();
 
       MemberList memChanges, memDeletions, memInsertions;
-      Differences diff = this.VisitMemberList(nameBinding1.BoundMembers, nameBinding2.BoundMembers, out memChanges, out memDeletions, out memInsertions);
+      Differences diff =
+ this.VisitMemberList(nameBinding1.BoundMembers, nameBinding2.BoundMembers, out memChanges, out memDeletions, out memInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.BoundMembers = memChanges;
       deletions.BoundMembers = memDeletions;
@@ -5418,7 +5488,8 @@ namespace System.Compiler{
       Namespace insertions = (Namespace)nspace2.Clone();
 
       AliasDefinitionList aliasChanges, aliasDeletions, aliasInsertions;
-      Differences diff = this.VisitAliasDefinitionList(nspace1.AliasDefinitions, nspace2.AliasDefinitions, out aliasChanges, out aliasDeletions, out aliasInsertions);
+      Differences diff =
+ this.VisitAliasDefinitionList(nspace1.AliasDefinitions, nspace2.AliasDefinitions, out aliasChanges, out aliasDeletions, out aliasInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.AliasDefinitions = aliasChanges;
       deletions.AliasDefinitions = aliasDeletions;
@@ -5428,7 +5499,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      diff = this.VisitAttributeList(nspace1.Attributes, nspace2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      diff =
+ this.VisitAttributeList(nspace1.Attributes, nspace2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -5446,7 +5518,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       NamespaceList nsChanges, nsDeletions, nsInsertions;
-      diff = this.VisitNamespaceList(nspace1.NestedNamespaces, nspace2.NestedNamespaces, out nsChanges, out nsDeletions, out nsInsertions);
+      diff =
+ this.VisitNamespaceList(nspace1.NestedNamespaces, nspace2.NestedNamespaces, out nsChanges, out nsDeletions, out nsInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.NestedNamespaces = nsChanges;
       deletions.NestedNamespaces = nsDeletions;
@@ -5464,7 +5537,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       UsedNamespaceList usedChanges, usedDeletions, usedInsertions;
-      diff = this.VisitUsedNamespaceList(nspace1.UsedNamespaces, nspace2.UsedNamespaces, out usedChanges, out usedDeletions, out usedInsertions);
+      diff =
+ this.VisitUsedNamespaceList(nspace1.UsedNamespaces, nspace2.UsedNamespaces, out usedChanges, out usedDeletions, out usedInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.UsedNamespaces = usedChanges;
       deletions.UsedNamespaces = usedDeletions;
@@ -5473,7 +5547,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(nspace1.Types, nspace2.Types, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(nspace1.Types, nspace2.Types, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Types = typeChanges;
       deletions.Types = typeDeletions;
@@ -5641,7 +5716,8 @@ namespace System.Compiler{
       Parameter insertions = (Parameter)parameter2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(parameter1.Attributes, parameter2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(parameter1.Attributes, parameter2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -5834,7 +5910,8 @@ namespace System.Compiler{
       Property insertions = (Property)property2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(property1.Attributes, property2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(property1.Attributes, property2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -5854,7 +5931,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(property1.ImplementedTypes, property2.ImplementedTypes, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(property1.ImplementedTypes, property2.ImplementedTypes, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.ImplementedTypes = typeChanges;
       deletions.ImplementedTypes = typeDeletions;
@@ -5872,7 +5950,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       MethodList methChanges, methDeletions, methInsertions;
-      diff = this.VisitMethodList(property1.OtherMethods, property2.OtherMethods, out methChanges, out methDeletions, out methInsertions);
+      diff =
+ this.VisitMethodList(property1.OtherMethods, property2.OtherMethods, out methChanges, out methDeletions, out methInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.OtherMethods = methChanges;
       deletions.OtherMethods = methDeletions;
@@ -5883,7 +5962,8 @@ namespace System.Compiler{
       if (property1.OverridesBaseClassMember == property2.OverridesBaseClassMember) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       ParameterList parChanges, parDeletions, parInsertions;
-      diff = this.VisitParameterList(property1.Parameters, property2.Parameters, out parChanges, out parDeletions, out parInsertions);
+      diff =
+ this.VisitParameterList(property1.Parameters, property2.Parameters, out parChanges, out parDeletions, out parInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Parameters = parChanges;
       deletions.Parameters = parDeletions;
@@ -6071,7 +6151,8 @@ namespace System.Compiler{
       if (attribute1.Action == attribute2.Action) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(attribute1.PermissionAttributes, attribute2.PermissionAttributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(attribute1.PermissionAttributes, attribute2.PermissionAttributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.PermissionAttributes = attrChanges;
       deletions.PermissionAttributes = attrDeletions;
@@ -6276,7 +6357,8 @@ namespace System.Compiler{
       Switch insertions = (Switch)switch2.Clone();
       
       SwitchCaseList caseChanges, caseDeletions, caseInsertions;
-      Differences diff = this.VisitSwitchCaseList(switch1.Cases, switch2.Cases, out caseChanges, out caseDeletions, out caseInsertions);
+      Differences diff =
+ this.VisitSwitchCaseList(switch1.Cases, switch2.Cases, out caseChanges, out caseDeletions, out caseInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Cases = caseChanges;
       deletions.Cases = caseDeletions;
@@ -6425,7 +6507,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       BlockList blockChanges, blockDeletions, blockInsertions;
-      diff = this.VisitBlockList(switchInstruction1.Targets, switchInstruction2.Targets, out blockChanges, out blockDeletions, out blockInsertions);
+      diff =
+ this.VisitBlockList(switchInstruction1.Targets, switchInstruction2.Targets, out blockChanges, out blockDeletions, out blockInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Targets = blockChanges;
       deletions.Targets = blockDeletions;
@@ -6455,7 +6538,8 @@ namespace System.Compiler{
       Typeswitch insertions = (Typeswitch)typeswitch2.Clone();
 
       TypeswitchCaseList caseChanges, caseDeletions, caseInsertions;
-      Differences diff = this.VisitTypeswitchCaseList(typeswitch1.Cases, typeswitch2.Cases, out caseChanges, out caseDeletions, out caseInsertions);
+      Differences diff =
+ this.VisitTypeswitchCaseList(typeswitch1.Cases, typeswitch2.Cases, out caseChanges, out caseDeletions, out caseInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Cases = caseChanges;
       deletions.Cases = caseDeletions;
@@ -6694,7 +6778,8 @@ namespace System.Compiler{
       Try insertions = (Try)try2.Clone();
 
       CatchList catchChanges, catchDeletions, catchInsertions;
-      Differences diff = this.VisitCatchList(try1.Catchers, try2.Catchers, out catchChanges, out catchDeletions, out catchInsertions);
+      Differences diff =
+ this.VisitCatchList(try1.Catchers, try2.Catchers, out catchChanges, out catchDeletions, out catchInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Catchers = catchChanges;
       deletions.Catchers = catchDeletions;
@@ -6703,7 +6788,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       FaultHandlerList faultChanges, faultDeletions, faultInsertions;
-      diff = this.VisitFaultHandlerList(try1.FaultHandlers, try2.FaultHandlers, out faultChanges, out faultDeletions, out faultInsertions);
+      diff =
+ this.VisitFaultHandlerList(try1.FaultHandlers, try2.FaultHandlers, out faultChanges, out faultDeletions, out faultInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.FaultHandlers = faultChanges;
       deletions.FaultHandlers = faultDeletions;
@@ -6712,7 +6798,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       FilterList filterChanges, filterDeletions, filterInsertions;
-      diff = this.VisitFilterList(try1.Filters, try2.Filters, out filterChanges, out filterDeletions, out filterInsertions);
+      diff =
+ this.VisitFilterList(try1.Filters, try2.Filters, out filterChanges, out filterDeletions, out filterInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Filters = filterChanges;
       deletions.Filters = filterDeletions;
@@ -6775,7 +6862,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      diff = this.VisitAttributeList(tAlias1.Attributes, tAlias2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      diff =
+ this.VisitAttributeList(tAlias1.Attributes, tAlias2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -6795,7 +6883,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(tAlias1.TemplateParameters, tAlias2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(tAlias1.TemplateParameters, tAlias2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateParameters = typeChanges;
       deletions.TemplateParameters = typeDeletions;
@@ -6816,7 +6905,8 @@ namespace System.Compiler{
     }
     public virtual Differences VisitTypeIntersection(TypeIntersection typeIntersection1, TypeIntersection typeIntersection2){
       Differences differences = this.GetMemberDifferences(typeIntersection1, typeIntersection2);
-      if (differences == null){Debug.Assert(false); differences = new Differences(typeIntersection1, typeIntersection2);}
+      if (differences == null){Debug.Assert(false); differences =
+ new Differences(typeIntersection1, typeIntersection2);}
       if (differences.NumberOfDifferences > 0 || differences.NumberOfSimilarities > 0) return differences;
       if (typeIntersection1 == null || typeIntersection2 == null){
         if (typeIntersection1 != typeIntersection2) differences.NumberOfDifferences++; else differences.NumberOfSimilarities++;
@@ -6827,7 +6917,8 @@ namespace System.Compiler{
       TypeIntersection insertions = (TypeIntersection)typeIntersection2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(typeIntersection1.Attributes, typeIntersection2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(typeIntersection1.Attributes, typeIntersection2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -6847,7 +6938,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(typeIntersection1.TemplateParameters, typeIntersection2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(typeIntersection1.TemplateParameters, typeIntersection2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateParameters = typeChanges;
       deletions.TemplateParameters = typeDeletions;
@@ -6855,7 +6947,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitTypeNodeList(typeIntersection1.Types, typeIntersection2.Types, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(typeIntersection1.Types, typeIntersection2.Types, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Types = typeChanges;
       deletions.Types = typeDeletions;
@@ -6965,7 +7058,8 @@ namespace System.Compiler{
       }
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(typeNode1.Attributes, typeNode2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(typeNode1.Attributes, typeNode2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -6994,7 +7088,8 @@ namespace System.Compiler{
       if (typeNode1.HidesBaseClassMember == typeNode2.HidesBaseClassMember) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       InterfaceList ifaceChanges, ifaceDeletions, ifaceInsertions;
-      diff = this.VisitInterfaceReferenceList(typeNode1.Interfaces, typeNode2.Interfaces, out ifaceChanges, out ifaceDeletions, out ifaceInsertions);
+      diff =
+ this.VisitInterfaceReferenceList(typeNode1.Interfaces, typeNode2.Interfaces, out ifaceChanges, out ifaceDeletions, out ifaceInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Interfaces = ifaceChanges;
       deletions.Interfaces = ifaceDeletions;
@@ -7005,7 +7100,8 @@ namespace System.Compiler{
       if (typeNode1.IsGeneric == typeNode2.IsGeneric) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       MemberList memChanges, memDeletions, memInsertions;
-      diff = this.VisitMemberList(typeNode1.Members, typeNode2.Members, out memChanges, out memDeletions, out memInsertions);
+      diff =
+ this.VisitMemberList(typeNode1.Members, typeNode2.Members, out memChanges, out memDeletions, out memInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Members = memChanges;
       deletions.Members = memDeletions;
@@ -7035,7 +7131,8 @@ namespace System.Compiler{
       if (typeNode1.PackingSize == typeNode2.PackingSize) differences.NumberOfSimilarities++; else differences.NumberOfDifferences++;
 
       SecurityAttributeList secChanges, secDeletions, secInsertions;
-      diff = this.VisitSecurityAttributeList(typeNode1.SecurityAttributes, typeNode2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
+      diff =
+ this.VisitSecurityAttributeList(typeNode1.SecurityAttributes, typeNode2.SecurityAttributes, out secChanges, out secDeletions, out secInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.SecurityAttributes = secChanges;
       deletions.SecurityAttributes = secDeletions;
@@ -7053,7 +7150,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(typeNode1.TemplateArguments, typeNode2.TemplateArguments, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(typeNode1.TemplateArguments, typeNode2.TemplateArguments, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateArguments = typeChanges;
       deletions.TemplateArguments = typeDeletions;
@@ -7061,7 +7159,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitTypeNodeList(typeNode1.TemplateParameters, typeNode2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(typeNode1.TemplateParameters, typeNode2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateParameters = typeChanges;
       deletions.TemplateParameters = typeDeletions;
@@ -7185,7 +7284,8 @@ namespace System.Compiler{
       TypeUnion insertions = (TypeUnion)typeUnion2.Clone();
 
       AttributeList attrChanges, attrDeletions, attrInsertions;
-      Differences diff = this.VisitAttributeList(typeUnion1.Attributes, typeUnion2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
+      Differences diff =
+ this.VisitAttributeList(typeUnion1.Attributes, typeUnion2.Attributes, out attrChanges, out attrDeletions, out attrInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Attributes = attrChanges;
       deletions.Attributes = attrDeletions;
@@ -7205,7 +7305,8 @@ namespace System.Compiler{
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
       TypeNodeList typeChanges, typeDeletions, typeInsertions;
-      diff = this.VisitTypeNodeList(typeUnion1.TemplateParameters, typeUnion2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(typeUnion1.TemplateParameters, typeUnion2.TemplateParameters, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.TemplateParameters = typeChanges;
       deletions.TemplateParameters = typeDeletions;
@@ -7213,7 +7314,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitTypeNodeList(typeUnion1.Types, typeUnion2.Types, out typeChanges, out typeDeletions, out typeInsertions);
+      diff =
+ this.VisitTypeNodeList(typeUnion1.Types, typeUnion2.Types, out typeChanges, out typeDeletions, out typeInsertions);
       if (diff == null){Debug.Assert(false); return differences;}
       changes.Types = typeChanges;
       deletions.Types = typeDeletions;
@@ -7441,7 +7543,8 @@ namespace System.Compiler{
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;
 
-      diff = this.VisitExpressionList(while1.Invariants, while2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
+      diff =
+ this.VisitExpressionList(while1.Invariants, while2.Invariants, out changes.Invariants, out deletions.Invariants, out insertions.Invariants);
       if (diff == null){Debug.Assert(false); return differences;}
       differences.NumberOfDifferences += diff.NumberOfDifferences;
       differences.NumberOfSimilarities += diff.NumberOfSimilarities;

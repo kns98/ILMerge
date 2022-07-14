@@ -2,31 +2,32 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information. 
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Compiler.Metadata;
+using System.IO;
 using Microsoft.Cci.Pdb;
-using System.Diagnostics;
 
 namespace System.Compiler
 {
-  internal class PdbInfo
-  {
-    private unsafe Metadata.Reader reader;
-    string sourceServerData;
-    Dictionary<uint, PdbTokenLine> tokenToSourceMapping;
-    //private uint[] remapTable;
-    private Dictionary<uint, PdbFunction> pdbFunctionMap;
-
-
-    public unsafe PdbInfo(IO.FileStream inputStream, Metadata.Reader reader)
+    internal class PdbInfo
     {
-      this.reader = reader;
-      this.pdbFunctionMap = PdbFile.LoadFunctionMap(inputStream, out tokenToSourceMapping, out sourceServerData, reader);
-      //inputStream.Seek(0L, IO.SeekOrigin.Begin);
-      //this.remapTable = PdbFile.LoadRemapTable(inputStream);
-    }
+        private Reader reader;
+        private readonly string sourceServerData;
+
+        private readonly Dictionary<uint, PdbTokenLine> tokenToSourceMapping;
+
+        //private uint[] remapTable;
+        private readonly Dictionary<uint, PdbFunction> pdbFunctionMap;
+
+
+        public PdbInfo(FileStream inputStream, Reader reader)
+        {
+            this.reader = reader;
+            pdbFunctionMap =
+                PdbFile.LoadFunctionMap(inputStream, out tokenToSourceMapping, out sourceServerData, reader);
+            //inputStream.Seek(0L, IO.SeekOrigin.Begin);
+            //this.remapTable = PdbFile.LoadRemapTable(inputStream);
+        }
 
 #if false
     public Method GetMethodFromPdbToken(uint token)
@@ -40,11 +41,11 @@ namespace System.Compiler
     }
 #endif
 
-    public PdbFunction GetMethodInfo(uint token)
-    {
-      PdbFunction result;
-      this.pdbFunctionMap.TryGetValue(token, out result);
-      return result;
+        public PdbFunction GetMethodInfo(uint token)
+        {
+            PdbFunction result;
+            pdbFunctionMap.TryGetValue(token, out result);
+            return result;
+        }
     }
-  }
 }

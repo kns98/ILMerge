@@ -531,12 +531,14 @@ namespace System.Compiler{
       if (aliasDefinition2 == null)
         aliasDefinition1.AliasedType = this.VisitTypeReference(aliasDefinition1.AliasedType, null);
       else
-        aliasDefinition1.AliasedType = this.VisitTypeReference(aliasDefinition1.AliasedType, aliasDefinition2.AliasedType);
+        aliasDefinition1.AliasedType =
+ this.VisitTypeReference(aliasDefinition1.AliasedType, aliasDefinition2.AliasedType);
       return aliasDefinition1;
     }
     public virtual AliasDefinitionList VisitAliasDefinitionList(AliasDefinitionList aliasDefinitions1, AliasDefinitionList aliasDefinitions2){
       if (aliasDefinitions1 == null) return null;
-      for (int i = 0, n = aliasDefinitions1.Count, m = aliasDefinitions2 == null ? 0 : aliasDefinitions2.Count; i < n; i++) {
+      for (int i = 0, n = aliasDefinitions1.Count, m =
+ aliasDefinitions2 == null ? 0 : aliasDefinitions2.Count; i < n; i++) {
         //^ assert aliasDefinitions2 != null;
         if (i >= m)
           aliasDefinitions1[i] = this.VisitAliasDefinition(aliasDefinitions1[i], null);
@@ -579,7 +581,8 @@ namespace System.Compiler{
         assembly1.SecurityAttributes = this.VisitSecurityAttributeList(assembly1.SecurityAttributes, null);
       }else{
         assembly1.ModuleAttributes = this.VisitAttributeList(assembly1.ModuleAttributes, assembly2.ModuleAttributes);
-        assembly1.SecurityAttributes = this.VisitSecurityAttributeList(assembly1.SecurityAttributes, assembly2.SecurityAttributes);
+        assembly1.SecurityAttributes =
+ this.VisitSecurityAttributeList(assembly1.SecurityAttributes, assembly2.SecurityAttributes);
       }
       return assembly1;
     }
@@ -607,7 +610,8 @@ namespace System.Compiler{
       if (assignment2 == null)
         assignment1.AssignmentStatement = (Statement)this.Visit(assignment1.AssignmentStatement, null);
       else
-        assignment1.AssignmentStatement = (Statement)this.Visit(assignment1.AssignmentStatement, assignment2.AssignmentStatement);
+        assignment1.AssignmentStatement =
+ (Statement)this.Visit(assignment1.AssignmentStatement, assignment2.AssignmentStatement);
       return assignment1;
     }
     public virtual Statement VisitAssignmentStatement(AssignmentStatement assignment1, AssignmentStatement assignment2){
@@ -760,7 +764,8 @@ namespace System.Compiler{
         else
           assem1.ModuleAttributes = this.VisitAttributeList(assem1.ModuleAttributes, assem2.ModuleAttributes);
       }
-      compilation1.CompilationUnits = this.VisitCompilationUnitList(compilation1.CompilationUnits, compilation2 == null ? null : compilation2.CompilationUnits);
+      compilation1.CompilationUnits =
+ this.VisitCompilationUnitList(compilation1.CompilationUnits, compilation2 == null ? null : compilation2.CompilationUnits);
       return null;
     }
     public virtual CompilationUnit VisitCompilationUnit(CompilationUnit cUnit1, CompilationUnit cUnit2){
@@ -1039,7 +1044,8 @@ namespace System.Compiler{
         field1.Attributes = this.VisitAttributeList(field1.Attributes, field2.Attributes);
         field1.Type = this.VisitTypeReference(field1.Type, field2.Type);
         field1.Initializer = this.VisitExpression(field1.Initializer, field2.Initializer);
-        field1.ImplementedInterfaces = this.VisitInterfaceReferenceList(field1.ImplementedInterfaces, field2.ImplementedInterfaces);
+        field1.ImplementedInterfaces =
+ this.VisitInterfaceReferenceList(field1.ImplementedInterfaces, field2.ImplementedInterfaces);
       }
       return field1;
     }
@@ -1146,8 +1152,10 @@ namespace System.Compiler{
         functionDeclaration1.ReturnType = this.VisitTypeReference(functionDeclaration1.ReturnType, null);
         functionDeclaration1.Body = this.VisitBlock(functionDeclaration1.Body, null);
       }else{
-        functionDeclaration1.Parameters = this.VisitParameterList(functionDeclaration1.Parameters, functionDeclaration2.Parameters);
-        functionDeclaration1.ReturnType = this.VisitTypeReference(functionDeclaration1.ReturnType, functionDeclaration2.ReturnType);
+        functionDeclaration1.Parameters =
+ this.VisitParameterList(functionDeclaration1.Parameters, functionDeclaration2.Parameters);
+        functionDeclaration1.ReturnType =
+ this.VisitTypeReference(functionDeclaration1.ReturnType, functionDeclaration2.ReturnType);
         functionDeclaration1.Body = this.VisitBlock(functionDeclaration1.Body, functionDeclaration2.Body);
       }
       return functionDeclaration1;
@@ -1159,7 +1167,8 @@ namespace System.Compiler{
         genericInstance1.TypeArguments = this.VisitTypeReferenceList(genericInstance1.TypeArguments, null);
       }else{
         genericInstance1.Expression = this.VisitExpression(genericInstance1.Expression, genericInstance2.Expression);
-        genericInstance1.TypeArguments = this.VisitTypeReferenceList(genericInstance1.TypeArguments, genericInstance2.TypeArguments);
+        genericInstance1.TypeArguments =
+ this.VisitTypeReferenceList(genericInstance1.TypeArguments, genericInstance2.TypeArguments);
       }
       return genericInstance1;
     }
@@ -1224,7 +1233,8 @@ namespace System.Compiler{
     }
     public virtual InterfaceList VisitInterfaceReferenceList(InterfaceList interfaceReferences1, InterfaceList interfaceReferences2){
       if (interfaceReferences1 == null) return null;
-      for (int i = 0, n = interfaceReferences1.Count, m = interfaceReferences2 == null ? 0 : interfaceReferences2.Count; i < n; i++){
+      for (int i = 0, n = interfaceReferences1.Count, m =
+ interfaceReferences2 == null ? 0 : interfaceReferences2.Count; i < n; i++){
         //^ assert interfaceReferences2 != null;
         if (i >= m)
           interfaceReferences1[i] = this.VisitInterfaceReference(interfaceReferences1[i], null);
@@ -1282,12 +1292,14 @@ namespace System.Compiler{
       if (localDeclaration2 == null)
         localDeclaration1.InitialValue = this.VisitExpression(localDeclaration1.InitialValue, null);
       else
-        localDeclaration1.InitialValue = this.VisitExpression(localDeclaration1.InitialValue, localDeclaration2.InitialValue);
+        localDeclaration1.InitialValue =
+ this.VisitExpression(localDeclaration1.InitialValue, localDeclaration2.InitialValue);
       return localDeclaration1;
     }
     public virtual LocalDeclarationList VisitLocalDeclarationList(LocalDeclarationList localDeclarations1, LocalDeclarationList localDeclarations2){
       if (localDeclarations1 == null) return null;
-      for (int i = 0, n = localDeclarations1.Count, m = localDeclarations2 == null ? 0 : localDeclarations2.Count; i < n; i++){
+      for (int i = 0, n = localDeclarations1.Count, m =
+ localDeclarations2 == null ? 0 : localDeclarations2.Count; i < n; i++){
         //^ assert localDeclarations2 != null;
         if (i >= m)
           localDeclarations1[i] = this.VisitLocalDeclaration(localDeclarations1[i], null);
@@ -1303,7 +1315,8 @@ namespace System.Compiler{
         localDeclarations1.Declarations = this.VisitLocalDeclarationList(localDeclarations1.Declarations, null);
       }else{
         localDeclarations1.Type = this.VisitTypeReference(localDeclarations1.Type, localDeclarations2.Type);
-        localDeclarations1.Declarations = this.VisitLocalDeclarationList(localDeclarations1.Declarations, localDeclarations2.Declarations);
+        localDeclarations1.Declarations =
+ this.VisitLocalDeclarationList(localDeclarations1.Declarations, localDeclarations2.Declarations);
       }
       return localDeclarations1;
     }
@@ -1358,7 +1371,8 @@ namespace System.Compiler{
       }else{
         method1.Attributes = this.VisitAttributeList(method1.Attributes, method2.Attributes);
         method1.ReturnAttributes = this.VisitAttributeList(method1.ReturnAttributes, method2.ReturnAttributes);
-        method1.SecurityAttributes = this.VisitSecurityAttributeList(method1.SecurityAttributes, method2.SecurityAttributes);
+        method1.SecurityAttributes =
+ this.VisitSecurityAttributeList(method1.SecurityAttributes, method2.SecurityAttributes);
         method1.ReturnType = this.VisitTypeReference(method1.ReturnType, method2.ReturnType);
         method1.ImplementedTypes = this.VisitTypeReferenceList(method1.ImplementedTypes, method2.ImplementedTypes);
         method1.Parameters = this.VisitParameterList(method1.Parameters, method2.Parameters);
@@ -1560,7 +1574,8 @@ namespace System.Compiler{
       if (quantifier2 == null){
         quantifier1.Comprehension = (Comprehension)this.VisitComprehension(quantifier1.Comprehension,null);
       }else{
-        quantifier1.Comprehension = (Comprehension)this.VisitComprehension(quantifier1.Comprehension,quantifier2.Comprehension);
+        quantifier1.Comprehension =
+ (Comprehension)this.VisitComprehension(quantifier1.Comprehension,quantifier2.Comprehension);
       }
       return quantifier1;
     }
@@ -1570,7 +1585,8 @@ namespace System.Compiler{
         comprehension1.BindingsAndFilters = this.VisitExpressionList(comprehension1.BindingsAndFilters, null);
         comprehension1.Elements = this.VisitExpressionList(comprehension1.Elements,null);
       }else{
-        comprehension1.BindingsAndFilters = this.VisitExpressionList(comprehension1.BindingsAndFilters, comprehension2.BindingsAndFilters);
+        comprehension1.BindingsAndFilters =
+ this.VisitExpressionList(comprehension1.BindingsAndFilters, comprehension2.BindingsAndFilters);
         comprehension1.Elements = this.VisitExpressionList(comprehension1.Elements,comprehension2.Elements);
       }
       return comprehension1;
@@ -1578,13 +1594,17 @@ namespace System.Compiler{
     public virtual ComprehensionBinding VisitComprehensionBinding(ComprehensionBinding comprehensionBinding1, ComprehensionBinding comprehensionBinding2){
       if (comprehensionBinding1 == null) return null;
       if (comprehensionBinding2 == null){
-        comprehensionBinding1.TargetVariableType = this.VisitTypeReference(comprehensionBinding1.TargetVariableType, null);
+        comprehensionBinding1.TargetVariableType =
+ this.VisitTypeReference(comprehensionBinding1.TargetVariableType, null);
         comprehensionBinding1.TargetVariable = this.VisitTargetExpression(comprehensionBinding1.TargetVariable, null);
         comprehensionBinding1.SourceEnumerable = this.VisitExpression(comprehensionBinding1.SourceEnumerable, null);
       }else{
-        comprehensionBinding1.TargetVariableType = this.VisitTypeReference(comprehensionBinding1.TargetVariableType, comprehensionBinding2.TargetVariableType);
-        comprehensionBinding1.TargetVariable = this.VisitTargetExpression(comprehensionBinding1.TargetVariable, comprehensionBinding2.TargetVariable);
-        comprehensionBinding1.SourceEnumerable = this.VisitExpression(comprehensionBinding1.SourceEnumerable, comprehensionBinding2.SourceEnumerable);
+        comprehensionBinding1.TargetVariableType =
+ this.VisitTypeReference(comprehensionBinding1.TargetVariableType, comprehensionBinding2.TargetVariableType);
+        comprehensionBinding1.TargetVariable =
+ this.VisitTargetExpression(comprehensionBinding1.TargetVariable, comprehensionBinding2.TargetVariable);
+        comprehensionBinding1.SourceEnumerable =
+ this.VisitExpression(comprehensionBinding1.SourceEnumerable, comprehensionBinding2.SourceEnumerable);
       }
       return comprehensionBinding1;
     }
@@ -1593,7 +1613,8 @@ namespace System.Compiler{
       if (qualifiedIdentifier2 == null)
         qualifiedIdentifier1.Qualifier = this.VisitExpression(qualifiedIdentifier1.Qualifier, null);
       else
-        qualifiedIdentifier1.Qualifier = this.VisitExpression(qualifiedIdentifier1.Qualifier, qualifiedIdentifier2.Qualifier);
+        qualifiedIdentifier1.Qualifier =
+ this.VisitExpression(qualifiedIdentifier1.Qualifier, qualifiedIdentifier2.Qualifier);
       return qualifiedIdentifier1;
     }
     public virtual Statement VisitRepeat(Repeat repeat1, Repeat repeat2){
@@ -1626,7 +1647,8 @@ namespace System.Compiler{
         resourceUse1.ResourceAcquisition = (Statement)this.Visit(resourceUse1.ResourceAcquisition, null);
         resourceUse1.Body = this.VisitBlock(resourceUse1.Body, null);
       }else{
-        resourceUse1.ResourceAcquisition = (Statement)this.Visit(resourceUse1.ResourceAcquisition, resourceUse2.ResourceAcquisition);
+        resourceUse1.ResourceAcquisition =
+ (Statement)this.Visit(resourceUse1.ResourceAcquisition, resourceUse2.ResourceAcquisition);
         resourceUse1.Body = this.VisitBlock(resourceUse1.Body, resourceUse2.Body);
       }
       return resourceUse1;
@@ -1714,7 +1736,8 @@ namespace System.Compiler{
       if (switchInstruction2 == null)
         switchInstruction1.Expression = this.VisitExpression(switchInstruction1.Expression, null);
       else
-        switchInstruction1.Expression = this.VisitExpression(switchInstruction1.Expression, switchInstruction2.Expression);
+        switchInstruction1.Expression =
+ this.VisitExpression(switchInstruction1.Expression, switchInstruction2.Expression);
       return switchInstruction1;
     }
     public virtual Statement VisitTypeswitch(Typeswitch Typeswitch1, Typeswitch Typeswitch2){
@@ -1736,14 +1759,16 @@ namespace System.Compiler{
         typeswitchCase1.Body = this.VisitBlock(typeswitchCase1.Body, null);
       }else{
         typeswitchCase1.LabelType = this.VisitTypeReference(typeswitchCase1.LabelType, typeswitchCase2.LabelType);
-        typeswitchCase1.LabelVariable = this.VisitTargetExpression(typeswitchCase1.LabelVariable, typeswitchCase2.LabelVariable);
+        typeswitchCase1.LabelVariable =
+ this.VisitTargetExpression(typeswitchCase1.LabelVariable, typeswitchCase2.LabelVariable);
         typeswitchCase1.Body = this.VisitBlock(typeswitchCase1.Body, typeswitchCase2.Body);
       }
       return typeswitchCase1;
     }
     public virtual TypeswitchCaseList VisitTypeswitchCaseList(TypeswitchCaseList typeswitchCases1, TypeswitchCaseList typeswitchCases2){
       if (typeswitchCases1 == null) return null;
-      for (int i = 0, n = typeswitchCases1.Count, m = typeswitchCases2 == null ? 0 : typeswitchCases2.Count; i < n; i++){
+      for (int i = 0, n = typeswitchCases1.Count, m =
+ typeswitchCases2 == null ? 0 : typeswitchCases2.Count; i < n; i++){
         //^ assert typeswitchCases2 != null;
         if (i >= m)
           typeswitchCases1[i] = this.VisitTypeswitchCase(typeswitchCases1[i], null);
@@ -1816,7 +1841,8 @@ namespace System.Compiler{
       }else{
         if (tAlias1.AliasedType is ConstrainedType)
           //The type alias defines the constrained type, rather than just referencing it
-          tAlias1.AliasedType = this.VisitConstrainedType((ConstrainedType)tAlias1.AliasedType, tAlias2.AliasedType as ConstrainedType);
+          tAlias1.AliasedType =
+ this.VisitConstrainedType((ConstrainedType)tAlias1.AliasedType, tAlias2.AliasedType as ConstrainedType);
         else
           tAlias1.AliasedType = this.VisitTypeReference(tAlias1.AliasedType, tAlias2.AliasedType);
       }
@@ -1866,13 +1892,16 @@ namespace System.Compiler{
         typeNode1.Members = this.VisitMemberList(typeNode1.Members, null);
       }else{
         typeNode1.Attributes = this.VisitAttributeList(typeNode1.Attributes, typeNode2.Attributes);
-        typeNode1.SecurityAttributes = this.VisitSecurityAttributeList(typeNode1.SecurityAttributes, typeNode2.SecurityAttributes);
+        typeNode1.SecurityAttributes =
+ this.VisitSecurityAttributeList(typeNode1.SecurityAttributes, typeNode2.SecurityAttributes);
         Class c1 = typeNode1 as Class;
         Class c2 = typeNode2 as Class;
         if (c1 != null) c1.BaseClass = (Class)this.VisitTypeReference(c1.BaseClass, c2 == null ? null : c2.BaseClass);
         typeNode1.Interfaces = this.VisitInterfaceReferenceList(typeNode1.Interfaces, typeNode2.Interfaces);
-        typeNode1.TemplateArguments = this.VisitTypeReferenceList(typeNode1.TemplateArguments, typeNode2.TemplateArguments);
-        typeNode1.TemplateParameters = this.VisitTypeParameterList(typeNode1.TemplateParameters, typeNode2.TemplateParameters);
+        typeNode1.TemplateArguments =
+ this.VisitTypeReferenceList(typeNode1.TemplateArguments, typeNode2.TemplateArguments);
+        typeNode1.TemplateParameters =
+ this.VisitTypeParameterList(typeNode1.TemplateParameters, typeNode2.TemplateParameters);
         typeNode1.Members = this.VisitMemberList(typeNode1.Members, typeNode2.Members);
       }
       return typeNode1;
@@ -1897,7 +1926,8 @@ namespace System.Compiler{
       if (typeParameter2 == null)
         typeParameter1.Interfaces = this.VisitInterfaceReferenceList(typeParameter1.Interfaces, null);
       else
-        typeParameter1.Interfaces = this.VisitInterfaceReferenceList(typeParameter1.Interfaces, typeParameter2.Interfaces);
+        typeParameter1.Interfaces =
+ this.VisitInterfaceReferenceList(typeParameter1.Interfaces, typeParameter2.Interfaces);
       return typeParameter1;
     }
     public virtual TypeNodeList VisitTypeParameterList(TypeNodeList typeParameters1, TypeNodeList typeParameters2){
@@ -1956,7 +1986,8 @@ namespace System.Compiler{
         variableDeclaration1.Initializer = this.VisitExpression(variableDeclaration1.Initializer, null);
       }else{
         variableDeclaration1.Type = this.VisitTypeReference(variableDeclaration1.Type, variableDeclaration2.Type);
-        variableDeclaration1.Initializer = this.VisitExpression(variableDeclaration1.Initializer, variableDeclaration2.Initializer);
+        variableDeclaration1.Initializer =
+ this.VisitExpression(variableDeclaration1.Initializer, variableDeclaration2.Initializer);
       }
       return variableDeclaration1;
     }

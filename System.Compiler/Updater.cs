@@ -532,7 +532,8 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           aliasDefinition.Alias = changes.Alias;
-          aliasDefinition.AliasedType = this.VisitTypeReference(aliasDefinition.AliasedType, changes.AliasedType, deletions.AliasedType, insertions.AliasedType);
+          aliasDefinition.AliasedType =
+ this.VisitTypeReference(aliasDefinition.AliasedType, changes.AliasedType, deletions.AliasedType, insertions.AliasedType);
           aliasDefinition.AliasedExpression = changes.AliasedExpression;
           aliasDefinition.AliasedUri = changes.AliasedUri;
         }
@@ -562,7 +563,8 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           func.Body = this.VisitBlock(func.Body, changes.Body, deletions.Body, insertions.Body);
-          func.Parameters = this.VisitParameterList(func.Parameters, changes.Parameters, deletions.Parameters, insertions.Parameters);
+          func.Parameters =
+ this.VisitParameterList(func.Parameters, changes.Parameters, deletions.Parameters, insertions.Parameters);
         }
       }else if (deletions != null)
         return null;
@@ -575,8 +577,10 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          applyToAll.Operand1 = this.VisitExpression(applyToAll.Operand1, changes.Operand1, deletions.Operand1, insertions.Operand1);
-          applyToAll.Operand2 = this.VisitExpression(applyToAll.Operand2, changes.Operand2, deletions.Operand2, insertions.Operand2);
+          applyToAll.Operand1 =
+ this.VisitExpression(applyToAll.Operand1, changes.Operand1, deletions.Operand1, insertions.Operand1);
+          applyToAll.Operand2 =
+ this.VisitExpression(applyToAll.Operand2, changes.Operand2, deletions.Operand2, insertions.Operand2);
         }
       }else if (deletions != null)
         return null;
@@ -589,16 +593,22 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          assembly.AssemblyReferences = this.VisitAssemblyReferenceList(assembly.AssemblyReferences, changes.AssemblyReferences, deletions.AssemblyReferences, insertions.AssemblyReferences);
-          assembly.Attributes = this.VisitAttributeList(assembly.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
+          assembly.AssemblyReferences =
+ this.VisitAssemblyReferenceList(assembly.AssemblyReferences, changes.AssemblyReferences, deletions.AssemblyReferences, insertions.AssemblyReferences);
+          assembly.Attributes =
+ this.VisitAttributeList(assembly.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
           assembly.Culture = changes.Culture;
-          assembly.ExportedTypes = this.VisitTypeReferenceList(assembly.ExportedTypes, changes.ExportedTypes, deletions.ExportedTypes, insertions.ExportedTypes);
+          assembly.ExportedTypes =
+ this.VisitTypeReferenceList(assembly.ExportedTypes, changes.ExportedTypes, deletions.ExportedTypes, insertions.ExportedTypes);
           assembly.Flags = changes.Flags;
           assembly.Kind = changes.Kind;
-          assembly.ModuleAttributes = this.VisitAttributeList(assembly.ModuleAttributes, changes.ModuleAttributes, deletions.ModuleAttributes, insertions.ModuleAttributes);
-          assembly.ModuleReferences = this.VisitModuleReferenceList(assembly.ModuleReferences, changes.ModuleReferences, deletions.ModuleReferences, insertions.ModuleReferences);
+          assembly.ModuleAttributes =
+ this.VisitAttributeList(assembly.ModuleAttributes, changes.ModuleAttributes, deletions.ModuleAttributes, insertions.ModuleAttributes);
+          assembly.ModuleReferences =
+ this.VisitModuleReferenceList(assembly.ModuleReferences, changes.ModuleReferences, deletions.ModuleReferences, insertions.ModuleReferences);
           assembly.Name = changes.Name;
-          assembly.SecurityAttributes = this.VisitSecurityAttributeList(assembly.SecurityAttributes, changes.SecurityAttributes, deletions.SecurityAttributes, insertions.SecurityAttributes);
+          assembly.SecurityAttributes =
+ this.VisitSecurityAttributeList(assembly.SecurityAttributes, changes.SecurityAttributes, deletions.SecurityAttributes, insertions.SecurityAttributes);
           assembly.Types = this.VisitTypeNodeList(assembly.Types, changes.Types, deletions.Types, insertions.Types);
           assembly.Version = changes.Version;
         }
@@ -631,7 +641,8 @@ namespace System.Compiler{
       if (n > insertions.Count){Debug.Assert(false); n = insertions.Count;}
       if (assemblyReferences != null)
         for (int i = 0; i < n; i++)
-          assemblyReferences[i] = this.VisitAssemblyReference(assemblyReferences[i], changes[i], deletions[i], insertions[i]);
+          assemblyReferences[i] =
+ this.VisitAssemblyReference(assemblyReferences[i], changes[i], deletions[i], insertions[i]);
       AssemblyReferenceList result = new AssemblyReferenceList(insertions.Count-n);
       for (int i = n, m = insertions.Count; i < m; i++)
         result.Add(insertions[i]);
@@ -644,7 +655,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          assertion.Condition = this.VisitExpression(assertion.Condition, changes.Condition, deletions.Condition, insertions.Condition);
+          assertion.Condition =
+ this.VisitExpression(assertion.Condition, changes.Condition, deletions.Condition, insertions.Condition);
         }
       }else if (deletions != null)
         return null;
@@ -657,7 +669,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          assignment.AssignmentStatement = this.VisitAssignmentStatement(assignment.AssignmentStatement as AssignmentStatement, changes.AssignmentStatement as AssignmentStatement, deletions.AssignmentStatement as AssignmentStatement, insertions.AssignmentStatement as AssignmentStatement);
+          assignment.AssignmentStatement =
+ this.VisitAssignmentStatement(assignment.AssignmentStatement as AssignmentStatement, changes.AssignmentStatement as AssignmentStatement, deletions.AssignmentStatement as AssignmentStatement, insertions.AssignmentStatement as AssignmentStatement);
         }
       }else if (deletions != null)
         return null;
@@ -671,8 +684,10 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           assignment.Operator = changes.Operator;
-          assignment.Source = this.VisitExpression(assignment.Source, changes.Source, deletions.Source, insertions.Source);
-          assignment.Target = this.VisitExpression(assignment.Target, changes.Target, deletions.Target, insertions.Target);
+          assignment.Source =
+ this.VisitExpression(assignment.Source, changes.Source, deletions.Source, insertions.Source);
+          assignment.Target =
+ this.VisitExpression(assignment.Target, changes.Target, deletions.Target, insertions.Target);
         }
       }else if (deletions != null)
         return null;
@@ -686,8 +701,10 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           attribute.AllowMultiple = changes.AllowMultiple;
-          attribute.Constructor = this.VisitExpression(attribute.Constructor, changes.Constructor, deletions.Constructor, insertions.Constructor);
-          attribute.Expressions = this.VisitExpressionList(attribute.Expressions, changes.Expressions, deletions.Expressions, insertions.Expressions);
+          attribute.Constructor =
+ this.VisitExpression(attribute.Constructor, changes.Constructor, deletions.Constructor, insertions.Constructor);
+          attribute.Expressions =
+ this.VisitExpressionList(attribute.Expressions, changes.Expressions, deletions.Expressions, insertions.Expressions);
           attribute.Target = changes.Target;
         }
       }else if (deletions != null)
@@ -728,8 +745,10 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           binaryExpression.NodeType = changes.NodeType;
-          binaryExpression.Operand1 = this.VisitExpression(binaryExpression.Operand1, changes.Operand1, deletions.Operand1, insertions.Operand1);
-          binaryExpression.Operand2 = this.VisitExpression(binaryExpression.Operand2, changes.Operand2, deletions.Operand2, insertions.Operand2);
+          binaryExpression.Operand1 =
+ this.VisitExpression(binaryExpression.Operand1, changes.Operand1, deletions.Operand1, insertions.Operand1);
+          binaryExpression.Operand2 =
+ this.VisitExpression(binaryExpression.Operand2, changes.Operand2, deletions.Operand2, insertions.Operand2);
         }
       }else if (deletions != null)
         return null;
@@ -743,7 +762,8 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           block.Checked = changes.Checked;
-          block.Statements = this.VisitStatementList(block.Statements, changes.Statements, deletions.Statements, insertions.Statements);
+          block.Statements =
+ this.VisitStatementList(block.Statements, changes.Statements, deletions.Statements, insertions.Statements);
           block.SuppressCheck = changes.SuppressCheck;
         }
       }else if (deletions != null)
@@ -757,7 +777,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          blockExpression.Block = this.VisitBlock(blockExpression.Block, changes.Block, deletions.Block, insertions.Block);
+          blockExpression.Block =
+ this.VisitBlock(blockExpression.Block, changes.Block, deletions.Block, insertions.Block);
         }
       }else if (deletions != null)
         return null;
@@ -786,7 +807,8 @@ namespace System.Compiler{
         else{
           Catch.Block = this.VisitBlock(Catch.Block, changes.Block, deletions.Block, insertions.Block);
           Catch.Type = this.VisitTypeReference(Catch.Type, changes.Type);
-          Catch.Variable = this.VisitExpression(Catch.Variable, changes.Variable, deletions.Variable, insertions.Variable);
+          Catch.Variable =
+ this.VisitExpression(Catch.Variable, changes.Variable, deletions.Variable, insertions.Variable);
         }
       }else if (deletions != null)
         return null;
@@ -818,8 +840,10 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          coerceTuple.Fields = this.VisitFieldList(coerceTuple.Fields, changes.Fields, deletions.Fields, insertions.Fields);
-          coerceTuple.OriginalTuple = this.VisitExpression(coerceTuple.OriginalTuple, changes.OriginalTuple, deletions.OriginalTuple, insertions.OriginalTuple);
+          coerceTuple.Fields =
+ this.VisitFieldList(coerceTuple.Fields, changes.Fields, deletions.Fields, insertions.Fields);
+          coerceTuple.OriginalTuple =
+ this.VisitExpression(coerceTuple.OriginalTuple, changes.OriginalTuple, deletions.OriginalTuple, insertions.OriginalTuple);
         }
       }else if (deletions != null)
         return null;
@@ -832,7 +856,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          ce.Collection = this.VisitExpression(ce.Collection, changes.Collection, deletions.Collection, insertions.Collection);
+          ce.Collection =
+ this.VisitExpression(ce.Collection, changes.Collection, deletions.Collection, insertions.Collection);
           //REVIEW: update method bindings?
         }
       }else if (deletions != null)
@@ -847,7 +872,8 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           compilation.CompilerParameters = changes.CompilerParameters;
-          compilation.CompilationUnits = this.VisitCompilationUnitList(compilation.CompilationUnits, changes.CompilationUnits, deletions.CompilationUnits, insertions.CompilationUnits);
+          compilation.CompilationUnits =
+ this.VisitCompilationUnitList(compilation.CompilationUnits, changes.CompilationUnits, deletions.CompilationUnits, insertions.CompilationUnits);
         }
       }else if (deletions != null)
         return null;
@@ -893,7 +919,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          comp.Expression = this.VisitExpression(comp.Expression, changes.Expression, deletions.Expression, insertions.Expression);
+          comp.Expression =
+ this.VisitExpression(comp.Expression, changes.Expression, deletions.Expression, insertions.Expression);
         }
       }else if (deletions != null)
         return null;
@@ -906,8 +933,10 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          cons.Constructor = this.VisitExpression(cons.Constructor, changes.Constructor, deletions.Constructor, insertions.Constructor); 
-          cons.Operands = this.VisitExpressionList(cons.Operands, changes.Operands, deletions.Operands, insertions.Operands);
+          cons.Constructor =
+ this.VisitExpression(cons.Constructor, changes.Constructor, deletions.Constructor, insertions.Constructor); 
+          cons.Operands =
+ this.VisitExpressionList(cons.Operands, changes.Operands, deletions.Operands, insertions.Operands);
           cons.Owner = this.VisitExpression(cons.Owner, changes.Owner, deletions.Owner, insertions.Owner);
         }
       }else if (deletions != null)
@@ -922,8 +951,10 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           consArr.ElementType = this.VisitTypeReference(consArr.ElementType, changes.ElementType);
-          consArr.Initializers = this.VisitExpressionList(consArr.Initializers, changes.Initializers, deletions.Initializers, insertions.Initializers);
-          consArr.Operands = this.VisitExpressionList(consArr.Operands, changes.Operands, deletions.Operands, insertions.Operands);
+          consArr.Initializers =
+ this.VisitExpressionList(consArr.Initializers, changes.Initializers, deletions.Initializers, insertions.Initializers);
+          consArr.Operands =
+ this.VisitExpressionList(consArr.Operands, changes.Operands, deletions.Operands, insertions.Operands);
           consArr.Rank = changes.Rank;
           consArr.Owner = this.VisitExpression(consArr.Owner, changes.Owner, deletions.Owner, insertions.Owner);
         }
@@ -940,7 +971,8 @@ namespace System.Compiler{
         else{
           consDelegate.DelegateType = this.VisitTypeReference(consDelegate.DelegateType, changes.DelegateType);
           consDelegate.MethodName = changes.MethodName;
-          consDelegate.TargetObject = this.VisitExpression(consDelegate.TargetObject, changes.TargetObject, deletions.TargetObject, insertions.TargetObject);
+          consDelegate.TargetObject =
+ this.VisitExpression(consDelegate.TargetObject, changes.TargetObject, deletions.TargetObject, insertions.TargetObject);
         }
       }else if (deletions != null)
         return null;
@@ -954,8 +986,10 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           consArr.ElementType = this.VisitTypeReference(consArr.ElementType, changes.ElementType);
-          consArr.Initializers = this.VisitExpressionList(consArr.Initializers, changes.Initializers, deletions.Initializers, insertions.Initializers);
-          consArr.Operands = this.VisitExpressionList(consArr.Operands, changes.Operands, deletions.Operands, insertions.Operands);
+          consArr.Initializers =
+ this.VisitExpressionList(consArr.Initializers, changes.Initializers, deletions.Initializers, insertions.Initializers);
+          consArr.Operands =
+ this.VisitExpressionList(consArr.Operands, changes.Operands, deletions.Operands, insertions.Operands);
         }
       }else if (deletions != null)
         return null;
@@ -997,7 +1031,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          cType.Constraint = this.VisitExpression(cType.Constraint, changes.Constraint, deletions.Constraint, insertions.Constraint);
+          cType.Constraint =
+ this.VisitExpression(cType.Constraint, changes.Constraint, deletions.Constraint, insertions.Constraint);
           cType.UnderlyingType = this.VisitTypeReference(cType.UnderlyingType, changes.UnderlyingType);
         }
       }else if (deletions != null)
@@ -1037,15 +1072,19 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          delegateNode.Attributes = this.VisitAttributeList(delegateNode.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
+          delegateNode.Attributes =
+ this.VisitAttributeList(delegateNode.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
 #if !NoXml
           delegateNode.Documentation = changes.Documentation;
 #endif
           delegateNode.Flags = changes.Flags;
-          delegateNode.Parameters = this.VisitParameterList(delegateNode.Parameters, changes.Parameters, deletions.Parameters, insertions.Parameters);
+          delegateNode.Parameters =
+ this.VisitParameterList(delegateNode.Parameters, changes.Parameters, deletions.Parameters, insertions.Parameters);
           delegateNode.ReturnType = this.VisitTypeReference(delegateNode.ReturnType, changes.ReturnType);
-          delegateNode.SecurityAttributes = this.VisitSecurityAttributeList(delegateNode.SecurityAttributes, changes.SecurityAttributes, deletions.SecurityAttributes, insertions.SecurityAttributes);
-          delegateNode.TemplateParameters = this.VisitTypeReferenceList(delegateNode.TemplateParameters, changes.TemplateParameters, deletions.TemplateParameters, insertions.TemplateParameters);
+          delegateNode.SecurityAttributes =
+ this.VisitSecurityAttributeList(delegateNode.SecurityAttributes, changes.SecurityAttributes, deletions.SecurityAttributes, insertions.SecurityAttributes);
+          delegateNode.TemplateParameters =
+ this.VisitTypeReferenceList(delegateNode.TemplateParameters, changes.TemplateParameters, deletions.TemplateParameters, insertions.TemplateParameters);
         }
       }else if (deletions != null)
         return null;
@@ -1059,7 +1098,8 @@ namespace System.Compiler{
           Debug.Assert(false);
         else{
           doWhile.Body = this.VisitBlock(doWhile.Body, changes.Body, deletions.Body, insertions.Body);
-          doWhile.Condition = this.VisitExpression(doWhile.Condition, changes.Condition, deletions.Condition, insertions.Condition);
+          doWhile.Condition =
+ this.VisitExpression(doWhile.Condition, changes.Condition, deletions.Condition, insertions.Condition);
         }
       }else if (deletions != null)
         return null;
@@ -1109,7 +1149,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          evnt.Attributes = this.VisitAttributeList(evnt.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
+          evnt.Attributes =
+ this.VisitAttributeList(evnt.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
 #if !NoXml
           evnt.Documentation = changes.Documentation;
 #endif
@@ -1119,7 +1160,8 @@ namespace System.Compiler{
           evnt.HandlerFlags = changes.HandlerFlags;
           evnt.HandlerRemover = this.VisitMethodReference(evnt.HandlerRemover, changes.HandlerRemover);
           evnt.HandlerType = this.VisitTypeReference(evnt.HandlerType, changes.HandlerType);
-          evnt.InitialHandler = this.VisitExpression(evnt.InitialHandler, changes.InitialHandler, deletions.InitialHandler, insertions.InitialHandler);
+          evnt.InitialHandler =
+ this.VisitExpression(evnt.InitialHandler, changes.InitialHandler, deletions.InitialHandler, insertions.InitialHandler);
           evnt.Name = changes.Name;
           evnt.OtherMethods = this.VisitMethodReferenceList(evnt.OtherMethods, changes.OtherMethods);
           evnt.OverridesBaseClassMember = changes.OverridesBaseClassMember;
@@ -1177,7 +1219,8 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          statement.Expression = this.VisitExpression(statement.Expression, changes.Expression, deletions.Expression, insertions.Expression);
+          statement.Expression =
+ this.VisitExpression(statement.Expression, changes.Expression, deletions.Expression, insertions.Expression);
         }
       }else if (deletions != null)
         return null;
@@ -1217,14 +1260,17 @@ namespace System.Compiler{
         if (deletions == null || insertions == null)
           Debug.Assert(false);
         else{
-          field.Attributes = this.VisitAttributeList(field.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
-          field.DefaultValue = this.VisitLiteral(field.DefaultValue, changes.DefaultValue, deletions.DefaultValue, insertions.DefaultValue);
+          field.Attributes =
+ this.VisitAttributeList(field.Attributes, changes.Attributes, deletions.Attributes, insertions.Attributes);
+          field.DefaultValue =
+ this.VisitLiteral(field.DefaultValue, changes.DefaultValue, deletions.DefaultValue, insertions.DefaultValue);
 #if !NoXml
           field.Documentation = changes.Documentation;
 #endif
           field.Flags = changes.Flags;
           field.HidesBaseClassMember = changes.HidesBaseClassMember;
-          field.ImplementedInterfaces = this.VisitInterfaceReferenceList(field.ImplementedInterfaces, changes.ImplementedInterfaces, deletions.ImplementedInterfaces, insertions.ImplementedInterfaces);
+          field.ImplementedInterfaces =
+ this.VisitInterfaceReferenceList(field.ImplementedInterfaces, changes.ImplementedInterfaces, deletions.ImplementedInterfaces, insertions.ImplementedInterfaces);
           field.InitialData = changes.InitialData;
           field.Initializer = changes.Initializer;
           field.MarshallingInformation = changes.MarshallingInformation;

@@ -13,16 +13,19 @@ namespace ILMerging.Tests.Helpers
             var finishedAssemblies = new HashSet<Assembly>();
 
             using (var en = StackEnumerator.Create(assemblies))
+            {
                 foreach (var assembly in en)
                 {
                     if (!finishedAssemblies.Add(assembly)) continue;
                     yield return assembly;
                     en.Recurse(assembly.GetReferencedAssemblies().Select(Assembly.Load));
                 }
+            }
         }
 
         /// <summary>
-        /// Necessary because of test runners like ReSharper and NCrunch which shadow copy each assembly to an isolated directory
+        ///     Necessary because of test runners like ReSharper and NCrunch which shadow copy each assembly to an isolated
+        ///     directory
         /// </summary>
         public static IEnumerable<string> GetTransitiveClosureDirectories(params Assembly[] assemblies)
         {
@@ -33,11 +36,13 @@ namespace ILMerging.Tests.Helpers
         }
 
         /// <summary>
-        /// Necessary because of test runners like ReSharper and NCrunch which shadow copy each assembly to an isolated directory
+        ///     Necessary because of test runners like ReSharper and NCrunch which shadow copy each assembly to an isolated
+        ///     directory
         /// </summary>
         public static string GenerateILMergeLibCliSwitches(params Assembly[] assemblies)
         {
-            return string.Join(" ", GetTransitiveClosureDirectories(Assembly.GetExecutingAssembly()).Select(_ => $"/lib:\"{_}\""));
+            return string.Join(" ",
+                GetTransitiveClosureDirectories(Assembly.GetExecutingAssembly()).Select(_ => $"/lib:\"{_}\""));
         }
     }
 }

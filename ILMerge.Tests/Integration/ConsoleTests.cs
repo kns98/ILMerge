@@ -8,7 +8,8 @@ using NUnit.Framework;
 
 namespace ILMerging.Tests.Integration
 {
-    [TestFixture, Category("Integration")]
+    [TestFixture]
+    [Category("Integration")]
     public sealed class ConsoleTests
     {
         [TestCase(true, TestName = "{m}(with mscorsn in path)")]
@@ -28,19 +29,22 @@ namespace ILMerging.Tests.Integration
                 };
 
                 if (withMscorsnInPath)
-                    startInfo.EnvironmentVariables["PATH"] = $"{Environment.GetEnvironmentVariable("PATH")};{RuntimeEnvironment.GetRuntimeDirectory()}";
+                    startInfo.EnvironmentVariables["PATH"] =
+                        $"{Environment.GetEnvironmentVariable("PATH")};{RuntimeEnvironment.GetRuntimeDirectory()}";
 
                 // The system runs .NET executables as 64-bit no matter what the architecture of the calling process is.
                 var result = ProcessUtils.Run(startInfo);
 
                 Assert.That(result.ToString(), Does.Not.Contain("Unable to load DLL 'mscorsn.dll'"));
-                Assert.That(result.ToString(), Does.Not.Contain("An attempt was made to load a program with an incorrect format."));
+                Assert.That(result.ToString(),
+                    Does.Not.Contain("An attempt was made to load a program with an incorrect format."));
 
 
                 // Test failures:
 
-                if (withMscorsnInPath && !Environment.Is64BitOperatingSystem) Assert.Inconclusive("This test can only be run on a 64-bit OS.");
-                
+                if (withMscorsnInPath && !Environment.Is64BitOperatingSystem)
+                    Assert.Inconclusive("This test can only be run on a 64-bit OS.");
+
                 Assert.That(
                     result.ToString(),
                     Does.Not.Contain("Unhandled Exception: System.IO.FileNotFoundException"),

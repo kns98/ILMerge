@@ -2,9 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information. 
 
-using System;
-using System.CodeDom.Compiler;
-using System.Collections;
 using System.Diagnostics;
 #if FxCop
 using AttributeList = Microsoft.Cci.AttributeNodeCollection;
@@ -25,34 +22,33 @@ using Interface = Microsoft.Cci.InterfaceNode;
 using Event = Microsoft.Cci.EventNode;
 using Throw = Microsoft.Cci.ThrowNode;
 #endif
+
 #if CCINamespace
 namespace Microsoft.Cci{
 #else
 namespace System.Compiler
 {
 #endif
-  public class Inspector
-  {
-    public Inspector()
+    public class Inspector
     {
-    }
-    public virtual void VisitUnknownNodeType(Node node)
-    {
-      Debug.Assert(false);
-    }
-    public virtual void Visit(Node node)
-    {
-      if (node == null) return;
-      switch (node.NodeType)
-      {
+        public virtual void VisitUnknownNodeType(Node node)
+        {
+            Debug.Assert(false);
+        }
+
+        public virtual void Visit(Node node)
+        {
+            if (node == null) return;
+            switch (node.NodeType)
+            {
 #if !MinimalReader && !CodeContracts
         case NodeType.Acquire:
           this.VisitAcquire((Acquire)node);
           return;
 #endif
-        case NodeType.AddressDereference:
-          this.VisitAddressDereference((AddressDereference)node);
-          return;
+                case NodeType.AddressDereference:
+                    VisitAddressDereference((AddressDereference)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.AliasDefinition:
           this.VisitAliasDefinition((AliasDefinition)node);
@@ -64,9 +60,9 @@ namespace System.Compiler
           this.VisitApplyToAll((ApplyToAll)node);
           return;
 #endif
-        case NodeType.Arglist:
-          this.VisitExpression((Expression)node);
-          return;
+                case NodeType.Arglist:
+                    VisitExpression((Expression)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.ArglistArgumentExpression:
           this.VisitArglistArgumentExpression((ArglistArgumentExpression)node);
@@ -75,47 +71,48 @@ namespace System.Compiler
           this.VisitArglistExpression((ArglistExpression)node);
           return;
 #endif
-        case NodeType.ArrayType:
-          Debug.Assert(false); return;
-        case NodeType.Assembly:
-          this.VisitAssembly((AssemblyNode)node);
-          return;
-        case NodeType.AssemblyReference:
-          this.VisitAssemblyReference((AssemblyReference)node);
-          return;
+                case NodeType.ArrayType:
+                    Debug.Assert(false);
+                    return;
+                case NodeType.Assembly:
+                    VisitAssembly((AssemblyNode)node);
+                    return;
+                case NodeType.AssemblyReference:
+                    VisitAssemblyReference((AssemblyReference)node);
+                    return;
 #if !MinimalReader
-        case NodeType.Assertion:
-          this.VisitAssertion((Assertion)node);
-          return;
-        case NodeType.Assumption:
-          this.VisitAssumption((Assumption)node);
-          return;
-        case NodeType.AssignmentExpression:
-          this.VisitAssignmentExpression((AssignmentExpression)node);
-          return;
+                case NodeType.Assertion:
+                    VisitAssertion((Assertion)node);
+                    return;
+                case NodeType.Assumption:
+                    VisitAssumption((Assumption)node);
+                    return;
+                case NodeType.AssignmentExpression:
+                    VisitAssignmentExpression((AssignmentExpression)node);
+                    return;
 #endif
-        case NodeType.AssignmentStatement:
-          this.VisitAssignmentStatement((AssignmentStatement)node);
-          return;
-        case NodeType.Attribute:
-          this.VisitAttributeNode((AttributeNode)node);
-          return;
+                case NodeType.AssignmentStatement:
+                    VisitAssignmentStatement((AssignmentStatement)node);
+                    return;
+                case NodeType.Attribute:
+                    VisitAttributeNode((AttributeNode)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Base:
           this.VisitBase((Base)node);
           return;
 #endif
-        case NodeType.Block:
-          this.VisitBlock((Block)node);
-          return;
+                case NodeType.Block:
+                    VisitBlock((Block)node);
+                    return;
 #if !MinimalReader
-        case NodeType.BlockExpression:
-          this.VisitBlockExpression((BlockExpression)node);
-          return;
+                case NodeType.BlockExpression:
+                    VisitBlockExpression((BlockExpression)node);
+                    return;
 #endif
-        case NodeType.Branch:
-          this.VisitBranch((Branch)node);
-          return;
+                case NodeType.Branch:
+                    VisitBranch((Branch)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Compilation:
           this.VisitCompilation((Compilation)node);
@@ -140,25 +137,25 @@ namespace System.Compiler
           this.VisitCurrentClosure((CurrentClosure)node);
           return;
 #endif
-        case NodeType.DebugBreak:
-          return;
-        case NodeType.Call:
-        case NodeType.Calli:
-        case NodeType.Callvirt:
-        case NodeType.Jmp:
+                case NodeType.DebugBreak:
+                    return;
+                case NodeType.Call:
+                case NodeType.Calli:
+                case NodeType.Callvirt:
+                case NodeType.Jmp:
 #if !MinimalReader
-        case NodeType.MethodCall:
+                case NodeType.MethodCall:
 #endif
-          this.VisitMethodCall((MethodCall)node);
-          return;
+                    VisitMethodCall((MethodCall)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Catch:
           this.VisitCatch((Catch)node);
           return;
 #endif
-        case NodeType.Class:
-          this.VisitClass((Class)node);
-          return;
+                case NodeType.Class:
+                    VisitClass((Class)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.CoerceTuple:
           this.VisitCoerceTuple((CoerceTuple)node);
@@ -170,12 +167,12 @@ namespace System.Compiler
           this.VisitComposition((Composition)node);
           return;
 #endif
-        case NodeType.Construct:
-          this.VisitConstruct((Construct)node);
-          return;
-        case NodeType.ConstructArray:
-          this.VisitConstructArray((ConstructArray)node);
-          return;
+                case NodeType.Construct:
+                    VisitConstruct((Construct)node);
+                    return;
+                case NodeType.ConstructArray:
+                    VisitConstructArray((ConstructArray)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.ConstructDelegate:
           this.VisitConstructDelegate((ConstructDelegate)node);
@@ -190,33 +187,33 @@ namespace System.Compiler
           this.VisitConstructTuple((ConstructTuple)node);
           return;
 #endif
-        case NodeType.DelegateNode:
-          this.VisitDelegateNode((DelegateNode)node);
-          return;
+                case NodeType.DelegateNode:
+                    VisitDelegateNode((DelegateNode)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.DoWhile:
           this.VisitDoWhile((DoWhile)node);
           return;
 #endif
-        case NodeType.Dup:
-          this.VisitExpression((Expression)node);
-          return;
-        case NodeType.EndFilter:
-          this.VisitEndFilter((EndFilter)node);
-          return;
-        case NodeType.EndFinally:
-          this.VisitEndFinally((EndFinally)node);
-          return;
-        case NodeType.EnumNode:
-          this.VisitEnumNode((EnumNode)node);
-          return;
-        case NodeType.Event:
-          this.VisitEvent((Event)node);
-          return;
+                case NodeType.Dup:
+                    VisitExpression((Expression)node);
+                    return;
+                case NodeType.EndFilter:
+                    VisitEndFilter((EndFilter)node);
+                    return;
+                case NodeType.EndFinally:
+                    VisitEndFinally((EndFinally)node);
+                    return;
+                case NodeType.EnumNode:
+                    VisitEnumNode((EnumNode)node);
+                    return;
+                case NodeType.Event:
+                    VisitEvent((Event)node);
+                    return;
 #if ExtendedRuntime || CodeContracts
-        case NodeType.EnsuresExceptional:
-          this.VisitEnsuresExceptional((EnsuresExceptional)node);
-          return;
+                case NodeType.EnsuresExceptional:
+                    VisitEnsuresExceptional((EnsuresExceptional)node);
+                    return;
 #endif
 #if !MinimalReader && !CodeContracts
         case NodeType.Exit:
@@ -230,17 +227,17 @@ namespace System.Compiler
           this.VisitExpressionSnippet((ExpressionSnippet)node);
           return;
 #endif
-        case NodeType.ExpressionStatement:
-          this.VisitExpressionStatement((ExpressionStatement)node);
-          return;
+                case NodeType.ExpressionStatement:
+                    VisitExpressionStatement((ExpressionStatement)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.FaultHandler:
           this.VisitFaultHandler((FaultHandler)node);
           return;
 #endif
-        case NodeType.Field:
-          this.VisitField((Field)node);
-          return;
+                case NodeType.Field:
+                    VisitField((Field)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.FieldInitializerBlock:
           this.VisitFieldInitializerBlock((FieldInitializerBlock)node);
@@ -270,9 +267,9 @@ namespace System.Compiler
           this.VisitGotoCase((GotoCase)node);
           return;
 #endif
-        case NodeType.Identifier:
-          this.VisitIdentifier((Identifier)node);
-          return;
+                case NodeType.Identifier:
+                    VisitIdentifier((Identifier)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.If:
           this.VisitIf((If)node);
@@ -281,23 +278,23 @@ namespace System.Compiler
           this.VisitImplicitThis((ImplicitThis)node);
           return;
 #endif
-        case NodeType.Indexer:
-          this.VisitIndexer((Indexer)node);
-          return;
-        case NodeType.InstanceInitializer:
-          this.VisitInstanceInitializer((InstanceInitializer)node);
-          return;
+                case NodeType.Indexer:
+                    VisitIndexer((Indexer)node);
+                    return;
+                case NodeType.InstanceInitializer:
+                    VisitInstanceInitializer((InstanceInitializer)node);
+                    return;
 #if ExtendedRuntime || CodeContracts
-        case NodeType.Invariant:
-          this.VisitInvariant((Invariant)node);
-          return;
+                case NodeType.Invariant:
+                    VisitInvariant((Invariant)node);
+                    return;
 #endif
-        case NodeType.StaticInitializer:
-          this.VisitStaticInitializer((StaticInitializer)node);
-          return;
-        case NodeType.Method:
-          this.VisitMethod((Method)node);
-          return;
+                case NodeType.StaticInitializer:
+                    VisitStaticInitializer((StaticInitializer)node);
+                    return;
+                case NodeType.Method:
+                    VisitMethod((Method)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.TemplateInstance:
           this.VisitTemplateInstance((TemplateInstance)node);
@@ -306,20 +303,20 @@ namespace System.Compiler
           this.VisitStackAlloc((StackAlloc)node);
           return;
 #endif
-        case NodeType.Interface:
-          this.VisitInterface((Interface)node);
-          return;
+                case NodeType.Interface:
+                    VisitInterface((Interface)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.LabeledStatement:
           this.VisitLabeledStatement((LabeledStatement)node);
           return;
 #endif
-        case NodeType.Literal:
-          this.VisitLiteral((Literal)node);
-          return;
-        case NodeType.Local:
-          this.VisitLocal((Local)node);
-          return;
+                case NodeType.Literal:
+                    VisitLiteral((Literal)node);
+                    return;
+                case NodeType.Local:
+                    VisitLocal((Local)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.LocalDeclaration:
           this.VisitLocalDeclaration((LocalDeclaration)node);
@@ -334,66 +331,66 @@ namespace System.Compiler
           this.VisitLRExpression((LRExpression)node);
           return;
 #endif
-        case NodeType.MemberBinding:
-          this.VisitMemberBinding((MemberBinding)node);
-          return;
+                case NodeType.MemberBinding:
+                    VisitMemberBinding((MemberBinding)node);
+                    return;
 #if ExtendedRuntime || CodeContracts
-        case NodeType.MethodContract:
-          this.VisitMethodContract((MethodContract)node);
-          return;
+                case NodeType.MethodContract:
+                    VisitMethodContract((MethodContract)node);
+                    return;
 #endif
-        case NodeType.Module:
-          this.VisitModule((Module)node);
-          return;
-        case NodeType.ModuleReference:
-          this.VisitModuleReference((ModuleReference)node);
-          return;
+                case NodeType.Module:
+                    VisitModule((Module)node);
+                    return;
+                case NodeType.ModuleReference:
+                    VisitModuleReference((ModuleReference)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.NameBinding:
           this.VisitNameBinding((NameBinding)node);
           return;
 #endif
-        case NodeType.NamedArgument:
-          this.VisitNamedArgument((NamedArgument)node);
-          return;
+                case NodeType.NamedArgument:
+                    VisitNamedArgument((NamedArgument)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Namespace:
           this.VisitNamespace((Namespace)node);
           return;
 #endif
-        case NodeType.Nop:
+                case NodeType.Nop:
 #if !MinimalReader && !CodeContracts
         case NodeType.SwitchCaseBottom:
 #endif
-          return;
+                    return;
 #if ExtendedRuntime || CodeContracts
-        case NodeType.EnsuresNormal:
-          this.VisitEnsuresNormal((EnsuresNormal)node);
-          return;
-        case NodeType.OldExpression:
-          this.VisitOldExpression((OldExpression)node);
-          return;
-        case NodeType.ReturnValue:
-          this.VisitReturnValue((ReturnValue)node);
-          return;
-        case NodeType.RequiresOtherwise:
-          this.VisitRequiresOtherwise((RequiresOtherwise)node);
-          return;
-        case NodeType.RequiresPlain:
-          this.VisitRequiresPlain((RequiresPlain)node);
-          return;
+                case NodeType.EnsuresNormal:
+                    VisitEnsuresNormal((EnsuresNormal)node);
+                    return;
+                case NodeType.OldExpression:
+                    VisitOldExpression((OldExpression)node);
+                    return;
+                case NodeType.ReturnValue:
+                    VisitReturnValue((ReturnValue)node);
+                    return;
+                case NodeType.RequiresOtherwise:
+                    VisitRequiresOtherwise((RequiresOtherwise)node);
+                    return;
+                case NodeType.RequiresPlain:
+                    VisitRequiresPlain((RequiresPlain)node);
+                    return;
 #endif
-        case NodeType.OptionalModifier:
-        case NodeType.RequiredModifier:
-          //TODO: type modifers should only be visited via VisitTypeReference
-          this.VisitTypeModifier((TypeModifier)node);
-          return;
-        case NodeType.Parameter:
-          this.VisitParameter((Parameter)node);
-          return;
-        case NodeType.Pop:
-          this.VisitExpression((Expression)node);
-          return;
+                case NodeType.OptionalModifier:
+                case NodeType.RequiredModifier:
+                    //TODO: type modifers should only be visited via VisitTypeReference
+                    VisitTypeModifier((TypeModifier)node);
+                    return;
+                case NodeType.Parameter:
+                    VisitParameter((Parameter)node);
+                    return;
+                case NodeType.Pop:
+                    VisitExpression((Expression)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.PrefixExpression:
           this.VisitPrefixExpression((PrefixExpression)node);
@@ -402,9 +399,9 @@ namespace System.Compiler
           this.VisitPostfixExpression((PostfixExpression)node);
           return;
 #endif
-        case NodeType.Property:
-          this.VisitProperty((Property)node);
-          return;
+                case NodeType.Property:
+                    VisitProperty((Property)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Quantifier:
           this.VisitQuantifier((Quantifier)node);
@@ -419,10 +416,10 @@ namespace System.Compiler
           this.VisitQualifiedIdentifier((QualifiedIdentifier)node);
           return;
 #endif
-        case NodeType.Rethrow:
-        case NodeType.Throw:
-          this.VisitThrow((Throw)node);
-          return;
+                case NodeType.Rethrow:
+                case NodeType.Throw:
+                    VisitThrow((Throw)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.RefValueExpression:
           this.VisitRefValueExpression((RefValueExpression)node);
@@ -431,9 +428,9 @@ namespace System.Compiler
           this.VisitRefTypeExpression((RefTypeExpression)node);
           return;
 #endif
-        case NodeType.Return:
-          this.VisitReturn((Return)node);
-          return;
+                case NodeType.Return:
+                    VisitReturn((Return)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Repeat:
           this.VisitRepeat((Repeat)node);
@@ -442,9 +439,9 @@ namespace System.Compiler
           this.VisitResourceUse((ResourceUse)node);
           return;
 #endif
-        case NodeType.SecurityAttribute:
-          this.VisitSecurityAttribute((SecurityAttribute)node);
-          return;
+                case NodeType.SecurityAttribute:
+                    VisitSecurityAttribute((SecurityAttribute)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.SetterValue:
           this.VisitSetterValue((SetterValue)node);
@@ -453,9 +450,9 @@ namespace System.Compiler
           this.VisitStatementSnippet((StatementSnippet)node);
           return;
 #endif
-        case NodeType.Struct:
-          this.VisitStruct((Struct)node);
-          return;
+                case NodeType.Struct:
+                    VisitStruct((Struct)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Switch:
           this.VisitSwitch((Switch)node);
@@ -464,9 +461,9 @@ namespace System.Compiler
           this.VisitSwitchCase((SwitchCase)node);
           return;
 #endif
-        case NodeType.SwitchInstruction:
-          this.VisitSwitchInstruction((SwitchInstruction)node);
-          return;
+                case NodeType.SwitchInstruction:
+                    VisitSwitchInstruction((SwitchInstruction)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Typeswitch:
           this.VisitTypeswitch((Typeswitch)node);
@@ -475,18 +472,18 @@ namespace System.Compiler
           this.VisitTypeswitchCase((TypeswitchCase)node);
           return;
 #endif
-        case NodeType.This:
-          this.VisitThis((This)node);
-          return;
+                case NodeType.This:
+                    VisitThis((This)node);
+                    return;
 #if !MinimalReader && !CodeContracts
         case NodeType.Try:
           this.VisitTry((Try)node);
           return;
 #endif
 #if ExtendedRuntime || CodeContracts
-        case NodeType.TypeContract:
-          this.VisitTypeContract((TypeContract)node);
-          return;
+                case NodeType.TypeContract:
+                    VisitTypeContract((TypeContract)node);
+                    return;
 #endif
 #if ExtendedRuntime
         case NodeType.TupleType:
@@ -504,10 +501,10 @@ namespace System.Compiler
           this.VisitTypeMemberSnippet((TypeMemberSnippet)node);
           return;
 #endif
-        case NodeType.ClassParameter:
-        case NodeType.TypeParameter:
-          this.VisitTypeParameter((TypeNode)node);
-          return;
+                case NodeType.ClassParameter:
+                case NodeType.TypeParameter:
+                    VisitTypeParameter((TypeNode)node);
+                    return;
 #if ExtendedRuntime
         case NodeType.TypeUnion:
           this.VisitTypeUnion((TypeUnion)node);
@@ -532,157 +529,158 @@ namespace System.Compiler
 
         case NodeType.Conditional:
 #endif
-        case NodeType.Cpblk:
-        case NodeType.Initblk:
-          this.VisitTernaryExpression((TernaryExpression)node);
-          return;
+                case NodeType.Cpblk:
+                case NodeType.Initblk:
+                    VisitTernaryExpression((TernaryExpression)node);
+                    return;
 
-        case NodeType.Add:
-        case NodeType.Add_Ovf:
-        case NodeType.Add_Ovf_Un:
+                case NodeType.Add:
+                case NodeType.Add_Ovf:
+                case NodeType.Add_Ovf_Un:
 #if !MinimalReader && !CodeContracts
         case NodeType.AddEventHandler:
 #endif
-        case NodeType.And:
+                case NodeType.And:
 #if !MinimalReader && !CodeContracts
         case NodeType.As:
 #endif
-        case NodeType.Box:
-        case NodeType.Castclass:
-        case NodeType.Ceq:
-        case NodeType.Cgt:
-        case NodeType.Cgt_Un:
-        case NodeType.Clt:
-        case NodeType.Clt_Un:
+                case NodeType.Box:
+                case NodeType.Castclass:
+                case NodeType.Ceq:
+                case NodeType.Cgt:
+                case NodeType.Cgt_Un:
+                case NodeType.Clt:
+                case NodeType.Clt_Un:
 #if !MinimalReader && !CodeContracts
         case NodeType.Comma:
 #endif
-        case NodeType.Div:
-        case NodeType.Div_Un:
-        case NodeType.Eq:
+                case NodeType.Div:
+                case NodeType.Div_Un:
+                case NodeType.Eq:
 #if !MinimalReader && !CodeContracts
         case NodeType.ExplicitCoercion:
 #endif
-        case NodeType.Ge:
-        case NodeType.Gt:
+                case NodeType.Ge:
+                case NodeType.Gt:
 #if !MinimalReader && !CodeContracts
         case NodeType.Is:
         case NodeType.Iff:
         case NodeType.Implies:
 #endif
-        case NodeType.Isinst:
-        case NodeType.Ldvirtftn:
-        case NodeType.Le:
+                case NodeType.Isinst:
+                case NodeType.Ldvirtftn:
+                case NodeType.Le:
 #if !MinimalReader && !CodeContracts
         case NodeType.LogicalAnd:
         case NodeType.LogicalOr:
 #endif
-        case NodeType.Lt:
-        case NodeType.Mkrefany:
+                case NodeType.Lt:
+                case NodeType.Mkrefany:
 #if !MinimalReader && !CodeContracts
         case NodeType.Maplet:
 #endif
-        case NodeType.Mul:
-        case NodeType.Mul_Ovf:
-        case NodeType.Mul_Ovf_Un:
-        case NodeType.Ne:
-        case NodeType.Or:
+                case NodeType.Mul:
+                case NodeType.Mul_Ovf:
+                case NodeType.Mul_Ovf_Un:
+                case NodeType.Ne:
+                case NodeType.Or:
 #if !MinimalReader && !CodeContracts
         case NodeType.NullCoalesingExpression:
         case NodeType.Range:
 #endif
-        case NodeType.Refanyval:
-        case NodeType.Rem:
-        case NodeType.Rem_Un:
+                case NodeType.Refanyval:
+                case NodeType.Rem:
+                case NodeType.Rem_Un:
 #if !MinimalReader && !CodeContracts
         case NodeType.RemoveEventHandler:
 #endif
-        case NodeType.Shl:
-        case NodeType.Shr:
-        case NodeType.Shr_Un:
-        case NodeType.Sub:
-        case NodeType.Sub_Ovf:
-        case NodeType.Sub_Ovf_Un:
-        case NodeType.Unbox:
-        case NodeType.UnboxAny:
-        case NodeType.Xor:
-          this.VisitBinaryExpression((BinaryExpression)node);
-          return;
+                case NodeType.Shl:
+                case NodeType.Shr:
+                case NodeType.Shr_Un:
+                case NodeType.Sub:
+                case NodeType.Sub_Ovf:
+                case NodeType.Sub_Ovf_Un:
+                case NodeType.Unbox:
+                case NodeType.UnboxAny:
+                case NodeType.Xor:
+                    VisitBinaryExpression((BinaryExpression)node);
+                    return;
 
-        case NodeType.AddressOf:
+                case NodeType.AddressOf:
 #if !MinimalReader && !CodeContracts
         case NodeType.OutAddress:
         case NodeType.RefAddress:
 #endif
-        case NodeType.Ckfinite:
-        case NodeType.Conv_I:
-        case NodeType.Conv_I1:
-        case NodeType.Conv_I2:
-        case NodeType.Conv_I4:
-        case NodeType.Conv_I8:
-        case NodeType.Conv_Ovf_I:
-        case NodeType.Conv_Ovf_I1:
-        case NodeType.Conv_Ovf_I1_Un:
-        case NodeType.Conv_Ovf_I2:
-        case NodeType.Conv_Ovf_I2_Un:
-        case NodeType.Conv_Ovf_I4:
-        case NodeType.Conv_Ovf_I4_Un:
-        case NodeType.Conv_Ovf_I8:
-        case NodeType.Conv_Ovf_I8_Un:
-        case NodeType.Conv_Ovf_I_Un:
-        case NodeType.Conv_Ovf_U:
-        case NodeType.Conv_Ovf_U1:
-        case NodeType.Conv_Ovf_U1_Un:
-        case NodeType.Conv_Ovf_U2:
-        case NodeType.Conv_Ovf_U2_Un:
-        case NodeType.Conv_Ovf_U4:
-        case NodeType.Conv_Ovf_U4_Un:
-        case NodeType.Conv_Ovf_U8:
-        case NodeType.Conv_Ovf_U8_Un:
-        case NodeType.Conv_Ovf_U_Un:
-        case NodeType.Conv_R4:
-        case NodeType.Conv_R8:
-        case NodeType.Conv_R_Un:
-        case NodeType.Conv_U:
-        case NodeType.Conv_U1:
-        case NodeType.Conv_U2:
-        case NodeType.Conv_U4:
-        case NodeType.Conv_U8:
+                case NodeType.Ckfinite:
+                case NodeType.Conv_I:
+                case NodeType.Conv_I1:
+                case NodeType.Conv_I2:
+                case NodeType.Conv_I4:
+                case NodeType.Conv_I8:
+                case NodeType.Conv_Ovf_I:
+                case NodeType.Conv_Ovf_I1:
+                case NodeType.Conv_Ovf_I1_Un:
+                case NodeType.Conv_Ovf_I2:
+                case NodeType.Conv_Ovf_I2_Un:
+                case NodeType.Conv_Ovf_I4:
+                case NodeType.Conv_Ovf_I4_Un:
+                case NodeType.Conv_Ovf_I8:
+                case NodeType.Conv_Ovf_I8_Un:
+                case NodeType.Conv_Ovf_I_Un:
+                case NodeType.Conv_Ovf_U:
+                case NodeType.Conv_Ovf_U1:
+                case NodeType.Conv_Ovf_U1_Un:
+                case NodeType.Conv_Ovf_U2:
+                case NodeType.Conv_Ovf_U2_Un:
+                case NodeType.Conv_Ovf_U4:
+                case NodeType.Conv_Ovf_U4_Un:
+                case NodeType.Conv_Ovf_U8:
+                case NodeType.Conv_Ovf_U8_Un:
+                case NodeType.Conv_Ovf_U_Un:
+                case NodeType.Conv_R4:
+                case NodeType.Conv_R8:
+                case NodeType.Conv_R_Un:
+                case NodeType.Conv_U:
+                case NodeType.Conv_U1:
+                case NodeType.Conv_U2:
+                case NodeType.Conv_U4:
+                case NodeType.Conv_U8:
 #if !MinimalReader && !CodeContracts
         case NodeType.Decrement:
         case NodeType.DefaultValue:
         case NodeType.Increment:
 #endif
-        case NodeType.Ldftn:
-        case NodeType.Ldlen:
-        case NodeType.Ldtoken:
-        case NodeType.Localloc:
-        case NodeType.LogicalNot:
-        case NodeType.Neg:
-        case NodeType.Not:
+                case NodeType.Ldftn:
+                case NodeType.Ldlen:
+                case NodeType.Ldtoken:
+                case NodeType.Localloc:
+                case NodeType.LogicalNot:
+                case NodeType.Neg:
+                case NodeType.Not:
 #if !MinimalReader && !CodeContracts
         case NodeType.Parentheses:
 #endif
-        case NodeType.Refanytype:
-        case NodeType.ReadOnlyAddressOf:
-        case NodeType.Sizeof:
-        case NodeType.SkipCheck:
+                case NodeType.Refanytype:
+                case NodeType.ReadOnlyAddressOf:
+                case NodeType.Sizeof:
+                case NodeType.SkipCheck:
 #if !MinimalReader && !CodeContracts
         case NodeType.Typeof:
         case NodeType.UnaryPlus:
 #endif
-          this.VisitUnaryExpression((UnaryExpression)node);
-          return;
-        default:
-          this.VisitUnknownNodeType(node);
-          return;
-      }
-    }
-    public virtual void VisitAddressDereference(AddressDereference addr)
-    {
-      if (addr == null) return;
-      this.VisitExpression(addr.Address);
-    }
+                    VisitUnaryExpression((UnaryExpression)node);
+                    return;
+                default:
+                    VisitUnknownNodeType(node);
+                    return;
+            }
+        }
+
+        public virtual void VisitAddressDereference(AddressDereference addr)
+        {
+            if (addr == null) return;
+            VisitExpression(addr.Address);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitAliasDefinition(AliasDefinition aliasDefinition)
     {
@@ -712,91 +710,99 @@ namespace System.Compiler
       Debug.Assert(false, "An array type exists only at runtime. It should be referred to, but never visited.");
     }
 #endif
-    public virtual void VisitAssembly(AssemblyNode assembly)
-    {
-      if (assembly == null) return;
-      this.VisitModule(assembly);
-      this.VisitAttributeList(assembly.ModuleAttributes);
-      this.VisitSecurityAttributeList(assembly.SecurityAttributes);
-    }
-    public virtual AssemblyReference VisitAssemblyReference(AssemblyReference assemblyReference)
-    {
-      return assemblyReference;
-    }
+        public virtual void VisitAssembly(AssemblyNode assembly)
+        {
+            if (assembly == null) return;
+            VisitModule(assembly);
+            VisitAttributeList(assembly.ModuleAttributes);
+            VisitSecurityAttributeList(assembly.SecurityAttributes);
+        }
+
+        public virtual AssemblyReference VisitAssemblyReference(AssemblyReference assemblyReference)
+        {
+            return assemblyReference;
+        }
 #if !MinimalReader
-    public virtual void VisitAssertion(Assertion assertion)
-    {
-      if (assertion == null) return;
-      this.VisitExpression(assertion.Condition);
-    }
-    public virtual void VisitAssumption(Assumption assumption)
-    {
-      if (assumption == null) return;
-      this.VisitExpression(assumption.Condition);
-    }
-    public virtual void VisitAssignmentExpression(AssignmentExpression assignment)
-    {
-      if (assignment == null) return;
-      this.Visit(assignment.AssignmentStatement);
-    }
+        public virtual void VisitAssertion(Assertion assertion)
+        {
+            if (assertion == null) return;
+            VisitExpression(assertion.Condition);
+        }
+
+        public virtual void VisitAssumption(Assumption assumption)
+        {
+            if (assumption == null) return;
+            VisitExpression(assumption.Condition);
+        }
+
+        public virtual void VisitAssignmentExpression(AssignmentExpression assignment)
+        {
+            if (assignment == null) return;
+            Visit(assignment.AssignmentStatement);
+        }
 #endif
-    public virtual void VisitAssignmentStatement(AssignmentStatement assignment)
-    {
-      if (assignment == null) return;
-      this.VisitTargetExpression(assignment.Target);
-      this.VisitExpression(assignment.Source);
-    }
-    public virtual void VisitAttributeConstructor(AttributeNode attribute)
-    {
-      if (attribute == null) return;
-      this.VisitExpression(attribute.Constructor);
-    }
-    public virtual void VisitAttributeNode(AttributeNode attribute)
-    {
-      if (attribute == null) return;
-      this.VisitAttributeConstructor(attribute);
-      this.VisitExpressionList(attribute.Expressions);
-    }
-    public virtual void VisitAttributeList(AttributeList attributes)
-    {
-      if (attributes == null) return;
-      for (int i = 0, n = attributes.Count; i < n; i++)
-        this.VisitAttributeNode(attributes[i]);
-    }
+        public virtual void VisitAssignmentStatement(AssignmentStatement assignment)
+        {
+            if (assignment == null) return;
+            VisitTargetExpression(assignment.Target);
+            VisitExpression(assignment.Source);
+        }
+
+        public virtual void VisitAttributeConstructor(AttributeNode attribute)
+        {
+            if (attribute == null) return;
+            VisitExpression(attribute.Constructor);
+        }
+
+        public virtual void VisitAttributeNode(AttributeNode attribute)
+        {
+            if (attribute == null) return;
+            VisitAttributeConstructor(attribute);
+            VisitExpressionList(attribute.Expressions);
+        }
+
+        public virtual void VisitAttributeList(AttributeList attributes)
+        {
+            if (attributes == null) return;
+            for (int i = 0, n = attributes.Count; i < n; i++)
+                VisitAttributeNode(attributes[i]);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitBase(Base Base)
     {
     }
 #endif
-    public virtual void VisitBinaryExpression(BinaryExpression binaryExpression)
-    {
-      if (binaryExpression == null) return;
-      this.VisitExpression(binaryExpression.Operand1);
-      this.VisitExpression(binaryExpression.Operand2);
-    }
-    public virtual void VisitBlock(Block block)
-    {
-      if (block == null) return;
-      this.VisitStatementList(block.Statements);
-    }
+        public virtual void VisitBinaryExpression(BinaryExpression binaryExpression)
+        {
+            if (binaryExpression == null) return;
+            VisitExpression(binaryExpression.Operand1);
+            VisitExpression(binaryExpression.Operand2);
+        }
+
+        public virtual void VisitBlock(Block block)
+        {
+            if (block == null) return;
+            VisitStatementList(block.Statements);
+        }
 #if !MinimalReader
-    public virtual void VisitBlockExpression(BlockExpression blockExpression)
-    {
-      if (blockExpression == null) return;
-      this.VisitBlock(blockExpression.Block);
-    }
+        public virtual void VisitBlockExpression(BlockExpression blockExpression)
+        {
+            if (blockExpression == null) return;
+            VisitBlock(blockExpression.Block);
+        }
 #endif
-    public virtual void VisitBlockList(BlockList blockList)
-    {
-      if (blockList == null) return;
-      for (int i = 0, n = blockList.Count; i < n; i++)
-        this.VisitBlock(blockList[i]);
-    }
-    public virtual void VisitBranch(Branch branch)
-    {
-      if (branch == null) return;
-      this.VisitExpression(branch.Condition);
-    }
+        public virtual void VisitBlockList(BlockList blockList)
+        {
+            if (blockList == null) return;
+            for (int i = 0, n = blockList.Count; i < n; i++)
+                VisitBlock(blockList[i]);
+        }
+
+        public virtual void VisitBranch(Branch branch)
+        {
+            if (branch == null) return;
+            VisitExpression(branch.Condition);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitCatch(Catch Catch)
     {
@@ -812,10 +818,10 @@ namespace System.Compiler
         this.VisitCatch(catchers[i]);
     }
 #endif
-    public virtual void VisitClass(Class Class)
-    {
-      this.VisitTypeNode(Class);
-    }
+        public virtual void VisitClass(Class Class)
+        {
+            VisitTypeNode(Class);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitCoerceTuple(CoerceTuple coerceTuple)
     {
@@ -869,25 +875,26 @@ namespace System.Compiler
       }
     }
 #endif
-    public virtual void VisitConstruct(Construct cons)
-    {
-      if (cons == null) return;
-      this.VisitExpression(cons.Constructor);
-      this.VisitExpressionList(cons.Operands);
+        public virtual void VisitConstruct(Construct cons)
+        {
+            if (cons == null) return;
+            VisitExpression(cons.Constructor);
+            VisitExpressionList(cons.Operands);
 #if !MinimalReader && !CodeContracts
       this.VisitExpression(cons.Owner);
 #endif
-    }
-    public virtual void VisitConstructArray(ConstructArray consArr)
-    {
-      if (consArr == null) return;
-      this.VisitTypeReference(consArr.ElementType);
-      this.VisitExpressionList(consArr.Operands);
+        }
+
+        public virtual void VisitConstructArray(ConstructArray consArr)
+        {
+            if (consArr == null) return;
+            VisitTypeReference(consArr.ElementType);
+            VisitExpressionList(consArr.Operands);
 #if !MinimalReader
-      this.VisitExpressionList(consArr.Initializers);
-      this.VisitExpression(consArr.Owner);
+            VisitExpressionList(consArr.Initializers);
+            VisitExpression(consArr.Owner);
 #endif
-    }
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitConstructDelegate(ConstructDelegate consDelegate)
     {
@@ -928,13 +935,13 @@ namespace System.Compiler
     {
     }
 #endif
-    public virtual void VisitDelegateNode(DelegateNode delegateNode)
-    {
-      if (delegateNode == null) return;
-      this.VisitTypeNode(delegateNode);
-      this.VisitParameterList(delegateNode.Parameters);
-      this.VisitTypeReference(delegateNode.ReturnType);
-    }
+        public virtual void VisitDelegateNode(DelegateNode delegateNode)
+        {
+            if (delegateNode == null) return;
+            VisitTypeNode(delegateNode);
+            VisitParameterList(delegateNode.Parameters);
+            VisitTypeReference(delegateNode.ReturnType);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitDoWhile(DoWhile doWhile)
     {
@@ -944,93 +951,97 @@ namespace System.Compiler
       this.VisitExpression(doWhile.Condition);
     }
 #endif
-    public virtual void VisitEndFilter(EndFilter endFilter)
-    {
-      if (endFilter == null) return;
-      this.VisitExpression(endFilter.Value);
-    }
-    public virtual Statement VisitEndFinally(EndFinally endFinally)
-    {
-      return endFinally;
-    }
+        public virtual void VisitEndFilter(EndFilter endFilter)
+        {
+            if (endFilter == null) return;
+            VisitExpression(endFilter.Value);
+        }
+
+        public virtual Statement VisitEndFinally(EndFinally endFinally)
+        {
+            return endFinally;
+        }
 #if ExtendedRuntime || CodeContracts
-    public virtual void VisitEnsuresList(EnsuresList Ensures)
-    {
-      if (Ensures == null) return;
-      for (int i = 0, n = Ensures.Count; i < n; i++)
-        this.Visit(Ensures[i]);
-    }
+        public virtual void VisitEnsuresList(EnsuresList Ensures)
+        {
+            if (Ensures == null) return;
+            for (int i = 0, n = Ensures.Count; i < n; i++)
+                Visit(Ensures[i]);
+        }
 #endif
-    public virtual void VisitEnumNode(EnumNode enumNode)
-    {
-      this.VisitTypeNode(enumNode);
-    }
-    public virtual void VisitEvent(Event evnt)
-    {
-      if (evnt == null) return;
-      this.VisitAttributeList(evnt.Attributes);
-      this.VisitTypeReference(evnt.HandlerType);
-    }
+        public virtual void VisitEnumNode(EnumNode enumNode)
+        {
+            VisitTypeNode(enumNode);
+        }
+
+        public virtual void VisitEvent(Event evnt)
+        {
+            if (evnt == null) return;
+            VisitAttributeList(evnt.Attributes);
+            VisitTypeReference(evnt.HandlerType);
+        }
 #if ExtendedRuntime || CodeContracts
-    public virtual void VisitEnsuresExceptional(EnsuresExceptional exceptional)
-    {
-      if (exceptional == null) return;
-      this.VisitExpression(exceptional.PostCondition);
-      this.VisitTypeReference(exceptional.Type);
-      this.VisitExpression(exceptional.Variable);
-    }
+        public virtual void VisitEnsuresExceptional(EnsuresExceptional exceptional)
+        {
+            if (exceptional == null) return;
+            VisitExpression(exceptional.PostCondition);
+            VisitTypeReference(exceptional.Type);
+            VisitExpression(exceptional.Variable);
+        }
 #endif
 #if !MinimalReader && !CodeContracts
     public virtual Statement VisitExit(Exit exit)
     {
       return exit;
     }
-    public virtual void VisitExpose(Expose @expose)
+    public virtual void VisitExpose(Expose expose)
     {
-      if (@expose == null) return;
-      this.VisitExpression(@expose.Instance);
+      if (expose == null) return;
+      this.VisitExpression(expose.Instance);
       this.VisitBlock(expose.Body);
     }
 #endif
 
-    public virtual void VisitExpression(Expression expression)
-    {
-      if (expression == null) return;
-      switch (expression.NodeType)
-      {
-        case NodeType.Dup:
-        case NodeType.Arglist:
-          return;
-        case NodeType.Pop:
-          UnaryExpression uex = expression as UnaryExpression;
-          if (uex != null)
-          {
-            this.VisitExpression(uex.Operand);
-            return;
-          }
-          return;
-        default:
-          this.Visit(expression);
-          return;
-      }
-    }
-    public void VisitExpressionList(ExpressionList expressions)
-    {
-      if (expressions == null) return;
-      for (int i = 0, n = expressions.Count; i < n; i++)
-       this.VisitExpression(expressions[i]);
-    }
+        public virtual void VisitExpression(Expression expression)
+        {
+            if (expression == null) return;
+            switch (expression.NodeType)
+            {
+                case NodeType.Dup:
+                case NodeType.Arglist:
+                    return;
+                case NodeType.Pop:
+                    var uex = expression as UnaryExpression;
+                    if (uex != null)
+                    {
+                        VisitExpression(uex.Operand);
+                        return;
+                    }
+
+                    return;
+                default:
+                    Visit(expression);
+                    return;
+            }
+        }
+
+        public void VisitExpressionList(ExpressionList expressions)
+        {
+            if (expressions == null) return;
+            for (int i = 0, n = expressions.Count; i < n; i++)
+                VisitExpression(expressions[i]);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual Expression VisitExpressionSnippet(ExpressionSnippet snippet)
     {
       return snippet;
     }
 #endif
-    public virtual void VisitExpressionStatement(ExpressionStatement statement)
-    {
-      if (statement == null) return;
-      this.VisitExpression(statement.Expression);
-    }
+        public virtual void VisitExpressionStatement(ExpressionStatement statement)
+        {
+            if (statement == null) return;
+            VisitExpression(statement.Expression);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitFaultHandler(FaultHandler faultHandler)
     {
@@ -1044,16 +1055,16 @@ namespace System.Compiler
         this.VisitFaultHandler(faultHandlers[i]);
     }
 #endif
-    public virtual void VisitField(Field field)
-    {
-      if (field == null) return;
-      this.VisitAttributeList(field.Attributes);
-      this.VisitTypeReference(field.Type);
+        public virtual void VisitField(Field field)
+        {
+            if (field == null) return;
+            VisitAttributeList(field.Attributes);
+            VisitTypeReference(field.Type);
 #if !MinimalReader && !CodeContracts
       this.VisitExpression(field.Initializer);
       this.VisitInterfaceReferenceList(field.ImplementedInterfaces);
 #endif
-    }
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitFieldInitializerBlock(FieldInitializerBlock block)
     {
@@ -1137,9 +1148,9 @@ namespace System.Compiler
       this.VisitExpression(gotoCase.CaseLabel);
     }
 #endif
-    public virtual void VisitIdentifier(Identifier identifier)
-    {
-    }
+        public virtual void VisitIdentifier(Identifier identifier)
+        {
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitIf(If If)
     {
@@ -1152,38 +1163,42 @@ namespace System.Compiler
     {
     }
 #endif
-    public virtual void VisitIndexer(Indexer indexer)
-    {
-      if (indexer == null) return;
-      this.VisitExpression(indexer.Object);
-      this.VisitExpressionList(indexer.Operands);
-    }
-    public virtual void VisitInterface(Interface Interface)
-    {
-      this.VisitTypeNode(Interface);
-    }
-    public virtual void VisitInterfaceReference(Interface Interface)
-    {
-      this.VisitTypeReference(Interface);
-    }
-    public virtual void VisitInterfaceReferenceList(InterfaceList interfaceReferences)
-    {
-      if (interfaceReferences == null) return;
-      for (int i = 0, n = interfaceReferences.Count; i < n; i++)
-        this.VisitInterfaceReference(interfaceReferences[i]);
-    }
+        public virtual void VisitIndexer(Indexer indexer)
+        {
+            if (indexer == null) return;
+            VisitExpression(indexer.Object);
+            VisitExpressionList(indexer.Operands);
+        }
+
+        public virtual void VisitInterface(Interface Interface)
+        {
+            VisitTypeNode(Interface);
+        }
+
+        public virtual void VisitInterfaceReference(Interface Interface)
+        {
+            VisitTypeReference(Interface);
+        }
+
+        public virtual void VisitInterfaceReferenceList(InterfaceList interfaceReferences)
+        {
+            if (interfaceReferences == null) return;
+            for (int i = 0, n = interfaceReferences.Count; i < n; i++)
+                VisitInterfaceReference(interfaceReferences[i]);
+        }
 #if ExtendedRuntime || CodeContracts
-    public virtual void VisitInvariant(Invariant @invariant)
-    {
-      if (@invariant == null) return;
-      VisitExpression(@invariant.Condition);
-    }
-    public virtual void VisitInvariantList(InvariantList invariants)
-    {
-      if (invariants == null) return;
-      for (int i = 0, n = invariants.Count; i < n; i++)
-        this.VisitInvariant(invariants[i]);
-    }
+        public virtual void VisitInvariant(Invariant invariant)
+        {
+            if (invariant == null) return;
+            VisitExpression(invariant.Condition);
+        }
+
+        public virtual void VisitInvariantList(InvariantList invariants)
+        {
+            if (invariants == null) return;
+            for (int i = 0, n = invariants.Count; i < n; i++)
+                VisitInvariant(invariants[i]);
+        }
 #endif
 #if ExtendedRuntime
     public virtual void VisitModelfieldContract(ModelfieldContract mfC) {
@@ -1198,10 +1213,10 @@ namespace System.Compiler
         this.VisitModelfieldContract(mfCs[i]);
     }
 #endif
-    public virtual void VisitInstanceInitializer(InstanceInitializer cons)
-    {
-      this.VisitMethod(cons);
-    }
+        public virtual void VisitInstanceInitializer(InstanceInitializer cons)
+        {
+            VisitMethod(cons);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitLabeledStatement(LabeledStatement lStatement)
     {
@@ -1209,13 +1224,14 @@ namespace System.Compiler
       this.Visit(lStatement.Statement);
     }
 #endif
-    public virtual void VisitLiteral(Literal literal)
-    {
-    }
-    public virtual void VisitLocal(Local local)
-    {
-      if (local == null) return;
-      this.VisitTypeReference(local.Type);
+        public virtual void VisitLiteral(Literal literal)
+        {
+        }
+
+        public virtual void VisitLocal(Local local)
+        {
+            if (local == null) return;
+            VisitTypeReference(local.Type);
 #if !MinimalReader && !CodeContracts
       LocalBinding lb = local as LocalBinding;
       if (lb != null)
@@ -1223,7 +1239,7 @@ namespace System.Compiler
         this.VisitLocal(lb.BoundLocal);
       }
 #endif
-    }
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitLocalDeclarationsStatement(LocalDeclarationsStatement localDeclarations)
     {
@@ -1254,47 +1270,47 @@ namespace System.Compiler
       this.VisitExpression(expr.Expression);
     }
 #endif
-    public virtual void VisitMemberBinding(MemberBinding memberBinding)
-    {
-      if (memberBinding == null) return;
-      this.VisitExpression(memberBinding.TargetObject);
-    }
-    public virtual void VisitMemberList(MemberList members)
-    {
-      if (members == null) return;
-      for (int i = 0, n = members.Count; i < n; i++)
-      {
-        this.Visit(members[i]);
-      }
-    }
-    public virtual void VisitMethod(Method method)
-    {
-      if (method == null) return;
-      this.VisitAttributeList(method.Attributes);
-      this.VisitAttributeList(method.ReturnAttributes);
-      this.VisitSecurityAttributeList(method.SecurityAttributes);
-      this.VisitTypeReference(method.ReturnType);
+        public virtual void VisitMemberBinding(MemberBinding memberBinding)
+        {
+            if (memberBinding == null) return;
+            VisitExpression(memberBinding.TargetObject);
+        }
+
+        public virtual void VisitMemberList(MemberList members)
+        {
+            if (members == null) return;
+            for (int i = 0, n = members.Count; i < n; i++) Visit(members[i]);
+        }
+
+        public virtual void VisitMethod(Method method)
+        {
+            if (method == null) return;
+            VisitAttributeList(method.Attributes);
+            VisitAttributeList(method.ReturnAttributes);
+            VisitSecurityAttributeList(method.SecurityAttributes);
+            VisitTypeReference(method.ReturnType);
 #if !MinimalReader && !CodeContracts
       this.VisitTypeReferenceList(method.ImplementedTypes);
 #endif
-      this.VisitParameterList(method.Parameters);
-      if (TargetPlatform.UseGenerics)
-      {
-        this.VisitTypeReferenceList(method.TemplateArguments);
-        this.VisitTypeParameterList(method.TemplateParameters);
-      }
+            VisitParameterList(method.Parameters);
+            if (TargetPlatform.UseGenerics)
+            {
+                VisitTypeReferenceList(method.TemplateArguments);
+                VisitTypeParameterList(method.TemplateParameters);
+            }
 #if ExtendedRuntime || CodeContracts
-      this.VisitMethodContract(method.Contract);
+            VisitMethodContract(method.Contract);
 #endif
-      this.VisitBlock(method.Body);
-    }
-    public virtual void VisitMethodCall(MethodCall call)
-    {
-      if (call == null) return;
-      this.VisitExpression(call.Callee);
-      this.VisitExpressionList(call.Operands);
-      this.VisitTypeReference(call.Constraint);
-    }
+            VisitBlock(method.Body);
+        }
+
+        public virtual void VisitMethodCall(MethodCall call)
+        {
+            if (call == null) return;
+            VisitExpression(call.Callee);
+            VisitExpressionList(call.Operands);
+            VisitTypeReference(call.Constraint);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitArglistArgumentExpression(ArglistArgumentExpression argexp)
     {
@@ -1306,37 +1322,38 @@ namespace System.Compiler
     }
 #endif
 #if ExtendedRuntime || CodeContracts
-    public virtual void VisitMethodContract(MethodContract contract)
-    {
-      if (contract == null) return;
-      // don't visit contract.DeclaringMethod
-      // don't visit contract.OverriddenMethods
-      this.VisitRequiresList(contract.Requires);
-      this.VisitEnsuresList(contract.Ensures);
-      this.VisitEnsuresList(contract.ModelEnsures);
-      this.VisitExpressionList(contract.Modifies);
-      this.VisitEnsuresList(contract.AsyncEnsures);
-    }
+        public virtual void VisitMethodContract(MethodContract contract)
+        {
+            if (contract == null) return;
+            // don't visit contract.DeclaringMethod
+            // don't visit contract.OverriddenMethods
+            VisitRequiresList(contract.Requires);
+            VisitEnsuresList(contract.Ensures);
+            VisitEnsuresList(contract.ModelEnsures);
+            VisitExpressionList(contract.Modifies);
+            VisitEnsuresList(contract.AsyncEnsures);
+        }
 #endif
-    public virtual void VisitModule(Module module)
-    {
-      if (module == null) return;
-      this.VisitAttributeList(module.Attributes);
-      this.VisitTypeNodeList(module.Types);
-    }
-    public virtual void VisitModuleReference(ModuleReference moduleReference)
-    {
-    }
+        public virtual void VisitModule(Module module)
+        {
+            if (module == null) return;
+            VisitAttributeList(module.Attributes);
+            VisitTypeNodeList(module.Types);
+        }
+
+        public virtual void VisitModuleReference(ModuleReference moduleReference)
+        {
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitNameBinding(NameBinding nameBinding)
     {
     }
 #endif
-    public virtual void VisitNamedArgument(NamedArgument namedArgument)
-    {
-      if (namedArgument == null) return;
-      this.VisitExpression(namedArgument.Value);
-    }
+        public virtual void VisitNamedArgument(NamedArgument namedArgument)
+        {
+            if (namedArgument == null) return;
+            VisitExpression(namedArgument.Value);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitNamespace(Namespace nspace)
     {
@@ -1355,39 +1372,43 @@ namespace System.Compiler
     }
 #endif
 #if ExtendedRuntime || CodeContracts
-    public virtual void VisitEnsuresNormal(EnsuresNormal normal)
-    {
-      if (normal == null) return;
-      this.VisitExpression(normal.PostCondition);
-    }
-    public virtual void VisitOldExpression(OldExpression oldExpression)
-    {
-      if (oldExpression == null) return;
-      this.VisitExpression(oldExpression.expression);
-    }
-    public virtual void VisitReturnValue(ReturnValue returnValue)
-    {
-      if (returnValue == null) return;
-      this.VisitTypeReference(returnValue.Type);
-    }
-    public virtual void VisitRequiresOtherwise(RequiresOtherwise otherwise)
-    {
-      if (otherwise == null) return;
-      this.VisitExpression(otherwise.Condition);
-      this.VisitExpression(otherwise.ThrowException);
-    }
-    public virtual void VisitRequiresPlain(RequiresPlain plain)
-    {
-      if (plain == null) return;
-      this.VisitExpression(plain.Condition);
-    }
+        public virtual void VisitEnsuresNormal(EnsuresNormal normal)
+        {
+            if (normal == null) return;
+            VisitExpression(normal.PostCondition);
+        }
+
+        public virtual void VisitOldExpression(OldExpression oldExpression)
+        {
+            if (oldExpression == null) return;
+            VisitExpression(oldExpression.expression);
+        }
+
+        public virtual void VisitReturnValue(ReturnValue returnValue)
+        {
+            if (returnValue == null) return;
+            VisitTypeReference(returnValue.Type);
+        }
+
+        public virtual void VisitRequiresOtherwise(RequiresOtherwise otherwise)
+        {
+            if (otherwise == null) return;
+            VisitExpression(otherwise.Condition);
+            VisitExpression(otherwise.ThrowException);
+        }
+
+        public virtual void VisitRequiresPlain(RequiresPlain plain)
+        {
+            if (plain == null) return;
+            VisitExpression(plain.Condition);
+        }
 #endif
-    public virtual void VisitParameter(Parameter parameter)
-    {
-      if (parameter == null) return;
-      this.VisitAttributeList(parameter.Attributes);
-      this.VisitTypeReference(parameter.Type);
-      this.VisitExpression(parameter.DefaultValue);
+        public virtual void VisitParameter(Parameter parameter)
+        {
+            if (parameter == null) return;
+            VisitAttributeList(parameter.Attributes);
+            VisitTypeReference(parameter.Type);
+            VisitExpression(parameter.DefaultValue);
 #if !MinimalReader && !CodeContracts
       ParameterBinding pb = parameter as ParameterBinding;
       if (pb != null)
@@ -1395,13 +1416,14 @@ namespace System.Compiler
         this.VisitParameter(pb.BoundParameter);
       }
 #endif
-    }
-    public virtual void VisitParameterList(ParameterList parameterList)
-    {
-      if (parameterList == null) return;
-      for (int i = 0, n = parameterList.Count; i < n; i++)
-        this.VisitParameter(parameterList[i]);
-    }
+        }
+
+        public virtual void VisitParameterList(ParameterList parameterList)
+        {
+            if (parameterList == null) return;
+            for (int i = 0, n = parameterList.Count; i < n; i++)
+                VisitParameter(parameterList[i]);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitPrefixExpression(PrefixExpression pExpr)
     {
@@ -1414,13 +1436,13 @@ namespace System.Compiler
       this.VisitExpression(pExpr.Expression);
     }
 #endif
-    public virtual void VisitProperty(Property property)
-    {
-      if (property == null) return;
-      this.VisitAttributeList(property.Attributes);
-      this.VisitParameterList(property.Parameters);
-      this.VisitTypeReference(property.Type);
-    }
+        public virtual void VisitProperty(Property property)
+        {
+            if (property == null) return;
+            VisitAttributeList(property.Attributes);
+            VisitParameterList(property.Parameters);
+            VisitTypeReference(property.Type);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitQuantifier(Quantifier quantifier)
     {
@@ -1465,26 +1487,26 @@ namespace System.Compiler
     }
 #endif
 #if ExtendedRuntime || CodeContracts
-    public virtual void VisitRequiresList(RequiresList Requires)
-    {
-      if (Requires == null) return;
-      for (int i = 0, n = Requires.Count; i < n; i++)
-        this.Visit(Requires[i]);
-    }
+        public virtual void VisitRequiresList(RequiresList Requires)
+        {
+            if (Requires == null) return;
+            for (int i = 0, n = Requires.Count; i < n; i++)
+                Visit(Requires[i]);
+        }
 #endif
-    public virtual void VisitReturn(Return Return)
-    {
-      if (Return == null) return;
-      this.VisitExpression(Return.Expression);
-    }
+        public virtual void VisitReturn(Return Return)
+        {
+            if (Return == null) return;
+            VisitExpression(Return.Expression);
+        }
 #if !MinimalReader && !CodeContracts
-    public virtual void VisitAcquire(Acquire @acquire)
+    public virtual void VisitAcquire(Acquire acquire)
     {
-      if (@acquire == null) return;
-      this.Visit(@acquire.Target);
-      this.VisitExpression(@acquire.Condition);
-      this.VisitExpression(@acquire.ConditionFunction);
-      this.VisitBlock(@acquire.Body);
+      if (acquire == null) return;
+      this.Visit(acquire.Target);
+      this.VisitExpression(acquire.Condition);
+      this.VisitExpression(acquire.ConditionFunction);
+      this.VisitBlock(acquire.Body);
     }
     public virtual void VisitResourceUse(ResourceUse resourceUse)
     {
@@ -1493,39 +1515,41 @@ namespace System.Compiler
       this.VisitBlock(resourceUse.Body);
     }
 #endif
-    public virtual void VisitSecurityAttribute(SecurityAttribute attribute)
-    {
-    }
-    public virtual void VisitSecurityAttributeList(SecurityAttributeList attributes)
-    {
-      if (attributes == null) return;
-      for (int i = 0, n = attributes.Count; i < n; i++)
-        this.VisitSecurityAttribute(attributes[i]);
-    }
+        public virtual void VisitSecurityAttribute(SecurityAttribute attribute)
+        {
+        }
+
+        public virtual void VisitSecurityAttributeList(SecurityAttributeList attributes)
+        {
+            if (attributes == null) return;
+            for (int i = 0, n = attributes.Count; i < n; i++)
+                VisitSecurityAttribute(attributes[i]);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitSetterValue(SetterValue value)
     {
     }
 #endif
-    public virtual void VisitStatementList(StatementList statements)
-    {
-      if (statements == null) return;
-      for (int i = 0, n = statements.Count; i < n; i++)
-        this.Visit(statements[i]);
-    }
+        public virtual void VisitStatementList(StatementList statements)
+        {
+            if (statements == null) return;
+            for (int i = 0, n = statements.Count; i < n; i++)
+                Visit(statements[i]);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitStatementSnippet(StatementSnippet snippet)
     {
     }
 #endif
-    public virtual void VisitStaticInitializer(StaticInitializer cons)
-    {
-      this.VisitMethod(cons);
-    }
-    public virtual void VisitStruct(Struct Struct)
-    {
-      this.VisitTypeNode(Struct);
-    }
+        public virtual void VisitStaticInitializer(StaticInitializer cons)
+        {
+            VisitMethod(cons);
+        }
+
+        public virtual void VisitStruct(Struct Struct)
+        {
+            VisitTypeNode(Struct);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitSwitch(Switch Switch)
     {
@@ -1546,11 +1570,11 @@ namespace System.Compiler
         this.Visit(switchCases[i]);
     }
 #endif
-    public virtual void VisitSwitchInstruction(SwitchInstruction switchInstruction)
-    {
-      if (switchInstruction == null) return;
-      this.VisitExpression(switchInstruction.Expression);
-    }
+        public virtual void VisitSwitchInstruction(SwitchInstruction switchInstruction)
+        {
+            if (switchInstruction == null) return;
+            VisitExpression(switchInstruction.Expression);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitTypeswitch(Typeswitch Typeswitch)
     {
@@ -1572,21 +1596,23 @@ namespace System.Compiler
         this.VisitTypeswitchCase(typeswitchCases[i]);
     }
 #endif
-    public virtual void VisitTargetExpression(Expression expression)
-    {
-      this.VisitExpression(expression);
-    }
-    public virtual void VisitTernaryExpression(TernaryExpression expression)
-    {
-      if (expression == null) return;
-      this.VisitExpression(expression.Operand1);
-      this.VisitExpression(expression.Operand2);
-      this.VisitExpression(expression.Operand3);
-    }
-    public virtual void VisitThis(This This)
-    {
-      if (This == null) return;
-      this.VisitTypeReference(This.Type);
+        public virtual void VisitTargetExpression(Expression expression)
+        {
+            VisitExpression(expression);
+        }
+
+        public virtual void VisitTernaryExpression(TernaryExpression expression)
+        {
+            if (expression == null) return;
+            VisitExpression(expression.Operand1);
+            VisitExpression(expression.Operand2);
+            VisitExpression(expression.Operand3);
+        }
+
+        public virtual void VisitThis(This This)
+        {
+            if (This == null) return;
+            VisitTypeReference(This.Type);
 #if !MinimalReader && !CodeContracts
       ThisBinding tb = This as ThisBinding;
       if (tb != null)
@@ -1594,12 +1620,13 @@ namespace System.Compiler
         this.VisitThis(tb.BoundThis);
       }
 #endif
-    }
-    public virtual void VisitThrow(Throw Throw)
-    {
-      if (Throw == null) return;
-      this.VisitExpression(Throw.Expression);
-    }
+        }
+
+        public virtual void VisitThrow(Throw Throw)
+        {
+            if (Throw == null) return;
+            VisitExpression(Throw.Expression);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitTry(Try Try)
     {
@@ -1611,7 +1638,7 @@ namespace System.Compiler
       this.VisitFinally(Try.Finally);
     }
 #endif
-#if ExtendedRuntime    
+#if ExtendedRuntime
     public virtual void VisitTupleType(TupleType tuple){
       this.VisitTypeNode(tuple);
     }
@@ -1629,91 +1656,96 @@ namespace System.Compiler
     }
 #endif
 #if ExtendedRuntime || CodeContracts
-    public virtual void VisitTypeContract(TypeContract contract)
-    {
-      if (contract == null) return;
-      // don't visit contract.DeclaringType
-      // don't visit contract.InheritedContracts
-      this.VisitInvariantList(contract.Invariants);
+        public virtual void VisitTypeContract(TypeContract contract)
+        {
+            if (contract == null) return;
+            // don't visit contract.DeclaringType
+            // don't visit contract.InheritedContracts
+            VisitInvariantList(contract.Invariants);
 #if ExtendedRuntime
       this.VisitModelfieldContractList(contract.ModelfieldContracts);
 #endif
-    }
+        }
 #endif
 #if !MinimalReader && !CodeContracts
     public virtual void VisitTypeMemberSnippet(TypeMemberSnippet snippet)
     {
     }
 #endif
-    public virtual void VisitTypeModifier(TypeModifier typeModifier)
-    {
-      if (typeModifier == null) return;
-      this.VisitTypeReference(typeModifier.Modifier);
-      this.VisitTypeReference(typeModifier.ModifiedType);
-    }
-    public virtual void VisitTypeNode(TypeNode typeNode)
-    {
-      if (typeNode == null) return;
-      this.VisitAttributeList(typeNode.Attributes);
-      this.VisitSecurityAttributeList(typeNode.SecurityAttributes);
-      Class c = typeNode as Class;
-      if (c != null) this.VisitTypeReference(c.BaseClass);
-      this.VisitInterfaceReferenceList(typeNode.Interfaces);
-      this.VisitTypeReferenceList(typeNode.TemplateArguments);
-      this.VisitTypeParameterList(typeNode.TemplateParameters);
-      this.VisitMemberList(typeNode.Members);
+        public virtual void VisitTypeModifier(TypeModifier typeModifier)
+        {
+            if (typeModifier == null) return;
+            VisitTypeReference(typeModifier.Modifier);
+            VisitTypeReference(typeModifier.ModifiedType);
+        }
+
+        public virtual void VisitTypeNode(TypeNode typeNode)
+        {
+            if (typeNode == null) return;
+            VisitAttributeList(typeNode.Attributes);
+            VisitSecurityAttributeList(typeNode.SecurityAttributes);
+            var c = typeNode as Class;
+            if (c != null) VisitTypeReference(c.BaseClass);
+            VisitInterfaceReferenceList(typeNode.Interfaces);
+            VisitTypeReferenceList(typeNode.TemplateArguments);
+            VisitTypeParameterList(typeNode.TemplateParameters);
+            VisitMemberList(typeNode.Members);
 #if ExtendedRuntime || CodeContracts
-      // have to visit this *after* visiting the members since in Normalizer
-      // it creates normalized method bodies for the invariant methods and
-      // those shouldn't be visited again!!
-      // REVIEW!! I don't think the method bodies created in Normalizer are necessarily normalized anymore!!
-      this.VisitTypeContract(typeNode.Contract);
+            // have to visit this *after* visiting the members since in Normalizer
+            // it creates normalized method bodies for the invariant methods and
+            // those shouldn't be visited again!!
+            // REVIEW!! I don't think the method bodies created in Normalizer are necessarily normalized anymore!!
+            VisitTypeContract(typeNode.Contract);
 #endif
-    }
-    public virtual void VisitTypeNodeList(TypeNodeList types)
-    {
-      if (types == null) return;
-      for (int i = 0; i < types.Count; i++) //Visiting a type may result in a new type being appended to this list
-        this.Visit(types[i]);
-    }
-    public virtual void VisitTypeParameter(TypeNode typeParameter)
-    {
-      if (typeParameter == null) return;
-      Class cl = typeParameter as Class;
-      if (cl != null) this.VisitTypeReference(cl.BaseClass);
-      this.VisitAttributeList(typeParameter.Attributes);
-      this.VisitInterfaceReferenceList(typeParameter.Interfaces);
-    }
-    public virtual void VisitTypeParameterList(TypeNodeList typeParameters)
-    {
-      if (typeParameters == null) return;
-      for (int i = 0, n = typeParameters.Count; i < n; i++)
-        this.VisitTypeParameter(typeParameters[i]);
-    }
-    public virtual void VisitTypeReference(TypeNode type)
-    {
-    }
+        }
+
+        public virtual void VisitTypeNodeList(TypeNodeList types)
+        {
+            if (types == null) return;
+            for (var i = 0; i < types.Count; i++) //Visiting a type may result in a new type being appended to this list
+                Visit(types[i]);
+        }
+
+        public virtual void VisitTypeParameter(TypeNode typeParameter)
+        {
+            if (typeParameter == null) return;
+            var cl = typeParameter as Class;
+            if (cl != null) VisitTypeReference(cl.BaseClass);
+            VisitAttributeList(typeParameter.Attributes);
+            VisitInterfaceReferenceList(typeParameter.Interfaces);
+        }
+
+        public virtual void VisitTypeParameterList(TypeNodeList typeParameters)
+        {
+            if (typeParameters == null) return;
+            for (int i = 0, n = typeParameters.Count; i < n; i++)
+                VisitTypeParameter(typeParameters[i]);
+        }
+
+        public virtual void VisitTypeReference(TypeNode type)
+        {
+        }
 #if !MinimalReader
-    public virtual void VisitTypeReference(TypeReference type)
-    {
-    }
+        public virtual void VisitTypeReference(TypeReference type)
+        {
+        }
 #endif
-    public virtual void VisitTypeReferenceList(TypeNodeList typeReferences)
-    {
-      if (typeReferences == null) return;
-      for (int i = 0, n = typeReferences.Count; i < n; i++)
-        this.VisitTypeReference(typeReferences[i]);
-    }
-#if ExtendedRuntime 
+        public virtual void VisitTypeReferenceList(TypeNodeList typeReferences)
+        {
+            if (typeReferences == null) return;
+            for (int i = 0, n = typeReferences.Count; i < n; i++)
+                VisitTypeReference(typeReferences[i]);
+        }
+#if ExtendedRuntime
     public virtual void VisitTypeUnion(TypeUnion typeUnion){
       this.VisitTypeNode(typeUnion);
     }
 #endif
-    public virtual void VisitUnaryExpression(UnaryExpression unaryExpression)
-    {
-      if (unaryExpression == null) return;
-      this.VisitExpression(unaryExpression.Operand);
-    }
+        public virtual void VisitUnaryExpression(UnaryExpression unaryExpression)
+        {
+            if (unaryExpression == null) return;
+            VisitExpression(unaryExpression.Operand);
+        }
 #if !MinimalReader && !CodeContracts
     public virtual void VisitVariableDeclaration(VariableDeclaration variableDeclaration)
     {
@@ -1909,6 +1941,5 @@ namespace System.Compiler
       return TypeViewer.GetTypeView(this.TypeViewer, type);
     }
 #endif
-  }
-
+    }
 }

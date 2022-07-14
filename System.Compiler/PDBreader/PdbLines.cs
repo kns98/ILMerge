@@ -2,39 +2,35 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information. 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Microsoft.Cci.Pdb
 {
-  internal struct PdbLine
-  {
-    readonly internal uint offset;
-    readonly internal uint lineBegin;
-    readonly internal uint lineEnd;
-    readonly internal ushort colBegin;
-    readonly internal ushort colEnd;
-
-    internal PdbLine(uint offset, uint lineBegin, ushort colBegin, uint lineEnd, ushort colEnd)
+    internal struct PdbLine
     {
-      this.offset = offset;
-      this.lineBegin = lineBegin;
-      this.colBegin = colBegin;
-      this.lineEnd = lineEnd;
-      this.colEnd = colEnd;
-    }
-  }
-  internal class PdbLines
-  {
-    readonly internal PdbSource file;
-    readonly internal PdbLine[] lines;
+        internal readonly uint offset;
+        internal readonly uint lineBegin;
+        internal readonly uint lineEnd;
+        internal readonly ushort colBegin;
+        internal readonly ushort colEnd;
 
-    internal PdbLines(PdbSource file, uint count)
-    {
-      this.file = file;
-      this.lines = new PdbLine[count];
+        internal PdbLine(uint offset, uint lineBegin, ushort colBegin, uint lineEnd, ushort colEnd)
+        {
+            this.offset = offset;
+            this.lineBegin = lineBegin;
+            this.colBegin = colBegin;
+            this.lineEnd = lineEnd;
+            this.colEnd = colEnd;
+        }
     }
-  }
+
+    internal class PdbLines
+    {
+        internal readonly PdbSource file;
+        internal readonly PdbLine[] lines;
+
+        internal PdbLines(PdbSource file, uint count)
+        {
+            this.file = file;
+            lines = new PdbLine[count];
+        }
+    }
 }

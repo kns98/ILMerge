@@ -36,7 +36,7 @@ namespace ILMerging.Tests
                 ilMerge.SetUpInputAssemblyForTest(Assembly.GetExecutingAssembly());
                 ilMerge.Merge();
 
-                var errorLines = File.ReadLines(logFile).Where(line => 
+                var errorLines = File.ReadLines(logFile).Where(line =>
                     line.StartsWith("ILMerge error:", StringComparison.OrdinalIgnoreCase));
 
                 Assert.That(errorLines, Is.Empty);
@@ -47,7 +47,8 @@ namespace ILMerging.Tests
         public void Can_sign_using_keycontainer()
         {
             var keyContainerName = Guid.NewGuid().ToString();
-            CspContainerUtils.ImportBlob(true, keyContainerName, KeyNumber.Signature, File.ReadAllBytes(TestFiles.TestSnk));
+            CspContainerUtils.ImportBlob(true, keyContainerName, KeyNumber.Signature,
+                File.ReadAllBytes(TestFiles.TestSnk));
             try
             {
                 using (var outputFile = TempFile.WithExtension(".dll"))

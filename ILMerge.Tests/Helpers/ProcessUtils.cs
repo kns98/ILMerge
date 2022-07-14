@@ -30,6 +30,7 @@ namespace ILMerging.Tests.Helpers
                         currentData.Clear();
                         currentDataIsError = false;
                     }
+
                     currentData.AppendLine(e.Data);
                 };
                 process.ErrorDataReceived += (sender, e) =>
@@ -42,6 +43,7 @@ namespace ILMerging.Tests.Helpers
                         currentData.Clear();
                         currentDataIsError = true;
                     }
+
                     currentData.AppendLine(e.Data);
                 };
 
@@ -69,7 +71,10 @@ namespace ILMerging.Tests.Helpers
             public int ExitCode { get; }
             public StandardStreamData[] StandardStreamData { get; }
 
-            public override string ToString() => ToString(true);
+            public override string ToString()
+            {
+                return ToString(true);
+            }
 
             /// <param name="showStreamSource">If true, appends "[stdout] " or "[stderr] " to the beginning of each line.</param>
             public string ToString(bool showStreamSource)
@@ -79,7 +84,6 @@ namespace ILMerging.Tests.Helpers
                 if (StandardStreamData.Length != 0) r.AppendLine();
 
                 foreach (var data in StandardStreamData)
-                {
                     if (showStreamSource)
                     {
                         var lines = data.Data.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -92,7 +96,6 @@ namespace ILMerging.Tests.Helpers
                     {
                         r.Append(data.Data);
                     }
-                }
 
                 return r.ToString();
             }
@@ -110,7 +113,10 @@ namespace ILMerging.Tests.Helpers
             public bool IsError { get; }
             public string Data { get; }
 
-            public override string ToString() => (IsError ? "[stderr] " : "[stdout] ") + Data;
+            public override string ToString()
+            {
+                return (IsError ? "[stderr] " : "[stdout] ") + Data;
+            }
         }
     }
 }
